@@ -125,6 +125,7 @@ function App() {
 
   return (
     <ParallaxProvider>
+      <div className="gradient-overlay"></div>
       <div className="App">
         {/* Progress Bar */}
         <motion.div 
