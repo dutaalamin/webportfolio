@@ -370,26 +370,96 @@ body::after {
 
   .projects-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .project-content {
-    padding: 30px;
-  }
-
-  .project-content h3 {
-    font-size: 1.6rem;
-  }
-
-  .project-content p {
-    font-size: 1rem;
+    padding: 1.2rem;
   }
 
   .project-image-container {
     height: 200px;
   }
-  
-  .project-content {
-    padding: 1.2rem;
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2rem;
+    padding: 2rem 1rem;
+  }
+
+  .hero-header h1 {
+    font-size: 2rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .hero-social {
+    justify-content: center;
+    gap: 0.8rem;
+  }
+
+  .tech-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .tech-card {
+    padding: 0.8rem;
+  }
+
+  .contact-container {
+    padding: 1rem;
+  }
+
+  .contact-form {
+    padding: 0 1rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.8rem;
+  }
+}
+
+/* Untuk layar sangat kecil */
+@media (max-width: 480px) {
+  .hero-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .projects-header h2,
+  .section-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .tech-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+
+  .project-card {
+    margin-bottom: 1rem;
+  }
+
+  .project-image-container {
+    height: 180px;
+  }
+
+  .contact-form button {
+    width: 100%;
   }
 }
 
@@ -954,5 +1024,43 @@ body::after {
   }
   100% {
     text-shadow: 2px 2px #ff00ff, -2px -2px #00f0ff;
+  }
+}
+
+/* Unified Section Headers */
+.section-header,
+.projects-header,
+.contact-container h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-header h2,
+.projects-header h2,
+.contact-container h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Responsive untuk heading */
+@media (max-width: 768px) {
+  .section-header h2,
+  .projects-header h2,
+  .contact-container h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-header h2,
+  .projects-header h2,
+  .contact-container h2 {
+    font-size: 1.8rem;
   }
 }
