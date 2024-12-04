@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import profileImage from '../images/duta.jpg';
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 
@@ -11,7 +10,10 @@ const Hero = () => {
           <div className="hero-text">
             <div className="hero-header">
               <h1>
-                Hi, I'm <span className="gradient-text">Duta Alamin</span>
+                Hi, I'm{' '}
+                <span className="gradient-text">
+                  Duta Alamin
+                </span>
               </h1>
               <p className="hero-description">
                 A passionate Full Stack Developer and Data Analyst crafting beautiful and functional web experiences. 
