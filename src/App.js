@@ -82,7 +82,7 @@ const projects = [
   },
   {
     title: "Fishytype",
-    description: "Interactive typing speed test app with multiple modes and real-time WPM tracking.",
+    description: "Interactive typing speed test app with multiple themes and real-time WPM tracking.",
     image: fishImage,
     tags: ["Next.js", "TypeScript", "Tailwind CSS", "Zustand"],
     liveUrl: "https://fishytype.vercel.app/",
