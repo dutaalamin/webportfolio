@@ -103,6 +103,28 @@ function App() {
   const scaleX = useSpring(scrollYProgress);
   const [isLoading, setIsLoading] = useState(true);
   const form = useRef();
+  const [showMusicModal, setShowMusicModal] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+
+  const handleMusicChoice = (choice) => {
+    setShowMusicModal(false);
+    if (choice) {
+      audioRef.current.play();
+      setIsPlaying(true);
+    }
+  };
+
+  const togglePlay = () => {
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play().catch(error => {
+        console.log('Play prevented:', error);
+      });
+    }
+    setIsPlaying(!isPlaying);
+  };
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -122,6 +144,12 @@ function App() {
           alert('Sorry, there was an error. Please try again.');
       });
   };
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = 1.0; // Pastikan volume tidak 0
+    }
+  }, []);
 
   return (
     <ParallaxProvider>
@@ -249,6 +277,15 @@ function App() {
         <footer className="footer">
           <p>&copy; 2024 Duta Alamin. All rights reserved.</p>
         </footer>
+
+        <audio ref={audioRef} src="/music/music.mp3" loop />
+        <button 
+          onClick={togglePlay}
+          className="music-toggle"
+          aria-label={isPlaying ? 'Pause Music' : 'Play Music'}
+        >
+          <i className={isPlaying ? 'fas fa-pause' : 'fas fa-play'}></i>
+        </button>
       </div>
     </ParallaxProvider>
   );
