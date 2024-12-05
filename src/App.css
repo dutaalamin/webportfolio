@@ -1064,3 +1064,25 @@ body::after {
     font-size: 1.8rem;
   }
 }
+
+.music-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.music-toggle:hover {
+  background-color: var(--secondary-color);
+}
+
+.music-toggle i {
+  font-size: 1.2rem;
+}
