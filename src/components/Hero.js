@@ -9,11 +9,10 @@ const Hero = () => {
         <div className="hero-content">
           <div className="hero-text">
             <div className="hero-header">
-              <h1>
-                Hi, I'm{' '}
-                <span className="gradient-text">
-                  Duta Alamin
-                </span>
+              <h1 className="glitch-text">
+                <span aria-hidden="true">Duta Alamin</span>
+                Duta Alamin
+                <span aria-hidden="true">Duta Alamin</span>
               </h1>
               <p className="hero-description">
                 A passionate Full Stack Developer and Data Analyst crafting beautiful and functional web experiences. 
