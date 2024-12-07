@@ -106,22 +106,47 @@ function App() {
   const [showMusicModal, setShowMusicModal] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
+  const [trackInfo] = useState({
+    title: "Background Music",
+    artist: "Lofi Beats"
+  });
+
+  useEffect(() => {
+    audioRef.current = new Audio('/music/music.mp3');
+    audioRef.current.loop = true;
+    audioRef.current.volume = 0.5;
+    
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
 
   const handleMusicChoice = (choice) => {
     setShowMusicModal(false);
-    if (choice) {
-      audioRef.current.play();
-      setIsPlaying(true);
+    if (choice && audioRef.current) {
+      audioRef.current.play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch(error => {
+          console.error('Error playing audio:', error);
+        });
     }
   };
 
   const togglePlay = () => {
+    if (!audioRef.current) return;
+
     if (isPlaying) {
       audioRef.current.pause();
     } else {
-      audioRef.current.play().catch(error => {
-        console.log('Play prevented:', error);
-      });
+      audioRef.current.play()
+        .catch(error => {
+          console.error('Error playing audio:', error);
+        });
     }
     setIsPlaying(!isPlaying);
   };
@@ -144,12 +169,6 @@ function App() {
           alert('Sorry, there was an error. Please try again.');
       });
   };
-
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = 1.0; // Pastikan volume tidak 0
-    }
-  }, []);
 
   return (
     <ParallaxProvider>
@@ -279,13 +298,16 @@ function App() {
         </footer>
 
         <audio ref={audioRef} src="/music/music.mp3" loop />
-        <button 
-          onClick={togglePlay}
-          className="music-toggle"
-          aria-label={isPlaying ? 'Pause Music' : 'Play Music'}
-        >
-          <i className={isPlaying ? 'fas fa-pause' : 'fas fa-play'}></i>
-        </button>
+        <div className="music-player">
+          <button 
+            onClick={togglePlay}
+            className="music-toggle"
+            aria-label={isPlaying ? 'Pause Music' : 'Play Music'}
+          >
+            <i className={`fas ${isPlaying ? 'fa-pause' : 'fa-music'}`}></i>
+            <span className="music-label">{isPlaying ? 'Now Playing' : 'Play Music'}</span>
+          </button>
+        </div>
       </div>
     </ParallaxProvider>
   );
