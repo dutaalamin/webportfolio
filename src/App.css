@@ -564,18 +564,14 @@ body::after {
 }
 
 .gradient-text {
-  background-image: var(--gradient-1);
+  background: var(--gradient-1);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: var(--primary-color);
   display: inline-block;
-  font-weight: 700;
   position: relative;
-  z-index: 2;
-  text-shadow: 
-    2px 2px #ff00ff,
-    -2px -2px #00f0ff;
-  animation: textGlitch 3s infinite;
+  text-shadow: none;
 }
 
 .hero-header h1 .gradient-text {
@@ -1066,23 +1062,269 @@ body::after {
 }
 
 .music-toggle {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  background-color: var(--primary-color);
-  color: var(--background-color);
-  border: none;
-  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 240, 255, 0.15) 0%,
+    rgba(41, 98, 255, 0.15) 100%
+  );
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  padding: 12px 20px;
+  border-radius: 50px;
+  color: #00f0ff;
+  font-weight: 500;
   cursor: pointer;
-  z-index: 1000;
-  transition: background-color 0.3s ease;
-}
-
-.music-toggle:hover {
-  background-color: var(--secondary-color);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 
+    0 4px 15px rgba(0, 240, 255, 0.2),
+    inset 0 0 20px rgba(41, 98, 255, 0.1);
+  height: 45px;
 }
 
 .music-toggle i {
-  font-size: 1.2rem;
+  font-size: 1rem;
+  color: #00f0ff;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.music-label {
+  font-size: 1rem;
+  white-space: nowrap;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: #00f0ff;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.music-toggle:hover {
+  transform: scale(1.05);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 240, 255, 0.25) 0%,
+    rgba(41, 98, 255, 0.25) 100%
+  );
+  border-color: rgba(0, 240, 255, 0.3);
+  box-shadow: 
+    0 4px 20px rgba(0, 240, 255, 0.3),
+    inset 0 0 25px rgba(41, 98, 255, 0.15);
+}
+
+@keyframes pulse {
+  0% { 
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(0, 240, 255, 0.2);
+  }
+  50% { 
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(41, 98, 255, 0.3);
+  }
+  100% { 
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(0, 240, 255, 0.2);
+  }
+}
+
+.music-toggle[aria-label="Pause Music"] {
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .music-player {
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .music-toggle {
+    height: 40px;
+    padding: 8px 16px;
+  }
+  
+  .music-toggle i {
+    font-size: 0.9rem;
+    width: 20px;
+    height: 20px;
+  }
+  
+  .music-label {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .music-player {
+    bottom: 15px;
+    right: 15px;
+  }
+  
+  .music-toggle {
+    height: 36px; /* Lebih kecil di mobile */
+    padding: 6px 14px;
+    gap: 6px;
+  }
+  
+  .music-toggle i {
+    font-size: 0.85rem;
+    width: 18px;
+    height: 18px;
+  }
+  
+  .music-label {
+    font-size: 0.85rem;
+  }
+}
+
+/* Khusus untuk layar sangat kecil */
+@media (max-width: 360px) {
+  .music-toggle {
+    height: 34px;
+    padding: 6px 12px;
+  }
+  
+  .music-toggle i {
+    font-size: 0.8rem;
+    width: 16px;
+    height: 16px;
+  }
+  
+  .music-label {
+    font-size: 0.8rem;
+  }
+}
+
+.music-player {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 1000;
+}
+
+/* Music Player */
+.music-toggle {
+  bottom: 15px;
+  right: 15px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+}
+
+.music-toggle i {
+  font-size: 0.9rem;
+  padding: 8px;
+  width: 20px;
+  height: 20px;
+}
+
+.glitch-text {
+  position: relative;
+  font-size: 4rem;
+  font-weight: bold;
+  color: var(--text-color);
+  text-shadow: 0.05em 0 0 rgba(0, 240, 255, 0.75),
+              -0.025em -0.05em 0 rgba(252, 238, 9, 0.75),
+              0.025em 0.05em 0 rgba(41, 98, 255, 0.75);
+  animation: glitch 750ms infinite;
+}
+
+.glitch-text span {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.glitch-text span:first-child {
+  animation: glitch 850ms infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  transform: translate(-0.025em, -0.0125em);
+  opacity: 0.8;
+}
+
+.glitch-text span:last-child {
+  animation: glitch 575ms infinite;
+  clip-path: polygon(0 80%, 100% 20%, 100% 100%, 0 100%);
+  transform: translate(0.0125em, 0.025em);
+  opacity: 0.8;
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 0.05em 0 0 rgba(0, 240, 255, 0.75),
+                -0.05em -0.025em 0 rgba(252, 238, 9, 0.75),
+                -0.025em 0.05em 0 rgba(41, 98, 255, 0.75);
+    transform: translateX(0);
+  }
+  25% {
+    text-shadow: -0.05em -0.025em 0 rgba(0, 240, 255, 0.75),
+                0.025em 0.025em 0 rgba(252, 238, 9, 0.75),
+                -0.05em -0.05em 0 rgba(41, 98, 255, 0.75);
+    transform: translateX(-2px);
+  }
+  50% {
+    text-shadow: 0.025em 0.05em 0 rgba(0, 240, 255, 0.75),
+                0.05em 0 0 rgba(252, 238, 9, 0.75),
+                0 -0.05em 0 rgba(41, 98, 255, 0.75);
+    transform: translateX(2px);
+  }
+  75% {
+    text-shadow: -0.025em -0.025em 0 rgba(0, 240, 255, 0.75),
+                -0.025em -0.025em 0 rgba(252, 238, 9, 0.75),
+                -0.025em -0.05em 0 rgba(41, 98, 255, 0.75);
+    transform: translateX(-2px);
+  }
+  100% {
+    text-shadow: -0.025em 0 0 rgba(0, 240, 255, 0.75),
+                -0.025em -0.025em 0 rgba(252, 238, 9, 0.75),
+                -0.025em -0.05em 0 rgba(41, 98, 255, 0.75);
+    transform: translateX(0);
+  }
+}
+
+/* Tambahkan hover effect */
+.glitch-text:hover {
+  animation: glitch 200ms infinite;
+  cursor: default;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .glitch-text {
+    font-size: 2.5rem;
+    text-shadow: 0.03em 0 0 rgba(0, 240, 255, 0.6),
+                -0.03em 0 0 rgba(252, 238, 9, 0.6);
+  }
+
+  .glitch-text span {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .glitch-text {
+    font-size: 1.8rem;
+    animation: simpleGlitch 2s infinite;
+  }
+}
+
+/* Animasi khusus untuk mobile yang lebih sederhana */
+@keyframes simpleGlitch {
+  0% {
+    text-shadow: -1px -1px 0 rgba(0, 240, 255, 0.6),
+                 1px 1px 0 rgba(252, 238, 9, 0.6);
+  }
+  50% {
+    text-shadow: 1px -1px 0 rgba(0, 240, 255, 0.6),
+                -1px 1px 0 rgba(252, 238, 9, 0.6);
+  }
+  100% {
+    text-shadow: -1px -1px 0 rgba(0, 240, 255, 0.6),
+                 1px 1px 0 rgba(252, 238, 9, 0.6);
+  }
+}
+
