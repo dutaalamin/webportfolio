@@ -2,6 +2,7 @@ import './App.css';
 import screenvImage from './images/screenv.png';
 import fishImage from './images/fishytype.png';
 import shopImage from './images/shop.png';
+import savoryImage from './images/savory.png';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { ParallaxProvider } from 'react-scroll-parallax';
 import { useEffect, useState, useRef } from 'react';
@@ -95,6 +96,14 @@ const projects = [
     tags: ["React", "Firebase", "Stripe API", "Redux"],
     liveUrl: "https://casavastore.vercel.app/",
     sourceUrl: "https://github.com/dutaalamin/ecommerce",
+  },
+  {
+    title: "Savory",
+    description: "Savory is a fast food website that offers a variety of menu options and a simple guide on how to order your favorite meals.",
+    image: savoryImage,
+    tags: ["React", "JavaScript", "Next.js"],
+    liveUrl: "https://savoryz.vercel.app/",
+    sourceUrl: "https://github.com/username/savoryz",
   }
 ];
 
