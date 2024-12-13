@@ -100,7 +100,7 @@ const projects = [
   },
   {
     title: "Savory",
-    description: "Savory is a fast food website that offers a variety of menu options and a simple guide on how to order your favorite meals.",
+    description: "Fast food website that offers a variety of menu options and a simple guide on how to order your favorite meals.",
     image: savoryImage,
     tags: ["React", "JavaScript", "Next.js"],
     liveUrl: "https://savoryz.vercel.app/",
