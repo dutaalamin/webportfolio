@@ -3,6 +3,7 @@ import screenvImage from './images/screenv.png';
 import fishImage from './images/fishytype.png';
 import shopImage from './images/shop.png';
 import savoryImage from './images/savory.png';
+import cookidImage from './images/cookid.png';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { ParallaxProvider } from 'react-scroll-parallax';
 import { useEffect, useState, useRef } from 'react';
@@ -13,62 +14,62 @@ const techStack = [
   {
     name: "JavaScript",
     logo: "https://cdn.simpleicons.org/javascript/F7DF1E",
-    description: "Bahasa pemrograman utama untuk web development"
+
   },
   {
     name: "React",
     logo: "https://cdn.simpleicons.org/react/61DAFB",
-    description: "Library JavaScript untuk UI"
+
   },
   {
     name: "Next.js",
     logo: "https://cdn.simpleicons.org/nextdotjs/FFFFFF",
-    description: "Framework React untuk produksi"
+
   },
   {
     name: "Node.js",
     logo: "https://cdn.simpleicons.org/nodedotjs/339933",
-    description: "Runtime JavaScript untuk backend"
+
   },
   {
     name: "Vite",
     logo: "https://cdn.simpleicons.org/vite/646CFF",
-    description: "Build tool modern"
+
   },
   {
     name: "Tailwind CSS",
     logo: "https://cdn.simpleicons.org/tailwindcss/06B6D4",
-    description: "Framework CSS utility-first"
+
   },
   {
     name: "MySQL",
     logo: "https://cdn.simpleicons.org/mysql/4479A1",
-    description: "Database SQL"
+
   },
   {
     name: "MongoDB",
     logo: "https://cdn.simpleicons.org/mongodb/47A248",
-    description: "Database NoSQL"
+
   },
   {
     name: "Python",
     logo: "https://cdn.simpleicons.org/python/3776AB",
-    description: "Bahasa pemrograman serbaguna"
+
   },
   {
     name: "TypeScript",
     logo: "https://cdn.simpleicons.org/typescript/3178C6",
-    description: "JavaScript dengan type system"
+
   },
   {
     name: "Firebase",
     logo: "https://cdn.simpleicons.org/firebase/FFCA28",
-    description: "Platform development dari Google"
+
   },
   {
     name: "AWS",
     logo: "https://banner2.cleanpng.com/20190418/qty/kisspng-amazon-web-services-logo-cloud-computing-amazon-co-logoaws-1-itnext-summit-1713897691932.webp",
-    description: "Platform cloud computing"
+
   }
 ];
 
@@ -104,6 +105,14 @@ const projects = [
     tags: ["React", "JavaScript", "Next.js"],
     liveUrl: "https://savoryz.vercel.app/",
     sourceUrl: "https://github.com/username/savoryz",
+  },
+  {
+    title: "Cookid",
+    description: "Indonesian recipe platform that enables users to discover and share traditional recipes with easy-to-follow steps.",
+    image: cookidImage,
+    tags: ["React", "Next.js", "Tailwind CSS"],
+    liveUrl: "https://cookid.vercel.app/",
+    sourceUrl: "https://github.com/username/cookid",
   }
 ];
 
