@@ -4,6 +4,7 @@ import fishImage from './images/fishytype.png';
 import shopImage from './images/shop.png';
 import savoryImage from './images/savory.png';
 import cookidImage from './images/cookid.png';
+import weatheryImage from './images/weathery.png';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { ParallaxProvider } from 'react-scroll-parallax';
 import { useEffect, useState, useRef } from 'react';
@@ -113,6 +114,14 @@ const projects = [
     tags: ["React", "Next.js", "Tailwind CSS"],
     liveUrl: "https://cookid.vercel.app/",
     sourceUrl: "https://github.com/username/cookid",
+  },
+  {
+    title: "Weathery",
+    description: "A weather application that provides real-time weather updates and forecasts.",
+    image: weatheryImage,
+    tags: ["React", "WeatherAPI", "Node.js"],
+    liveUrl: "https://weatheryz.vercel.app/",
+    sourceUrl: "https://github.com/username/weathery",
   }
 ];
 
