@@ -432,6 +432,27 @@ body::after {
     font-size: 0.9rem;
     padding: 0.5rem 0.8rem;
   }
+
+  .hero {
+    padding-top: 80px; /* Add padding to prevent content from being hidden behind navbar */
+    min-height: calc(100vh - 60px); /* Adjust height to account for bottom navigation */
+  }
+
+  .hero-container {
+    padding-top: 1rem;
+  }
+
+  /* Adjust other sections padding */
+  .tech-stack-section,
+  .projects-section,
+  .contact-section {
+    padding-top: 60px; /* Add padding to prevent content from being hidden */
+    margin-top: 2rem;
+  }
+
+  .section-header {
+    padding-top: 1rem;
+  }
 }
 
 /* Untuk layar sangat kecil */
@@ -460,6 +481,14 @@ body::after {
 
   .contact-form button {
     width: 100%;
+  }
+
+  .hero {
+    padding-top: 70px;
+  }
+
+  .hero-container {
+    padding-top: 0.5rem;
   }
 }
 
@@ -1139,8 +1168,10 @@ body::after {
 
 @media (max-width: 768px) {
   .music-player {
-    bottom: 20px;
+    bottom: 80px; /* Adjust for bottom navigation */
     right: 20px;
+    left: auto;
+    transform: none;
   }
   
   .music-toggle {
@@ -1161,7 +1192,7 @@ body::after {
 
 @media (max-width: 480px) {
   .music-player {
-    bottom: 15px;
+    bottom: 70px;
     right: 15px;
   }
   
@@ -1204,22 +1235,31 @@ body::after {
   position: fixed;
   bottom: 25px;
   right: 25px;
+  left: auto !important; /* Force right alignment */
+  transform: none !important; /* Remove any transform */
   z-index: 1000;
 }
 
-/* Music Player */
-.music-toggle {
-  bottom: 15px;
-  right: 15px;
-  padding: 8px 16px;
-  font-size: 0.9rem;
-}
-
-.music-toggle i {
-  font-size: 0.9rem;
-  padding: 8px;
-  width: 20px;
-  height: 20px;
+@media (max-width: 768px) {
+  .music-player {
+    bottom: 80px; /* Keep above bottom navigation */
+    right: 20px;
+    left: auto !important;
+    transform: none !important;
+  }
+  
+  /* Hide label on mobile if needed */
+  .music-label {
+    display: none;
+  }
+  
+  /* Make button more compact */
+  .music-toggle {
+    padding: 8px;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+  }
 }
 
 .glitch-text {
@@ -1325,6 +1365,118 @@ body::after {
   100% {
     text-shadow: -1px -1px 0 rgba(0, 240, 255, 0.6),
                  1px 1px 0 rgba(252, 238, 9, 0.6);
+  }
+}
+
+@media (max-width: 768px) {
+  .tech-stack-section .tech-grid {
+    grid-template-columns: repeat(2, 1fr); /* Mengubah grid menjadi 2 kolom */
+  }
+
+  .projects-section .projects-grid {
+    grid-template-columns: 1fr; /* Mengubah grid proyek menjadi 1 kolom */
+  }
+
+  .contact-form {
+    flex-direction: column; /* Mengubah form menjadi kolom */
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%; /* Memastikan input dan textarea mengambil lebar penuh */
+    margin-bottom: 10px; /* Menambahkan margin bawah untuk jarak */
+  }
+
+  .music-player {
+    position: fixed; /* Memastikan pemutar musik tetap di bawah */
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000; /* Memastikan pemutar musik di atas elemen lain */
+  }
+}
+
+/* Navbar Styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(26, 26, 26, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.nav-logo span {
+  font-size: 1.2rem;
+  font-weight: 600;
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .nav-logo img {
+    height: 28px;
+  }
+  
+  .nav-logo span {
+    font-size: 1rem;
+  }
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-link {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--primary-color);
+  background: rgba(252, 238, 9, 0.1);
+}
+
+.nav-link.active {
+  color: var(--primary-color);
+  background: rgba(252, 238, 9, 0.15);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.8rem 1rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
   }
 }
 
