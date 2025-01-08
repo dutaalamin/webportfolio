@@ -10,6 +10,7 @@ import { ParallaxProvider } from 'react-scroll-parallax';
 import { useEffect, useState, useRef } from 'react';
 import Hero from './components/Hero';
 import emailjs from '@emailjs/browser';
+import logo from './images/logo.png'; // Add your logo image
 
 const techStack = [
   {
@@ -138,6 +139,38 @@ function App() {
     artist: "Lofi Beats"
   });
 
+  const [activeSection, setActiveSection] = useState('home');
+
+  // Function to handle smooth scroll
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setActiveSection(sectionId);
+    }
+  };
+
+  // Update active section based on scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['home', 'tech', 'projects'];
+      const currentSection = sections.find(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom >= 100;
+        }
+        return false;
+      });
+      if (currentSection) {
+        setActiveSection(currentSection);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   useEffect(() => {
     audioRef.current = new Audio('/music/music.mp3');
     audioRef.current.loop = true;
@@ -201,6 +234,51 @@ function App() {
     <ParallaxProvider>
       <div className="gradient-overlay"></div>
       <div className="App">
+        {/* Navbar */}
+        <nav className="navbar">
+          <a href="#home" className="nav-logo">
+            <span>DUTA</span>
+          </a>
+          <ul className="nav-links">
+            <li>
+              <a
+                href="#home"
+                className={`nav-link ${activeSection === 'home' ? 'active' : ''}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('home');
+                }}
+              >
+                Home
+              </a>
+            </li>
+            <li>
+              <a
+                href="#tech"
+                className={`nav-link ${activeSection === 'tech' ? 'active' : ''}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('tech');
+                }}
+              >
+                Tech
+              </a>
+            </li>
+            <li>
+              <a
+                href="#projects"
+                className={`nav-link ${activeSection === 'projects' ? 'active' : ''}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('projects');
+                }}
+              >
+                Projects
+              </a>
+            </li>
+          </ul>
+        </nav>
+
         {/* Progress Bar */}
         <motion.div 
           className="progress-bar"
@@ -213,15 +291,17 @@ function App() {
             height: '3px',
             background: 'var(--primary-color)',
             transformOrigin: '0%',
-            zIndex: 1000
+            zIndex: 1001
           }}
         />
 
         {/* Hero Section */}
-        <Hero />
+        <section id="home">
+          <Hero />
+        </section>
 
         {/* Tech Stack Section */}
-        <section className="tech-stack-section">
+        <section id="tech" className="tech-stack-section">
           <div className="container">
             <motion.div 
               className="section-header"
