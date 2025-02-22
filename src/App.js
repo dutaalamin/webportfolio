@@ -401,7 +401,7 @@ function App() {
         </section>
 
         <footer className="footer">
-          <p>&copy; 2024 Duta Alamin. All rights reserved.</p>
+          <p>&copy; 2025 Duta Alamin. All rights reserved.</p>
         </footer>
 
         <audio ref={audioRef} src="/music/music.mp3" loop />
