@@ -15,10 +15,7 @@ const Hero = () => {
                 <span aria-hidden="true">Duta Alamin</span>
               </h1>
               <p className="hero-description">
-                A passionate Full Stack Developer and Data Analyst crafting beautiful and functional web experiences. 
-                I specialize in building modern web applications using React, Next.js, and Node.js. 
-                With expertise in data analysis using Python and SQL, I combine development skills with data-driven insights 
-                to create comprehensive solutions.
+              Driven by a passion for technology, I combine my expertise in IT engineering, web development, and AI to create impactful digital experiences. I strive to build solutions that not only solve problems but also push the boundaries of innovation and creativity.
               </p>
             </div>
 
@@ -44,7 +41,7 @@ const Hero = () => {
               </a>
 
               <a 
-                href="https://instagram.com/dutalmn" 
+                href="https://instagram.com/dutaalamin" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="social-link"
