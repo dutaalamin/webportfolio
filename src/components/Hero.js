@@ -1,13 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import profileImage from '../images/duta.jpg';
-import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { TypeAnimation } from 'react-type-animation';
 
 const Hero = () => {
   const particlesRef = useRef(null);
 
   useEffect(() => {
-    // Create particles
     const createParticles = () => {
       const particles = particlesRef.current;
       for (let i = 0; i < 50; i++) {
