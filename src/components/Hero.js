@@ -1,10 +1,28 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import profileImage from '../images/duta.jpg';
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { TypeAnimation } from 'react-type-animation';
 
 const Hero = () => {
+  const particlesRef = useRef(null);
+
+  useEffect(() => {
+    // Create particles
+    const createParticles = () => {
+      const particles = particlesRef.current;
+      for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.position = 'absolute';
+      }
+    };
+
+    createParticles();
+  }, []);
+
   return (
     <section className="hero">
+      <div className="particles-bg" ref={particlesRef}></div>
       <div className="hero-container">
         <div className="hero-content">
           <div className="hero-text">
@@ -14,8 +32,24 @@ const Hero = () => {
                 Duta Alamin
                 <span aria-hidden="true">Duta Alamin</span>
               </h1>
-              <p className="hero-description">
-              Driven by a passion for technology, I combine my expertise in IT engineering, web development, and AI to create impactful digital experiences. I strive to build solutions that not only solve problems but also push the boundaries of innovation and creativity.
+              <TypeAnimation
+                sequence={[
+                  'Software Engineer',
+                  2000,
+                  'IT Engineer',
+                  2000,
+                  'Supply Chain Management',
+                  2000
+                ]}
+                wrapper="h2"
+                cursor={true}
+                repeat={Infinity}
+                className="typing-text"
+                style={{ fontSize: '1.5rem', marginTop: '1rem', marginBottom: '2rem' }}
+              />
+              <p className="hero-description" style={{ marginTop: '1rem' }}>
+              I'm passionate about IT and Supply Chain Management, 
+              with hands-on experience in developing custom ERP solutions that improve business processes and operational efficiency.
               </p>
             </div>
 
