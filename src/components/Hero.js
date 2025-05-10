@@ -55,16 +55,6 @@ const Hero = () => {
 
             <div className="hero-social">
               <a 
-                href="https://github.com/dutaalamin" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="social-link"
-              >
-                <FaGithub />
-                <span>GitHub</span>
-              </a>
-
-              <a 
                 href="https://linkedin.com/in/duta-alamin" 
                 target="_blank" 
                 rel="noopener noreferrer"
