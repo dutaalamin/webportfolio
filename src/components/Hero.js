@@ -35,7 +35,7 @@ const Hero = () => {
                 sequence={[
                   'Software Engineer',
                   2000,
-                  'IT Engineer',
+                  'Data Analyst',
                   2000,
                   'Supply Chain Management',
                   2000
@@ -47,8 +47,6 @@ const Hero = () => {
                 style={{ fontSize: '1.5rem', marginTop: '1rem', marginBottom: '2rem' }}
               />
               <p className="hero-description" style={{ marginTop: '1rem' }}>
-              I'm passionate about IT and Supply Chain Management, 
-              with hands-on experience in developing custom ERP solutions that improve business processes and operational efficiency.
               </p>
             </div>
 
