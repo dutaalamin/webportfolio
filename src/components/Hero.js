@@ -47,6 +47,7 @@ const Hero = () => {
                 style={{ fontSize: '1.5rem', marginTop: '1rem', marginBottom: '2rem' }}
               />
               <p className="hero-description" style={{ marginTop: '1rem' }}>
+              I'm passionate about IT and Supply Chain Management. In my free time, I enjoy playing games like Mobile Legends, Valorant, Marvel Rivals, Fortnite, and Counter-Strike.
               </p>
             </div>
 
