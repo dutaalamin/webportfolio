@@ -29,6 +29,10 @@ const heroAnimationStyle = `
   0%, 100% { filter: drop-shadow(0 2px 8px #00eaff88); }
   50% { filter: drop-shadow(0 2px 24px #00eaffcc); }
 }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 @media (max-width: 600px) {
   .hero-title-modern {
@@ -77,30 +81,31 @@ const Hero = () => {
             }}>
               <h1 className="hero-title-modern" style={{ 
                 fontSize: '7rem',
-                fontWeight: 'bold',
-                fontFamily: 'Orbitron, Poppins, monospace',
+                fontWeight: 900,
+                fontFamily: 'Montserrat, sans-serif',
                 letterSpacing: '0.1em',
                 margin: 0,
                 lineHeight: 1.1,
                 color: '#fff',
-                textShadow: '0 4px 32px #00eaff, 0 1px 0 #000',
+                textShadow: 'none',
+                animation: 'fadeIn 1s ease-out',
+                transition: 'transform 0.3s ease',
+                cursor: 'pointer',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
               }}>
                 <span style={{
-                  background: 'linear-gradient(90deg, #00eaff, #0072ff, #00eaff, #0072ff)',
-                  backgroundSize: '200% 200%',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  animation: 'gradientMove 3s linear infinite, pulseGlow 2s ease-in-out infinite',
-                  fontFamily: 'Orbitron, Poppins, monospace',
+                  color: '#fff',
+                  fontFamily: 'Montserrat, sans-serif',
                   fontWeight: 900,
                   display: 'inline-block',
                 }}>DUTA</span> <span style={{
-                  background: 'linear-gradient(90deg, #00eaff, #0072ff, #00eaff, #0072ff)',
-                  backgroundSize: '200% 200%',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  animation: 'gradientMove 3s linear infinite, pulseGlow 2s ease-in-out infinite',
-                  fontFamily: 'Orbitron, Poppins, monospace',
+                  color: '#fff',
+                  fontFamily: 'Montserrat, sans-serif',
                   fontWeight: 900,
                   display: 'inline-block',
                 }}>ALAMIN</span>
@@ -139,22 +144,22 @@ const Hero = () => {
                   letterSpacing: '0.15em',
                   marginBottom: '0.5rem',
                 }}>AS FEATURED IN</span>
-              <div className="featured-logos">
-                {featuredLogos.map((logo) => (
-                  <img
-                    key={logo.name}
-                    src={logo.url}
-                    alt={logo.name}
-                    className="featured-logo"
+                <div className="featured-logos">
+                  {featuredLogos.map((logo) => (
+                    <img
+                      key={logo.name}
+                      src={logo.url}
+                      alt={logo.name}
+                      className="featured-logo"
                       style={{ width: logo.width, height: 'auto', margin: '0 1rem' }}
-                  />
-                ))}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
     </>
   );
 };
