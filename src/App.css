@@ -1408,14 +1408,14 @@ body::after {
   top: 0;
   left: 0;
   right: 0;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background: rgba(26, 26, 26, 0.8);
-  backdrop-filter: blur(10px);
   z-index: 1000;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom: none;
 }
 
 .nav-logo {
@@ -1424,6 +1424,7 @@ body::after {
   gap: 0.5rem;
   text-decoration: none;
   color: var(--text-color);
+  flex: 1;
 }
 
 .nav-logo span {
@@ -1450,26 +1451,34 @@ body::after {
   display: flex;
   gap: 2rem;
   list-style: none;
+  justify-content: center;
+  flex: 2;
 }
 
 .nav-link {
   color: var(--text-color);
   text-decoration: none;
-  font-size: 1rem;
   font-weight: 500;
   padding: 0.5rem 1rem;
-  border-radius: 4px;
   transition: all 0.3s ease;
+  position: relative;
+  opacity: 0.9;
 }
 
 .nav-link:hover {
-  color: var(--secondary-color);
-  background: rgba(112, 0, 255, 0.1);
+  opacity: 1;
+  color: var(--primary-color);
 }
 
 .nav-link.active {
-  color: var(--secondary-color);
-  background: rgba(112, 0, 255, 0.15);
+  color: var(--primary-color);
+  opacity: 1;
+}
+
+/* Tambahkan elemen kosong untuk menyeimbangkan layout */
+.navbar::after {
+  content: '';
+  flex: 1;
 }
 
 @media (max-width: 768px) {
