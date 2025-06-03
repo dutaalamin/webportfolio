@@ -29,6 +29,26 @@ const heroAnimationStyle = `
   0%, 100% { filter: drop-shadow(0 2px 8px #00eaff88); }
   50% { filter: drop-shadow(0 2px 24px #00eaffcc); }
 }
+
+@media (max-width: 600px) {
+  .hero-title-modern {
+    font-size: 2.5rem !important;
+  }
+  .hero-subtitle-modern {
+    font-size: 1rem !important;
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+  .hero {
+    padding-top: 20px !important;
+  }
+  .featured-logos {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+  }
+}
 `;
 
 const Hero = () => {
