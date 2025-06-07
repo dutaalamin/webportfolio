@@ -96,10 +96,10 @@ const catAnimationStyle = `
     right: 10px;
   }
   .cat-container.second {
-    top: 130px; /* 10px + 100px + 20px spacing */
+    top: 180px; /* Menambah jarak dari atas */
   }
   .cat-container.third {
-    top: 250px; /* 130px + 100px + 20px spacing */
+    top: 300px; /* Menyesuaikan jarak dengan kucing kedua */
   }
 }
 
@@ -111,10 +111,10 @@ const catAnimationStyle = `
     right: 5px;
   }
   .cat-container.second {
-    top: 105px; /* 5px + 80px + 20px spacing */
+    top: 200px; /* Menambah jarak dari atas agar tidak menutupi teks */
   }
   .cat-container.third {
-    top: 205px; /* 105px + 80px + 20px spacing */
+    top: 320px; /* Menyesuaikan jarak dengan kucing kedua */
   }
 }
 `;
