@@ -55,10 +55,75 @@ const heroAnimationStyle = `
 }
 `;
 
+// Update style untuk kucing gambar
+const catAnimationStyle = `
+.cat-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 150px;
+  height: 150px;
+  z-index: 10;
+  border-radius: 50%;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.cat-container.second {
+  top: 190px; /* 20px + 150px + 20px spacing */
+}
+
+.cat-container.third {
+  top: 360px; /* 190px + 150px + 20px spacing */
+}
+
+.cat-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+  mix-blend-mode: screen;
+}
+
+@media (max-width: 768px) {
+  .cat-container {
+    width: 100px;
+    height: 100px;
+    top: 10px;
+    right: 10px;
+  }
+  .cat-container.second {
+    top: 130px; /* 10px + 100px + 20px spacing */
+  }
+  .cat-container.third {
+    top: 250px; /* 130px + 100px + 20px spacing */
+  }
+}
+
+@media (max-width: 480px) {
+  .cat-container {
+    width: 80px;
+    height: 80px;
+    top: 5px;
+    right: 5px;
+  }
+  .cat-container.second {
+    top: 105px; /* 5px + 80px + 20px spacing */
+  }
+  .cat-container.third {
+    top: 205px; /* 105px + 80px + 20px spacing */
+  }
+}
+`;
+
 const Hero = () => {
   return (
     <>
       <style>{heroAnimationStyle}</style>
+      <style>{catAnimationStyle}</style>
       <section className="hero" style={{
         minHeight: '100vh',
         display: 'flex',
@@ -67,6 +132,8 @@ const Hero = () => {
         padding: 0,
         margin: 0,
         paddingTop: '60px',
+        position: 'relative',
+        overflow: 'hidden'
       }}>
         <div className="hero-container" style={{ width: '100%' }}>
           <div className="hero-content" style={{ width: '100%' }}>
@@ -158,6 +225,38 @@ const Hero = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Update kucing menjadi gambar */}
+        <div className="cat-container">
+          <img 
+            src="https://i.pinimg.com/originals/80/73/95/807395df34c8fd7aff556798250af3f0.gif" 
+            alt="Cat" 
+            className="cat-image"
+            style={{
+              mixBlendMode: 'screen'
+            }}
+          />
+        </div>
+        <div className="cat-container second">
+          <img 
+            src="https://cdn.dribbble.com/userupload/19874261/file/original-b1b1f0e0e5960c36429a52384352538c.gif" 
+            alt="Cat" 
+            className="cat-image"
+            style={{
+              mixBlendMode: 'screen'
+            }}
+          />
+        </div>
+        <div className="cat-container third">
+          <img 
+            src="https://cdn.dribbble.com/userupload/22965122/file/original-a1823103e651f249ff15b7631ac0e2db.gif" 
+            alt="Cat" 
+            className="cat-image"
+            style={{
+              mixBlendMode: 'screen'
+            }}
+          />
         </div>
       </section>
     </>
