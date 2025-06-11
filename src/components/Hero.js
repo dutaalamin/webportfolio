@@ -238,26 +238,6 @@ const Hero = () => {
             }}
           />
         </div>
-        <div className="cat-container second">
-          <img 
-            src="https://cdn.dribbble.com/userupload/19874261/file/original-b1b1f0e0e5960c36429a52384352538c.gif" 
-            alt="Cat" 
-            className="cat-image"
-            style={{
-              mixBlendMode: 'screen'
-            }}
-          />
-        </div>
-        <div className="cat-container third">
-          <img 
-            src="https://cdn.dribbble.com/userupload/22965122/file/original-a1823103e651f249ff15b7631ac0e2db.gif" 
-            alt="Cat" 
-            className="cat-image"
-            style={{
-              mixBlendMode: 'screen'
-            }}
-          />
-        </div>
       </section>
     </>
   );
