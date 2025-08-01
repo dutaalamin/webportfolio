@@ -193,7 +193,7 @@ const Hero = () => {
               }}>
                 <span>SOFTWARE ENGINEER</span>
                 <span style={{fontWeight: 'bold', color: '#00eaff'}}>|</span>
-                <span>FRONT END</span>
+                <span>ERP FUNCTIONAL</span>
                 <span style={{fontWeight: 'bold', color: '#00eaff'}}>|</span>
                 <span>SUPPLY CHAIN</span>
               </p>
