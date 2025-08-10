@@ -2,7 +2,7 @@ import './App.css';
 import screenvImage from './images/screenv.png';
 import fishImage from './images/fishytype.png';
 import shopImage from './images/shop.png';
-import savoryImage from './images/savory.png';
+import marvelImage from './images/marvel.png';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { ParallaxProvider } from 'react-scroll-parallax';
 import { useEffect, useState, useRef } from 'react';
@@ -99,12 +99,12 @@ const projects = [
     sourceUrl: "https://github.com/dutaalamin/ecommerce",
   },
   {
-    title: "Savory",
-    description: "Fast food website that offers a variety of menu options and a simple guide on how to order your favorite meals.",
-    image: savoryImage,
+    title: "Marvel Rivals",
+    description: "A fan site for the 6v6 team-based game Marvel Rivals, featuring news, updates, and character guides.",
+    image: marvelImage,
     tags: ["React", "JavaScript", "Next.js"],
-    liveUrl: "https://savoryz.vercel.app/",
-    sourceUrl: "https://github.com/username/savoryz",
+    liveUrl: "https://marvelrivals1.vercel.app/",
+    sourceUrl: "https://marvelrivals1.vercel.app/",
   }
 ];
 
