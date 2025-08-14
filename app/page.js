@@ -384,6 +384,7 @@ export default function HomePage() {
                                     <li key={i} className="text-gray-800">
                                       <span className="font-bold text-gray-600">{desc.subtitle}</span>
                                       {desc.subdesc && <p className="pt-2 text-gray-500">{desc.subdesc}</p>}
+                                      }
                                     </li>
                                   ))}
                                   {item.links?.length > 0 && (
