@@ -83,20 +83,20 @@ const projects = [
     sourceUrl: "https://github.com/dutaalamin/screenv",
   },
   {
-    title: "Fishytype",
-    description: "Interactive typing speed test app with multiple themes and real-time WPM tracking.",
-    image: fishImage,
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Zustand"],
-    liveUrl: "https://fishytype.vercel.app/",
-    sourceUrl: "https://github.com/dutaalamin/FishyType",
-  },
-  {
     title: "Casava",
     description: "E-commerce platform with Stripe payments, user authentication, and admin dashboard.",
     image: shopImage,
     tags: ["React", "Firebase", "Stripe API", "Redux"],
     liveUrl: "https://casavastore.vercel.app/",
     sourceUrl: "https://github.com/dutaalamin/ecommerce",
+  },
+  {
+    title: "Fishytype",
+    description: "Interactive typing speed test app with multiple themes and real-time WPM tracking.",
+    image: fishImage,
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Zustand"],
+    liveUrl: "https://fishytype.vercel.app/",
+    sourceUrl: "https://github.com/dutaalamin/FishyType",
   },
   {
     title: "Marvel Rivals",
