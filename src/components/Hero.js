@@ -230,7 +230,7 @@ const Hero = () => {
         {/* Update kucing menjadi gambar */}
         <div className="cat-container">
           <img 
-            src="https://i.pinimg.com/originals/80/73/95/807395df34c8fd7aff556798250af3f0.gif" 
+            src="https://media.tenor.com/cb9L14uH-YAAAAAM/cool-fun.gif" 
             alt="Cat" 
             className="cat-image"
             style={{
@@ -244,3 +244,4 @@ const Hero = () => {
 };
 
 export default Hero;
+
