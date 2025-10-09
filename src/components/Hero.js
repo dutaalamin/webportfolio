@@ -1,23 +1,7 @@
 import React from 'react';
 
-const featuredLogos = [
-  {
-    name: 'Appen',
-    url: 'https://s41226.pcdn.co/wp-content/uploads/2024/02/appen-logo.svg',
-    width: 90,
-  },
-  {
-    name: 'Upwork',
-    url: 'https://image.status.io/z6aeO6kAGsAG.png',
-    width: 90,
-  },
-  {
-    name: 'Fiverr',
-    url: 'https://freepnglogo.com/images/all_img/1706198346fiverr-logo-transparent.png',
-    width: 90,
-  },
-  // Tambahkan logo lain jika ingin
-];
+// LinkedIn URL - ganti dengan URL LinkedIn Anda
+const linkedinUrl = 'https://linkedin.com/in/dutaalamin';
 
 // Tambahkan style global untuk animasi
 const heroAnimationStyle = `
@@ -46,11 +30,13 @@ const heroAnimationStyle = `
   .hero {
     padding-top: 20px !important;
   }
-  .featured-logos {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    gap: 0.5rem !important;
+  .hero-actions {
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+  .action-button {
+    padding: 0.8rem 1.5rem !important;
+    font-size: 0.9rem !important;
   }
 }
 `;
@@ -197,31 +183,99 @@ const Hero = () => {
                 <span style={{fontWeight: 'bold', color: '#00eaff'}}>|</span>
                 <span>SUPPLY CHAIN</span>
               </p>
-              <div className="hero-featured" style={{ 
+              <div className="hero-actions" style={{ 
                 marginTop: '3rem',
                 display: 'flex',
-                flexDirection: 'column',
+                flexDirection: 'row',
                 alignItems: 'center',
-                gap: '1rem'
+                justifyContent: 'center',
+                gap: '2rem',
+                flexWrap: 'wrap'
               }}>
-                <span className="featured-label" style={{
-                  color: '#aaa',
-                  fontFamily: 'monospace',
-                  fontSize: '1rem',
-                  letterSpacing: '0.15em',
-                  marginBottom: '0.5rem',
-                }}>AS FEATURED IN</span>
-                <div className="featured-logos">
-                  {featuredLogos.map((logo) => (
-                    <img
-                      key={logo.name}
-                      src={logo.url}
-                      alt={logo.name}
-                      className="featured-logo"
-                      style={{ width: logo.width, height: 'auto', margin: '0 1rem' }}
-                    />
-                  ))}
-                </div>
+                <a 
+                  href={linkedinUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="action-button linkedin-button"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    padding: '1rem 2rem',
+                    backgroundColor: 'transparent',
+                    border: '2px solid #0077b5',
+                    color: '#0077b5',
+                    textDecoration: 'none',
+                    fontFamily: 'Poppins, sans-serif',
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                    letterSpacing: '0.05em',
+                    borderRadius: '50px',
+                    transition: 'all 0.3s ease',
+                    cursor: 'pointer',
+                    minWidth: '140px',
+                    justifyContent: 'center'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#0077b5';
+                    e.currentTarget.style.color = '#fff';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 119, 181, 0.3)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.color = '#0077b5';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
+                  LinkedIn
+                </a>
+                
+                <a 
+                  href="/resume.pdf" 
+                  download="Duta_Alamin_Resume.pdf"
+                  className="action-button cv-button"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    padding: '1rem 2rem',
+                    backgroundColor: 'transparent',
+                    border: '2px solid #0077b5',
+                    color: '#0077b5',
+                    textDecoration: 'none',
+                    fontFamily: 'Poppins, sans-serif',
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                    letterSpacing: '0.05em',
+                    borderRadius: '50px',
+                    transition: 'all 0.3s ease',
+                    cursor: 'pointer',
+                    minWidth: '140px',
+                    justifyContent: 'center'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#0077b5';
+                    e.currentTarget.style.color = '#fff';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 119, 181, 0.3)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.color = '#0077b5';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+                  </svg>
+                  DUTA CV
+                </a>
               </div>
             </div>
           </div>
