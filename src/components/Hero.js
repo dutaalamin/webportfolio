@@ -3,7 +3,7 @@ import React from 'react';
 
 const linkedinUrl = 'https://linkedin.com/in/dutaalamin';
 
-
+// Tambahkan style global untuk animasi
 const heroAnimationStyle = `
 @keyframes gradientMove {
   0% { background-position: 0% 50%; }
@@ -43,64 +43,86 @@ const heroAnimationStyle = `
 
 // Update style untuk kucing gambar
 const catAnimationStyle = `
+@keyframes floating {
+  0% { 
+    transform: translate(0px, 0px); 
+  }
+  25% { 
+    transform: translate(-15px, -10px); 
+  }
+  50% { 
+    transform: translate(10px, -20px); 
+  }
+  75% { 
+    transform: translate(-5px, -5px); 
+  }
+  100% { 
+    transform: translate(0px, 0px); 
+  }
+}
+
 .cat-container {
   position: absolute;
   top: 20px;
   right: 20px;
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   z-index: 10;
-  border-radius: 50%;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(5px);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  animation: floating 6s ease-in-out infinite;
 }
 
 .cat-container.second {
-  top: 190px; /* 20px + 150px + 20px spacing */
+  top: 240px; /* 20px + 200px + 20px spacing */
+  animation-delay: 1s;
 }
 
 .cat-container.third {
-  top: 360px; /* 190px + 150px + 20px spacing */
+  top: 460px; /* 240px + 200px + 20px spacing */
+  animation-delay: 2s;
 }
 
 .cat-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transform: scaleX(-1);
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
-  mix-blend-mode: screen;
+  opacity: 0.9;
+  mix-blend-mode: multiply;
+  filter: contrast(1.2) brightness(1.1);
+  background: transparent;
 }
 
 @media (max-width: 768px) {
   .cat-container {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     top: 10px;
-    right: 10px;
+    right: -40px;
   }
   .cat-container.second {
-    top: 180px; /* Menambah jarak dari atas */
+    top: 150px; /* 10px + 120px + 20px spacing */
+    right: -40px;
   }
   .cat-container.third {
-    top: 300px; /* Menyesuaikan jarak dengan kucing kedua */
+    top: 290px; /* 150px + 120px + 20px spacing */
+    right: -40px;
   }
 }
 
 @media (max-width: 480px) {
   .cat-container {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     top: 5px;
-    right: 5px;
+    right: -80px;
   }
   .cat-container.second {
-    top: 200px; /* Menambah jarak dari atas agar tidak menutupi teks */
+    top: 125px; /* 5px + 100px + 20px spacing */
+    right: -80px;
   }
   .cat-container.third {
-    top: 320px; /* Menyesuaikan jarak dengan kucing kedua */
+    top: 245px; /* 125px + 100px + 20px spacing */
+    right: -80px;
   }
 }
 `;
@@ -236,8 +258,8 @@ const Hero = () => {
                 </a>
                 
                 <a 
-                  href="/CV_Duta_Alamin.pdf" 
-                  download="Duta_Alamin_CV.pdf"
+                  href="/resume.pdf" 
+                  download="Duta_Alamin_Resume.pdf"
                   className="action-button cv-button"
                   style={{
                     display: 'inline-flex',
@@ -287,9 +309,6 @@ const Hero = () => {
             src="https://media.tenor.com/cb9L14uH-YAAAAAM/cool-fun.gif" 
             alt="Cat" 
             className="cat-image"
-            style={{
-              mixBlendMode: 'screen'
-            }}
           />
         </div>
       </section>
@@ -298,6 +317,5 @@ const Hero = () => {
 };
 
 export default Hero;
-
 
 
