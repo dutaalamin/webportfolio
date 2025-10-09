@@ -1,9 +1,9 @@
 import React from 'react';
 
-// LinkedIn URL - ganti dengan URL LinkedIn Anda
+
 const linkedinUrl = 'https://linkedin.com/in/dutaalamin';
 
-// Tambahkan style global untuk animasi
+
 const heroAnimationStyle = `
 @keyframes gradientMove {
   0% { background-position: 0% 50%; }
@@ -236,8 +236,8 @@ const Hero = () => {
                 </a>
                 
                 <a 
-                  href="/resume.pdf" 
-                  download="Duta_Alamin_Resume.pdf"
+                  href="/CV_Duta_Alamin.pdf" 
+                  download="Duta_Alamin_CV.pdf"
                   className="action-button cv-button"
                   style={{
                     display: 'inline-flex',
@@ -298,5 +298,6 @@ const Hero = () => {
 };
 
 export default Hero;
+
 
 
