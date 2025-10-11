@@ -258,7 +258,7 @@ const Hero = () => {
                 </a>
                 
                 <a 
-                  href="/resume.pdf" 
+                  href="/CV_Duta_Alamin.pdf" 
                   download="Duta_Alamin_Resume.pdf"
                   className="action-button cv-button"
                   style={{
@@ -317,5 +317,6 @@ const Hero = () => {
 };
 
 export default Hero;
+
 
 
