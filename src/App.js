@@ -116,10 +116,41 @@ function App() {
   const [showMusicModal, setShowMusicModal] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
-  const [trackInfo] = useState({
-    title: "Background Music",
-    artist: "Lofi Beats"
-  });
+  const [selectedTrack, setSelectedTrack] = useState(null);
+  const [musicTracks] = useState([
+    {
+      id: 1,
+      title: "Lofi Chill",
+      artist: "Relaxing Beats",
+      file: "/music/music.mp3",
+      genre: "Lofi",
+      duration: "3:45"
+    },
+    {
+      id: 2,
+      title: "Ambient Dreams",
+      artist: "Peaceful Vibes",
+      file: "/music/ambient.mp3", // Anda bisa menambahkan file ini
+      genre: "Ambient",
+      duration: "4:20"
+    },
+    {
+      id: 3,
+      title: "Focus Mode",
+      artist: "Study Beats",
+      file: "/music/focus.mp3", // Anda bisa menambahkan file ini
+      genre: "Electronic",
+      duration: "5:15"
+    },
+    {
+      id: 4,
+      title: "No Music",
+      artist: "Silence",
+      file: null,
+      genre: "None",
+      duration: "0:00"
+    }
+  ]);
 
   const [activeSection, setActiveSection] = useState('home');
 
@@ -166,9 +197,13 @@ function App() {
     };
   }, []);
 
-  const handleMusicChoice = (choice) => {
+  const handleMusicChoice = (track) => {
     setShowMusicModal(false);
-    if (choice && audioRef.current) {
+    setSelectedTrack(track);
+    
+    if (track && track.file && audioRef.current) {
+      audioRef.current.src = track.file;
+      audioRef.current.load();
       audioRef.current.play()
         .then(() => {
           setIsPlaying(true);
@@ -176,7 +211,17 @@ function App() {
         .catch(error => {
           console.error('Error playing audio:', error);
         });
+    } else {
+      // User memilih "No Music"
+      if (audioRef.current) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      }
     }
+  };
+
+  const handleTrackSelect = (track) => {
+    setSelectedTrack(track);
   };
 
   const togglePlay = () => {
@@ -219,7 +264,20 @@ function App() {
         {/* Navbar */}
         <nav className="navbar">
           <a href="#home" className="nav-logo">
-            <span>DUTA</span>
+            <div className="nav-logo-photo">
+              <img 
+                src={process.env.PUBLIC_URL + '/images/duta.png'} 
+                alt="Duta Alamin"
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                  objectFit: 'cover',
+                  border: '2px solid #00eaff',
+                  boxShadow: '0 0 15px rgba(0, 234, 255, 0.5)'
+                }}
+              />
+            </div>
           </a>
           <ul className="nav-links">
             <li>
@@ -261,25 +319,47 @@ function App() {
           </ul>
         </nav>
 
-        {/* Music Modal */}
+        {/* Music Selection Modal */}
         {showMusicModal && (
           <div className="music-modal-overlay">
-            <div className="music-modal">
+            <div className="music-modal music-selection-modal">
               <div className="music-modal-content">
-                <h3>🎵 Play Music?</h3>
-                <p>Would you like to play background music?</p>
+                <h3>🎵 Choose Your Music</h3>
+                <p>Select a background track for your browsing experience</p>
+                
+                <div className="music-tracks-list">
+                  {musicTracks.map((track) => (
+                    <div 
+                      key={track.id}
+                      className={`music-track-item ${selectedTrack?.id === track.id ? 'selected' : ''}`}
+                      onClick={() => handleTrackSelect(track)}
+                    >
+                      <div className="track-info">
+                        <div className="track-title">{track.title}</div>
+                        <div className="track-artist">{track.artist}</div>
+                        <div className="track-meta">
+                          <span className="track-genre">{track.genre}</span>
+                          <span className="track-duration">{track.duration}</span>
+                        </div>
+                      </div>
+                      <div className="track-play-icon">
+                        {track.file ? (
+                          <i className="fas fa-play"></i>
+                        ) : (
+                          <i className="fas fa-volume-mute"></i>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
                 <div className="music-modal-buttons">
                   <button 
-                    className="music-btn music-btn-yes"
-                    onClick={() => handleMusicChoice(true)}
+                    className="music-btn music-btn-confirm"
+                    onClick={() => handleMusicChoice(selectedTrack)}
+                    disabled={!selectedTrack}
                   >
-                    Yes
-                  </button>
-                  <button 
-                    className="music-btn music-btn-no"
-                    onClick={() => handleMusicChoice(false)}
-                  >
-                    No
+                    {selectedTrack?.file ? 'Play Selected' : 'Continue Without Music'}
                   </button>
                 </div>
               </div>
