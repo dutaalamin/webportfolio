@@ -113,7 +113,7 @@ function App() {
   const scaleX = useSpring(scrollYProgress);
   const [isLoading, setIsLoading] = useState(true);
   const form = useRef();
-  const [showMusicModal, setShowMusicModal] = useState(true);
+  const [showMusicModal, setShowMusicModal] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
   const [trackInfo] = useState({
@@ -157,6 +157,17 @@ function App() {
     audioRef.current = new Audio('/music/music.mp3');
     audioRef.current.loop = true;
     audioRef.current.volume = 0.5;
+
+      const playMusic = async () => {
+      try {
+        await audioRef.current.play();
+        setIsPlaying(true);
+      } catch (error) {
+        console.log('Auto play tidak diizinkan oleh browser:', error);
+      }
+    };
+    
+    playMusic();
     
     return () => {
       if (audioRef.current) {
