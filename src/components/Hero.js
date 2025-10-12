@@ -3,7 +3,7 @@ import React from 'react';
 
 const linkedinUrl = 'https://linkedin.com/in/dutaalamin';
 
-// Tambahkan style global untuk animasi
+
 const heroAnimationStyle = `
 @keyframes gradientMove {
   0% { background-position: 0% 50%; }
@@ -258,17 +258,18 @@ const Hero = () => {
                 </a>
                 
                 <a 
-                  href="/CV_Duta_Alamin.pdf" 
-                  download="Duta_Alamin_Resume.pdf"
-                  className="action-button cv-button"
+                  href="https://open.spotify.com/playlist/2gQgfHfdjW8S0S4Ypfu1jV" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="action-button playlist-button"
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '0.5rem',
                     padding: '1rem 2rem',
                     backgroundColor: 'transparent',
-                    border: '2px solid #0077b5',
-                    color: '#0077b5',
+                    border: '2px solid #1DB954',
+                    color: '#1DB954',
                     textDecoration: 'none',
                     fontFamily: 'Poppins, sans-serif',
                     fontSize: '1rem',
@@ -281,29 +282,28 @@ const Hero = () => {
                     justifyContent: 'center'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#0077b5';
+                    e.currentTarget.style.backgroundColor = '#1DB954';
                     e.currentTarget.style.color = '#fff';
                     e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 119, 181, 0.3)';
+                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(29, 185, 84, 0.3)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.backgroundColor = 'transparent';
-                    e.currentTarget.style.color = '#0077b5';
+                    e.currentTarget.style.color = '#1DB954';
                     e.currentTarget.style.transform = 'translateY(0)';
                     e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+                    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"/>
                   </svg>
-                  DUTA CV
+                  My Playlist
                 </a>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Update kucing menjadi gambar */}
         <div className="cat-container">
           <img 
             src="https://media.tenor.com/cb9L14uH-YAAAAAM/cool-fun.gif" 
@@ -317,6 +317,7 @@ const Hero = () => {
 };
 
 export default Hero;
+
 
 
 
