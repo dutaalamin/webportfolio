@@ -170,7 +170,20 @@ function App() {
         {/* Navbar */}
         <nav className="navbar">
           <a href="#home" className="nav-logo">
-            <span>DUTA</span>
+            <div className="nav-logo-photo">
+              <img 
+                src={process.env.PUBLIC_URL + '/images/duta.png'} 
+                alt="Duta Alamin"
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                  objectFit: 'cover',
+                  border: '2px solid #00eaff',
+                  boxShadow: '0 0 15px rgba(0, 234, 255, 0.5)'
+                }}
+              />
+            </div>
           </a>
           <ul className="nav-links">
             <li>
