@@ -11,66 +11,18 @@ import emailjs from '@emailjs/browser';
 import logo from './images/logo.png'; // Add your logo image
 
 const techStack = [
-  {
-    name: "JavaScript",
-    logo: "https://cdn.simpleicons.org/javascript/F7DF1E",
-
-  },
-  {
-    name: "React",
-    logo: "https://cdn.simpleicons.org/react/61DAFB",
-
-  },
-  {
-    name: "Next.js",
-    logo: "https://cdn.simpleicons.org/nextdotjs/FFFFFF",
-
-  },
-  {
-    name: "Node.js",
-    logo: "https://cdn.simpleicons.org/nodedotjs/339933",
-
-  },
-  {
-    name: "Vite",
-    logo: "https://cdn.simpleicons.org/vite/646CFF",
-
-  },
-  {
-    name: "Tailwind CSS",
-    logo: "https://cdn.simpleicons.org/tailwindcss/06B6D4",
-
-  },
-  {
-    name: "MySQL",
-    logo: "https://cdn.simpleicons.org/mysql/4479A1",
-
-  },
-  {
-    name: "MongoDB",
-    logo: "https://cdn.simpleicons.org/mongodb/47A248",
-
-  },
-  {
-    name: "Python",
-    logo: "https://cdn.simpleicons.org/python/3776AB",
-
-  },
-  {
-    name: "TypeScript",
-    logo: "https://cdn.simpleicons.org/typescript/3178C6",
-
-  },
-  {
-    name: "Firebase",
-    logo: "https://cdn.simpleicons.org/firebase/FFCA28",
-
-  },
-  {
-    name: "AWS",
-    logo: "https://banner2.cleanpng.com/20190418/qty/kisspng-amazon-web-services-logo-cloud-computing-amazon-co-logoaws-1-itnext-summit-1713897691932.webp",
-
-  }
+  { name: "JavaScript", logo: "https://cdn.simpleicons.org/javascript/F7DF1E" },
+  { name: "React", logo: "https://cdn.simpleicons.org/react/61DAFB" },
+  { name: "Next.js", logo: "https://cdn.simpleicons.org/nextdotjs/FFFFFF" },
+  { name: "Node.js", logo: "https://cdn.simpleicons.org/nodedotjs/339933" },
+  { name: "Vite", logo: "https://cdn.simpleicons.org/vite/646CFF" },
+  { name: "Tailwind CSS", logo: "https://cdn.simpleicons.org/tailwindcss/06B6D4" },
+  { name: "MySQL", logo: "https://cdn.simpleicons.org/mysql/4479A1" },
+  { name: "MongoDB", logo: "https://cdn.simpleicons.org/mongodb/47A248" },
+  { name: "Python", logo: "https://cdn.simpleicons.org/python/3776AB" },
+  { name: "TypeScript", logo: "https://cdn.simpleicons.org/typescript/3178C6" },
+  { name: "Firebase", logo: "https://cdn.simpleicons.org/firebase/FFCA28" },
+  { name: "AWS", logo: "https://banner2.cleanpng.com/20190418/qty/kisspng-amazon-web-services-logo-cloud-computing-amazon-co-logoaws-1-itnext-summit-1713897691932.webp" }
 ];
 
 const projects = [
@@ -116,42 +68,10 @@ function App() {
   const [showMusicModal, setShowMusicModal] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
-  const [selectedTrack, setSelectedTrack] = useState(null);
-  const [musicTracks] = useState([
-    {
-      id: 1,
-      title: "Lofi Chill",
-      artist: "Relaxing Beats",
-      file: "/music/music.mp3",
-      genre: "Lofi",
-      duration: "3:45"
-    },
-    {
-      id: 2,
-      title: "Ambient Dreams",
-      artist: "Peaceful Vibes",
-      file: "/music/ambient.mp3", // Anda bisa menambahkan file ini
-      genre: "Ambient",
-      duration: "4:20"
-    },
-    {
-      id: 3,
-      title: "Focus Mode",
-      artist: "Study Beats",
-      file: "/music/focus.mp3", // Anda bisa menambahkan file ini
-      genre: "Electronic",
-      duration: "5:15"
-    },
-    {
-      id: 4,
-      title: "No Music",
-      artist: "Silence",
-      file: null,
-      genre: "None",
-      duration: "0:00"
-    }
-  ]);
-
+  const [trackInfo] = useState({
+    title: "Background Music",
+    artist: "Lofi Beats"
+  });
   const [activeSection, setActiveSection] = useState('home');
 
   // Function to handle smooth scroll
@@ -188,7 +108,7 @@ function App() {
     audioRef.current = new Audio('/music/music.mp3');
     audioRef.current.loop = true;
     audioRef.current.volume = 0.5;
-    
+
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
@@ -197,13 +117,9 @@ function App() {
     };
   }, []);
 
-  const handleMusicChoice = (track) => {
+  const handleMusicChoice = (choice) => {
     setShowMusicModal(false);
-    setSelectedTrack(track);
-    
-    if (track && track.file && audioRef.current) {
-      audioRef.current.src = track.file;
-      audioRef.current.load();
+    if (choice && audioRef.current) {
       audioRef.current.play()
         .then(() => {
           setIsPlaying(true);
@@ -211,17 +127,7 @@ function App() {
         .catch(error => {
           console.error('Error playing audio:', error);
         });
-    } else {
-      // User memilih "No Music"
-      if (audioRef.current) {
-        audioRef.current.pause();
-        setIsPlaying(false);
-      }
     }
-  };
-
-  const handleTrackSelect = (track) => {
-    setSelectedTrack(track);
   };
 
   const togglePlay = () => {
@@ -264,20 +170,7 @@ function App() {
         {/* Navbar */}
         <nav className="navbar">
           <a href="#home" className="nav-logo">
-            <div className="nav-logo-photo">
-              <img 
-                src={process.env.PUBLIC_URL + '/images/duta.png'} 
-                alt="Duta Alamin"
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  objectFit: 'cover',
-                  border: '2px solid #00eaff',
-                  boxShadow: '0 0 15px rgba(0, 234, 255, 0.5)'
-                }}
-              />
-            </div>
+            <span>DUTA</span>
           </a>
           <ul className="nav-links">
             <li>
@@ -319,47 +212,25 @@ function App() {
           </ul>
         </nav>
 
-        {/* Music Selection Modal */}
+        {/* Music Modal */}
         {showMusicModal && (
           <div className="music-modal-overlay">
-            <div className="music-modal music-selection-modal">
+            <div className="music-modal">
               <div className="music-modal-content">
-                <h3>🎵 Choose Your Music</h3>
-                <p>Select a background track for your browsing experience</p>
-                
-                <div className="music-tracks-list">
-                  {musicTracks.map((track) => (
-                    <div 
-                      key={track.id}
-                      className={`music-track-item ${selectedTrack?.id === track.id ? 'selected' : ''}`}
-                      onClick={() => handleTrackSelect(track)}
-                    >
-                      <div className="track-info">
-                        <div className="track-title">{track.title}</div>
-                        <div className="track-artist">{track.artist}</div>
-                        <div className="track-meta">
-                          <span className="track-genre">{track.genre}</span>
-                          <span className="track-duration">{track.duration}</span>
-                        </div>
-                      </div>
-                      <div className="track-play-icon">
-                        {track.file ? (
-                          <i className="fas fa-play"></i>
-                        ) : (
-                          <i className="fas fa-volume-mute"></i>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
+                <h3>🎵 Play Music?</h3>
+                <p>Would you like to play background music?</p>
                 <div className="music-modal-buttons">
                   <button 
-                    className="music-btn music-btn-confirm"
-                    onClick={() => handleMusicChoice(selectedTrack)}
-                    disabled={!selectedTrack}
+                    className="music-btn music-btn-yes"
+                    onClick={() => handleMusicChoice(true)}
                   >
-                    {selectedTrack?.file ? 'Play Selected' : 'Continue Without Music'}
+                    Yes
+                  </button>
+                  <button 
+                    className="music-btn music-btn-no"
+                    onClick={() => handleMusicChoice(false)}
+                  >
+                    No
                   </button>
                 </div>
               </div>
