@@ -7,6 +7,8 @@ import { motion, useScroll, useSpring } from 'framer-motion';
 import { ParallaxProvider } from 'react-scroll-parallax';
 import { useEffect, useState, useRef } from 'react';
 import Hero from './components/Hero';
+import ThemeSwitcher from './components/ThemeSwitcher';
+import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 import emailjs from '@emailjs/browser';
 import logo from './images/logo.png'; // Add your logo image
 
@@ -60,7 +62,7 @@ const projects = [
   }
 ];
 
-function App() {
+function AppContent() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress);
   const [isLoading, setIsLoading] = useState(true);
@@ -169,60 +171,65 @@ function App() {
       <div className="App">
         {/* Navbar */}
         <nav className="navbar">
-          <a href="#home" className="nav-logo">
-            <div className="nav-logo-photo">
-              <img 
-                src={process.env.PUBLIC_URL + '/images/duta.png'} 
-                alt="Duta Alamin"
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  objectFit: 'cover',
-                  border: '2px solid #00eaff',
-                  boxShadow: '0 0 15px rgba(0, 234, 255, 0.5)'
-                }}
-              />
-            </div>
-          </a>
-          <ul className="nav-links">
-            <li>
-              <a
-                href="#home"
-                className={`nav-link ${activeSection === 'home' ? 'active' : ''}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('home');
-                }}
-              >
-                Home
-              </a>
-            </li>
-            <li>
-              <a
-                href="#tech"
-                className={`nav-link ${activeSection === 'tech' ? 'active' : ''}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('tech');
-                }}
-              >
-                Tech
-              </a>
-            </li>
-            <li>
-              <a
-                href="#projects"
-                className={`nav-link ${activeSection === 'projects' ? 'active' : ''}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('projects');
-                }}
-              >
-                Projects
-              </a>
-            </li>
-          </ul>
+          <div className="navbar-container">
+            <a href="#home" className="nav-logo">
+              <div className="nav-logo-photo">
+                <img 
+                  src={process.env.PUBLIC_URL + '/images/duta.png'} 
+                  alt="Duta Alamin"
+                  style={{
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '50%',
+                    objectFit: 'cover',
+                    border: '2px solid #00eaff',
+                    boxShadow: '0 0 15px rgba(0, 234, 255, 0.5)'
+                  }}
+                />
+              </div>
+            </a>
+            <ul className="nav-links">
+              <li>
+                <a
+                  href="#home"
+                  className={`nav-link ${activeSection === 'home' ? 'active' : ''}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection('home');
+                  }}
+                >
+                  Home
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#tech"
+                  className={`nav-link ${activeSection === 'tech' ? 'active' : ''}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection('tech');
+                  }}
+                >
+                  Tech
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#projects"
+                  className={`nav-link ${activeSection === 'projects' ? 'active' : ''}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection('projects');
+                  }}
+                >
+                  Projects
+                </a>
+              </li>
+              <li className="nav-theme-item">
+                <ThemeSwitcher />
+              </li>
+            </ul>
+          </div>
         </nav>
 
         {/* Music Modal */}
@@ -394,6 +401,14 @@ function App() {
         </div>
       </div>
     </ParallaxProvider>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 
