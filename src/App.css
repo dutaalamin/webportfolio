@@ -52,8 +52,8 @@ body::before {
   width: 100%;
   height: 100%;
   background: 
-    radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 40%),
-    radial-gradient(circle at 80% 20%, rgba(0, 102, 255, 0.1) 0%, transparent 30%);
+    radial-gradient(circle at 50% 50%, rgba(var(--secondary-rgb), 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(var(--primary-rgb), 0.1) 0%, transparent 30%);
   animation: glitchEffect 8s ease-in-out infinite;
   z-index: 0;
 }
@@ -132,11 +132,11 @@ body::after {
   height: 100vh;
   background: linear-gradient(
     45deg,
-    #0066ff 0%,    /* Bright blue */
-    #00d4ff 25%,   /* Cyan blue */
-    #4da6ff 50%,   /* Light blue */
-    #0066ff 75%,   /* Bright blue */
-    #00d4ff 100%   /* Cyan blue */
+    var(--primary-color) 0%,
+    var(--secondary-color) 25%,
+    var(--accent-color) 50%,
+    var(--primary-color) 75%,
+    var(--secondary-color) 100%
   );
   background-size: 400% 400%;
   animation: gradientBG 15s ease-in-out infinite;
@@ -152,8 +152,8 @@ body::after {
   width: 100%;
   height: 100%;
   background: 
-    radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 40%),
-    radial-gradient(circle at 80% 20%, rgba(77, 166, 255, 0.1) 0%, transparent 30%);
+    radial-gradient(circle at 50% 50%, rgba(var(--secondary-rgb), 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(var(--accent-rgb), 0.1) 0%, transparent 30%);
   animation: glitchEffect 8s ease-in-out infinite;
 }
 
@@ -1383,12 +1383,21 @@ body::after {
   right: 0;
   padding: 1rem 2rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   z-index: 1000;
   background: transparent;
   backdrop-filter: none;
   border-bottom: none;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  gap: 2rem;
 }
 
 .nav-logo {
@@ -1428,8 +1437,7 @@ body::after {
   display: flex;
   gap: 2rem;
   list-style: none;
-  justify-content: center;
-  flex: 2;
+  align-items: center;
 }
 
 .nav-link {
@@ -1455,15 +1463,171 @@ body::after {
   font-weight: 900;
 }
 
-/* Tambahkan elemen kosong untuk menyeimbangkan layout */
-.navbar::after {
-  content: '';
+/* Theme Switcher Styles */
+.theme-switcher {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  padding: 0.5rem 1rem;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-decoration: none;
+  position: relative;
+  opacity: 0.9;
+  letter-spacing: 0.04em;
+}
+
+.theme-toggle:hover {
+  opacity: 1;
+  color: var(--primary-color);
+}
+
+.theme-preview {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 10px;
+}
+
+.theme-label {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.theme-arrow {
+  transition: transform 0.3s ease;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.theme-arrow.open {
+  transform: rotate(180deg);
+}
+
+.theme-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 8px;
+  min-width: 200px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  animation: dropdownSlideIn 0.2s ease-out;
+}
+
+@keyframes dropdownSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.theme-dropdown-header {
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 4px;
+}
+
+.theme-dropdown-header span {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.theme-options {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.theme-option:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.theme-option.active {
+  background: rgba(var(--primary-rgb), 0.1);
+  border: 1px solid rgba(var(--primary-rgb), 0.3);
+}
+
+.theme-color-preview {
+  display: flex;
+  gap: 4px;
+}
+
+.color-circle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.theme-name {
   flex: 1;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.theme-option svg {
+  color: var(--primary-color);
+  opacity: 0.8;
+}
+
+/* Navbar Theme Item */
+.nav-theme-item {
+  display: flex;
+  align-items: center;
 }
 
 @media (max-width: 768px) {
   .navbar {
     padding: 0.8rem 1rem;
+    justify-content: center;
+  }
+
+  .navbar-container {
+    max-width: 100%;
+    justify-content: center;
+    gap: 1rem;
   }
 
   .nav-links {
@@ -1473,6 +1637,29 @@ body::after {
   .nav-link {
     font-size: 1rem;
     padding: 0.4rem 0.8rem;
+  }
+
+  .nav-theme-item {
+    margin-left: 0;
+  }
+
+  .theme-toggle {
+    padding: 0.4rem 0.8rem;
+    font-size: 1rem;
+  }
+
+  .theme-label {
+    display: none;
+  }
+
+  .theme-preview {
+    width: 18px;
+    height: 18px;
+  }
+
+  .theme-dropdown {
+    min-width: 180px;
+    right: -10px;
   }
 }
 
