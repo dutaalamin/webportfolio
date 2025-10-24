@@ -316,6 +316,7 @@ export const ThemeProvider = ({ children }) => {
     const gradientOverlay = document.querySelector('.gradient-overlay');
     if (gradientOverlay) {
       gradientOverlay.style.display = 'none';
+      // eslint-disable-next-line no-unused-expressions
       gradientOverlay.offsetHeight; // Trigger reflow
       gradientOverlay.style.display = '';
     }
