@@ -41,97 +41,11 @@ const heroAnimationStyle = `
 }
 `;
 
-// Update style untuk kucing gambar
-const catAnimationStyle = `
-@keyframes floating {
-  0% { 
-    transform: translate(0px, 0px); 
-  }
-  25% { 
-    transform: translate(-15px, -10px); 
-  }
-  50% { 
-    transform: translate(10px, -20px); 
-  }
-  75% { 
-    transform: translate(-5px, -5px); 
-  }
-  100% { 
-    transform: translate(0px, 0px); 
-  }
-}
-
-.cat-container {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 200px;
-  height: 200px;
-  z-index: 10;
-  animation: floating 6s ease-in-out infinite;
-}
-
-.cat-container.second {
-  top: 240px; /* 20px + 200px + 20px spacing */
-  animation-delay: 1s;
-}
-
-.cat-container.third {
-  top: 460px; /* 240px + 200px + 20px spacing */
-  animation-delay: 2s;
-}
-
-.cat-image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  transform: scaleX(-1);
-  opacity: 0.9;
-  mix-blend-mode: multiply;
-  filter: contrast(1.2) brightness(1.1);
-  background: transparent;
-}
-
-@media (max-width: 768px) {
-  .cat-container {
-    width: 120px;
-    height: 120px;
-    top: 10px;
-    right: -40px;
-  }
-  .cat-container.second {
-    top: 150px; /* 10px + 120px + 20px spacing */
-    right: -40px;
-  }
-  .cat-container.third {
-    top: 290px; /* 150px + 120px + 20px spacing */
-    right: -40px;
-  }
-}
-
-@media (max-width: 480px) {
-  .cat-container {
-    width: 100px;
-    height: 100px;
-    top: 5px;
-    right: -80px;
-  }
-  .cat-container.second {
-    top: 125px; /* 5px + 100px + 20px spacing */
-    right: -80px;
-  }
-  .cat-container.third {
-    top: 245px; /* 125px + 100px + 20px spacing */
-    right: -80px;
-  }
-}
-`;
 
 const Hero = () => {
   return (
     <>
       <style>{heroAnimationStyle}</style>
-      <style>{catAnimationStyle}</style>
       <section className="hero" style={{
         minHeight: '100vh',
         display: 'flex',
@@ -304,13 +218,6 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="cat-container">
-          <img 
-            src="https://media.tenor.com/cb9L14uH-YAAAAAM/cool-fun.gif" 
-            alt="Cat" 
-            className="cat-image"
-          />
-        </div>
       </section>
     </>
   );
