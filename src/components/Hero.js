@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TicTacToe from './TicTacToe';
 
 const linkedinUrl = 'https://linkedin.com/in/dutaalamin';
@@ -18,12 +18,27 @@ const heroAnimationStyle = `
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Always hide embedded game container by default */
+.desktop-only { display: none !important; }
+
+/* TicTacToe trigger button - visible on all breakpoints */
+.ttt-trigger { display: flex; }
+
+/* Desktop position (>=1025px) */
+@media (min-width: 1025px) {
+  .ttt-trigger {
+    position: fixed;
+    top: 80px;
+    right: 2rem;
+  }
+}
+
+/* Tablet/Mobile (<=1024px) */
 @media (max-width: 1024px) {
-  .tictactoe-container {
-    position: static !important;
-    margin-top: 2rem !important;
-    display: flex !important;
-    justify-content: center !important;
+  .ttt-trigger {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
   }
 }
 
@@ -47,17 +62,13 @@ const heroAnimationStyle = `
     padding: 0.8rem 1.5rem !important;
     font-size: 0.9rem !important;
   }
-  .tictactoe-container {
-    position: static !important;
-    margin-top: 2rem !important;
-    right: auto !important;
-    top: auto !important;
-  }
 }
 `;
 
 
 const Hero = () => {
+  const [showGameModal, setShowGameModal] = useState(false);
+
   return (
     <>
       <style>{heroAnimationStyle}</style>
@@ -233,16 +244,115 @@ const Hero = () => {
           </div>
         </div>
         
-        {/* TicTacToe Game di kanan atas */}
-        <div className="tictactoe-container" style={{
-          position: 'absolute',
-          top: '80px',
-          right: '2rem',
-          animation: 'fadeIn 1.5s ease-out',
-          zIndex: 10,
-        }}>
-          <TicTacToe />
-        </div>
+        {/* TicTacToe embedded hidden by CSS (desktop-only) */}
+        <div className="tictactoe-container desktop-only"></div>
+
+        {/* TicTacToe Trigger Button */}
+        <button
+          className="tictactoe-icon-button ttt-trigger"
+          onClick={() => setShowGameModal(true)}
+          style={{
+            position: 'fixed',
+            width: '60px',
+            height: '60px',
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, rgba(0, 234, 255, 0.2) 0%, rgba(0, 234, 255, 0.1) 100%)',
+            border: '2px solid rgba(0, 234, 255, 0.5)',
+            color: '#00eaff',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '1.5rem',
+            zIndex: 100,
+            transition: 'all 0.3s ease',
+            boxShadow: '0 4px 15px rgba(0, 234, 255, 0.3)',
+            backdropFilter: 'blur(10px)',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'scale(1.1)';
+            e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 234, 255, 0.5)';
+            e.currentTarget.style.borderColor = '#00eaff';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 234, 255, 0.3)';
+            e.currentTarget.style.borderColor = 'rgba(0, 234, 255, 0.5)';
+          }}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/>
+          </svg>
+        </button>
+
+        {/* Modal untuk Game */}
+        {showGameModal && (
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'rgba(0, 0, 0, 0.8)',
+              backdropFilter: 'blur(5px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 1000,
+              padding: '1rem',
+              animation: 'fadeIn 0.3s ease-out',
+            }}
+            onClick={() => setShowGameModal(false)}
+          >
+            <div
+              style={{
+                background: 'linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(8,20,24,0.9) 100%)',
+                borderRadius: '20px',
+                padding: '2rem',
+                maxWidth: '92%',
+                maxHeight: '90vh',
+                overflow: 'auto',
+                position: 'relative',
+                border: '1px solid rgba(0, 234, 255, 0.3)',
+                boxShadow: '0 24px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,234,255,0.06) inset'
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setShowGameModal(false)}
+                style={{
+                  position: 'absolute',
+                  top: '1rem',
+                  right: '1rem',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  color: '#fff',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '1.5rem',
+                  transition: 'all 0.3s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+                  e.currentTarget.style.transform = 'rotate(90deg)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                  e.currentTarget.style.transform = 'rotate(0deg)';
+                }}
+              >
+                ×
+              </button>
+              <TicTacToe />
+            </div>
+          </div>
+        )}
 
       </section>
     </>
