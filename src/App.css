@@ -1383,7 +1383,7 @@ body::after {
   right: 0;
   padding: 1rem 2rem;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center; /* center container secara horizontal */
   align-items: center;
   z-index: 1000;
   background: transparent;
@@ -1393,11 +1393,13 @@ body::after {
 
 .navbar-container {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center; /* center isi navbar */
   align-items: center;
   width: 100%;
   max-width: 1200px;
+  margin: 0 auto; /* pastikan kontainer ter-center dalam navbar */
   gap: 2rem;
+  /* posisi default (static) agar logo mengacu ke .navbar yang fixed */
 }
 
 .nav-logo {
@@ -1406,7 +1408,12 @@ body::after {
   gap: 0.5rem;
   text-decoration: none;
   color: var(--text-color);
-  flex: 1;
+  flex: 0 0 auto; /* jangan mendorong item lain ke kanan */
+  position: absolute; /* kunci relatif ke .navbar (fixed) */
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1100;
 }
 
 .nav-logo span {
