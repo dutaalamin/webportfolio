@@ -1,5 +1,5 @@
 import React from 'react';
-
+import TicTacToe from './TicTacToe';
 
 const linkedinUrl = 'https://linkedin.com/in/dutaalamin';
 
@@ -16,6 +16,15 @@ const heroAnimationStyle = `
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 1024px) {
+  .tictactoe-container {
+    position: static !important;
+    margin-top: 2rem !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
 }
 
 @media (max-width: 600px) {
@@ -37,6 +46,12 @@ const heroAnimationStyle = `
   .action-button {
     padding: 0.8rem 1.5rem !important;
     font-size: 0.9rem !important;
+  }
+  .tictactoe-container {
+    position: static !important;
+    margin-top: 2rem !important;
+    right: auto !important;
+    top: auto !important;
   }
 }
 `;
@@ -216,6 +231,17 @@ const Hero = () => {
               </div>
             </div>
           </div>
+        </div>
+        
+        {/* TicTacToe Game di kanan atas */}
+        <div className="tictactoe-container" style={{
+          position: 'absolute',
+          top: '80px',
+          right: '2rem',
+          animation: 'fadeIn 1.5s ease-out',
+          zIndex: 10,
+        }}>
+          <TicTacToe />
         </div>
 
       </section>
