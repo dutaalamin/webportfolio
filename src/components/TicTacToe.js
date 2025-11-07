@@ -163,9 +163,9 @@ const TicTacToe = () => {
         onClick={() => handleClick(index)}
         disabled={!!value || !!winner || gameOver || !isXNext || isBotThinking}
         style={{
-          width: 'clamp(45px, 8vw, 60px)',
-          height: 'clamp(45px, 8vw, 60px)',
-          fontSize: 'clamp(1.2rem, 3vw, 1.5rem)',
+          width: 'clamp(64px, 10vw, 92px)',
+          height: 'clamp(64px, 10vw, 92px)',
+          fontSize: 'clamp(1.4rem, 3.5vw, 1.9rem)',
           fontWeight: 'bold',
           border: '2px solid rgba(0, 234, 255, 0.5)',
           background: value 
@@ -174,27 +174,27 @@ const TicTacToe = () => {
           color: value === 'X' ? '#00eaff' : value === 'O' ? '#ff0080' : '#fff',
           cursor: (value || winner || gameOver || !isXNext || isBotThinking) ? 'not-allowed' : 'pointer',
           opacity: (!isXNext || isBotThinking) && !value ? 0.5 : 1,
-          transition: 'all 0.3s ease',
-          borderRadius: '6px',
+          transition: 'all 0.25s ease',
+          borderRadius: '14px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           boxShadow: isWinning 
-            ? '0 0 15px rgba(0, 234, 255, 0.8)' 
-            : '0 2px 6px rgba(0, 0, 0, 0.2)',
-          transform: isWinning ? 'scale(1.1)' : 'scale(1)',
+            ? '0 0 24px rgba(0, 234, 255, 0.85)' 
+            : '0 8px 24px rgba(0, 0, 0, 0.3)',
+          transform: isWinning ? 'scale(1.08)' : 'scale(1)',
         }}
         onMouseEnter={(e) => {
           if (!value && !winner && !gameOver && isXNext && !isBotThinking) {
             e.currentTarget.style.borderColor = '#00eaff';
-            e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 234, 255, 0.5)';
-            e.currentTarget.style.transform = 'scale(1.05)';
+            e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 234, 255, 0.6)';
+            e.currentTarget.style.transform = 'scale(1.04)';
           }
         }}
         onMouseLeave={(e) => {
           if (!value && !winner && !gameOver && isXNext && !isBotThinking) {
             e.currentTarget.style.borderColor = 'rgba(0, 234, 255, 0.5)';
-            e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.2)';
+            e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.3)';
             e.currentTarget.style.transform = 'scale(1)';
           }
         }}
@@ -206,19 +206,18 @@ const TicTacToe = () => {
 
   const getStatus = () => {
     if (winner === 'Draw') {
-      return 'Seri!';
+      return 'Draw!';
     }
     if (winner) {
       if (winner === PLAYER) {
-        return '🎉 Kamu Menang!';
-      } else {
-        return '🤖 Bot Menang!';
+        return '🎉 You Win!';
       }
+      return '🤖 Bot Wins!';
     }
     if (isBotThinking) {
-      return '🤖 Bot sedang berpikir...';
+      return '🤖 Bot is thinking...';
     }
-    return `Giliran: ${isXNext ? 'Kamu (X)' : 'Bot (O)'}`;
+    return `Turn: ${isXNext ? 'You (X)' : 'Bot (O)'}`;
   };
 
   return (
@@ -226,14 +225,14 @@ const TicTacToe = () => {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      gap: 'clamp(0.75rem, 2vw, 1rem)',
-      padding: 'clamp(1rem, 3vw, 1.5rem)',
+      gap: 'clamp(1rem, 2.5vw, 1.4rem)',
+      padding: 'clamp(1.4rem, 3.5vw, 2rem)',
       background: 'rgba(0, 0, 0, 0.3)',
-      borderRadius: '16px',
+      borderRadius: '22px',
       border: '1px solid rgba(0, 234, 255, 0.2)',
-      backdropFilter: 'blur(10px)',
-      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
-      maxWidth: 'clamp(220px, 25vw, 280px)',
+      backdropFilter: 'blur(12px)',
+      boxShadow: '0 18px 48px rgba(0, 0, 0, 0.35)',
+      maxWidth: 'clamp(300px, 34vw, 390px)',
       width: '100%',
     }}>
       <h3 style={{
@@ -251,9 +250,9 @@ const TicTacToe = () => {
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: 'clamp(6px, 1.5vw, 8px)',
+        gap: 'clamp(10px, 2vw, 16px)',
         width: '100%',
-        maxWidth: 'clamp(150px, 20vw, 190px)',
+        maxWidth: 'clamp(240px, 30vw, 320px)',
       }}>
         {Array(9).fill(null).map((_, index) => renderSquare(index))}
       </div>
