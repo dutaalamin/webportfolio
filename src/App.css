@@ -1639,6 +1639,8 @@ body::after {
 
   .nav-links {
     gap: 1rem;
+    justify-content: center;
+    width: 100%;
   }
 
   .nav-link {
