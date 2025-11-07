@@ -21,25 +21,12 @@ const heroAnimationStyle = `
 /* Always hide embedded game container by default */
 .desktop-only { display: none !important; }
 
-/* TicTacToe trigger button - visible on all breakpoints */
-.ttt-trigger { display: flex; }
-
-/* Desktop position (>=1025px) */
-@media (min-width: 1025px) {
-  .ttt-trigger {
-    position: fixed;
-    top: 80px;
-    right: 2rem;
-  }
-}
-
-/* Tablet/Mobile (<=1024px) */
-@media (max-width: 1024px) {
-  .ttt-trigger {
-    position: fixed;
-    bottom: 2rem;
-    left: 2rem;
-  }
+//* TicTacToe trigger button - visible on all breakpoints, bottom-left */
+.ttt-trigger {
+  display: flex;
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
 }
 
 @media (max-width: 600px) {
@@ -253,6 +240,8 @@ const Hero = () => {
           onClick={() => setShowGameModal(true)}
           style={{
             position: 'fixed',
+            bottom: '2rem',
+            left: '2rem',
             width: '60px',
             height: '60px',
             borderRadius: '50%',
@@ -309,7 +298,7 @@ const Hero = () => {
               style={{
                 background: 'linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(8,20,24,0.9) 100%)',
                 borderRadius: '20px',
-                padding: '2rem',
+                padding: '2.5rem 2rem 2rem',
                 maxWidth: '92%',
                 maxHeight: '90vh',
                 overflow: 'auto',
