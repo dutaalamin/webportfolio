@@ -128,7 +128,7 @@ const Hero = () => {
               }}>
                 <span>SOFTWARE ENGINEER</span>
                 <span style={{fontWeight: 'bold', color: '#00eaff'}}>|</span>
-                <span>ERP FUNCTIONAL</span>
+                <span>IT BUSINESS ANALYST</span>
                 <span style={{fontWeight: 'bold', color: '#00eaff'}}>|</span>
                 <span>SUPPLY CHAIN</span>
               </p>
@@ -349,6 +349,7 @@ const Hero = () => {
 };
 
 export default Hero;
+
 
 
 
