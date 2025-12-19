@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import TicTacToe from './TicTacToe';
+import React from 'react';
 
 const linkedinUrl = 'https://linkedin.com/in/dutaalamin';
 
@@ -54,302 +53,158 @@ const heroAnimationStyle = `
 
 
 const Hero = () => {
-  const [showGameModal, setShowGameModal] = useState(false);
 
   return (
     <>
       <style>{heroAnimationStyle}</style>
-      <section className="hero" style={{
+      <section className="hero-about-me" style={{
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
         padding: 0,
         margin: 0,
         paddingTop: '60px',
         position: 'relative',
         overflow: 'hidden'
       }}>
-        <div className="hero-container" style={{ width: '100%' }}>
-          <div className="hero-content" style={{ width: '100%' }}>
-            <div className="hero-text" style={{ 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center', 
-              justifyContent: 'center',
-              textAlign: 'center',
-              gap: '2rem',
-              width: '100%',
-            }}>
-              <h1 className="hero-title-modern" style={{ 
-                fontSize: '7rem',
+        <div className="hero-about-container" style={{ 
+          width: '100%',
+          maxWidth: '1400px',
+          margin: '0 auto',
+          padding: '0 2rem',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '4rem',
+          alignItems: 'center'
+        }}>
+          {/* Left Section - Text */}
+          <div className="hero-about-text" style={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: '2rem',
+          }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              <p style={{
+                margin: 0,
+                letterSpacing: '0.38em',
+                fontSize: '1.05rem',
+                color: 'rgba(255, 255, 255, 0.8)',
+                textTransform: 'uppercase'
+              }}>
+                Duta Alamin
+              </p>
+
+              <h1 style={{ 
+                fontSize: '4.2rem',
                 fontWeight: 900,
                 fontFamily: 'Montserrat, sans-serif',
-                letterSpacing: '0.1em',
+                letterSpacing: '-0.01em',
                 margin: 0,
-                lineHeight: 1.1,
-                color: '#fff',
-                textShadow: 'none',
-                animation: 'fadeIn 1s ease-out',
-                transition: 'transform 0.3s ease',
-                cursor: 'pointer',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.05)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
+                lineHeight: 1.05,
+                color: 'var(--text-color)',
               }}>
-                <span style={{
-                  color: '#fff',
-                  fontFamily: 'Montserrat, sans-serif',
-                  fontWeight: 900,
-                  display: 'inline-block',
-                }}>DUTA</span> <span style={{
-                  color: '#fff',
-                  fontFamily: 'Montserrat, sans-serif',
-                  fontWeight: 900,
-                  display: 'inline-block',
-                }}>ALAMIN</span>
+                Software<br />Engineer
               </h1>
-              <p className="hero-subtitle-modern" style={{ 
-                fontSize: '1.7rem',
-                fontFamily: 'Poppins, monospace',
-                letterSpacing: '0.2em',
-                margin: 0,
-                lineHeight: 1.5,
-                color: '#fff',
-                textShadow: '0 2px 8px #00eaff44',
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '1.5rem',
+
+              <p style={{
+                fontSize: '1.05rem',
+                color: 'rgba(255, 255, 255, 0.8)',
+                lineHeight: 1.7,
+                maxWidth: '820px',
+                margin: 0
               }}>
-                <span>SOFTWARE ENGINEER</span>
-                <span style={{fontWeight: 'bold', color: '#00eaff'}}>|</span>
-                <span>IT BUSINESS ANALYST</span>
-                <span style={{fontWeight: 'bold', color: '#00eaff'}}>|</span>
-                <span>SUPPLY CHAIN</span>
+                I’m Duta, a Software Engineer with hands-on experience in ERP development, IT business systems, and supply chain processes. I currently work as a Factory Automation Engineer, bridging software, operations, and industrial systems to build reliable, efficient solutions.
               </p>
-              <div className="hero-actions" style={{ 
-                marginTop: '3rem',
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '2rem',
-                flexWrap: 'wrap'
-              }}>
-                <a 
-                  href={linkedinUrl} 
-                  target="_blank" 
+
+              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                <a
+                  href={linkedinUrl}
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="action-button linkedin-button"
                   style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    padding: '1rem 2rem',
-                    backgroundColor: 'transparent',
-                    border: '2px solid #0077b5',
-                    color: '#0077b5',
+                    padding: '0.85rem 1.8rem',
+                    backgroundColor: '#1f2937',
+                    color: '#fff',
+                    borderRadius: '12px',
                     textDecoration: 'none',
-                    fontFamily: 'Poppins, sans-serif',
+                    fontWeight: 600,
                     fontSize: '1rem',
-                    fontWeight: '600',
-                    letterSpacing: '0.05em',
-                    borderRadius: '50px',
-                    transition: 'all 0.3s ease',
-                    cursor: 'pointer',
-                    minWidth: '140px',
-                    justifyContent: 'center'
+                    border: '1px solid rgba(255,255,255,0.15)',
+                    boxShadow: '0 10px 25px rgba(0,0,0,0.25)',
+                    transition: 'all 0.25s ease'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#0077b5';
-                    e.currentTarget.style.color = '#fff';
                     e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 119, 181, 0.3)';
+                    e.currentTarget.style.boxShadow = '0 14px 30px rgba(0,0,0,0.35)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                    e.currentTarget.style.color = '#0077b5';
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = 'none';
+                    e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.25)';
                   }}
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                  </svg>
                   LinkedIn
                 </a>
-                
-                <a 
-                  href="https://open.spotify.com/playlist/2gQgfHfdjW8S0S4Ypfu1jV" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="action-button playlist-button"
+
+                <button
+                  onClick={() => {
+                    const contact = document.getElementById('contact');
+                    if (contact) {
+                      contact.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
                   style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    padding: '1rem 2rem',
+                    padding: '0.85rem 1.8rem',
                     backgroundColor: 'transparent',
-                    border: '2px solid #1DB954',
-                    color: '#1DB954',
-                    textDecoration: 'none',
-                    fontFamily: 'Poppins, sans-serif',
+                    color: 'var(--text-color)',
+                    borderRadius: '12px',
+                    fontWeight: 600,
                     fontSize: '1rem',
-                    fontWeight: '600',
-                    letterSpacing: '0.05em',
-                    borderRadius: '50px',
-                    transition: 'all 0.3s ease',
+                    border: '1px solid rgba(255,255,255,0.25)',
                     cursor: 'pointer',
-                    minWidth: '140px',
-                    justifyContent: 'center'
+                    transition: 'all 0.25s ease'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#1DB954';
-                    e.currentTarget.style.color = '#fff';
+                    e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)';
+                    e.currentTarget.style.borderColor = 'var(--primary-color)';
                     e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(29, 185, 84, 0.3)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.backgroundColor = 'transparent';
-                    e.currentTarget.style.color = '#1DB954';
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)';
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"/>
-                  </svg>
-                  My Playlist
-                </a>
+                  Contact Me
+                </button>
               </div>
             </div>
           </div>
-        </div>
-        
-        {/* TicTacToe embedded hidden by CSS (desktop-only) */}
-        <div className="tictactoe-container desktop-only"></div>
 
-        {/* TicTacToe Trigger Button */}
-        <button
-          className="tictactoe-icon-button ttt-trigger"
-          onClick={() => setShowGameModal(true)}
-          style={{
-            position: 'fixed',
-            bottom: '2rem',
-            left: '2rem',
-            width: '60px',
-            height: '60px',
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, rgba(0, 234, 255, 0.2) 0%, rgba(0, 234, 255, 0.1) 100%)',
-            border: '2px solid rgba(0, 234, 255, 0.5)',
-            color: '#00eaff',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '1.5rem',
-            zIndex: 100,
-            transition: 'all 0.3s ease',
-            boxShadow: '0 4px 15px rgba(0, 234, 255, 0.3)',
-            backdropFilter: 'blur(10px)',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'scale(1.1)';
-            e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 234, 255, 0.5)';
-            e.currentTarget.style.borderColor = '#00eaff';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'scale(1)';
-            e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 234, 255, 0.3)';
-            e.currentTarget.style.borderColor = 'rgba(0, 234, 255, 0.5)';
-          }}
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/>
-          </svg>
-        </button>
-
-        {/* Modal untuk Game */}
-        {showGameModal && (
-          <div
-            style={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: 'rgba(0, 0, 0, 0.8)',
-              backdropFilter: 'blur(5px)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              zIndex: 1000,
-              padding: '1rem',
-              animation: 'fadeIn 0.3s ease-out',
-            }}
-            onClick={() => setShowGameModal(false)}
-          >
-            <div
+          {/* Right Section - Image */}
+          <div className="hero-about-image" style={{
+            position: 'relative',
+            width: '100%',
+            height: '600px',
+            borderRadius: '12px',
+            overflow: 'hidden'
+          }}>
+            <img 
+              src="/images/duta1.png" 
+              alt="Duta Alamin"
               style={{
-                background: 'linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(8,20,24,0.9) 100%)',
-                borderRadius: '20px',
-                padding: '2.5rem 2rem 2rem',
-                maxWidth: '92%',
-                maxHeight: '90vh',
-                overflow: 'auto',
-                position: 'relative',
-                border: '1px solid rgba(0, 234, 255, 0.3)',
-                boxShadow: '0 24px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,234,255,0.06) inset'
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover'
               }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => setShowGameModal(false)}
-                style={{
-                  position: 'absolute',
-                  top: '1rem',
-                  right: '1rem',
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  color: '#fff',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.5rem',
-                  transition: 'all 0.3s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
-                  e.currentTarget.style.transform = 'rotate(90deg)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
-                  e.currentTarget.style.transform = 'rotate(0deg)';
-                }}
-              >
-                ×
-              </button>
-              <TicTacToe />
-            </div>
+            />
           </div>
-        )}
-
+        </div>
       </section>
     </>
   );
 };
 
 export default Hero;
-
 
 
 
