@@ -38,7 +38,7 @@ const About = () => {
     {
       startDate: 'Jan 2026',
       endDate: 'Present',
-      location: 'Indonesia',
+      location: 'Cilegon, Indonesia',
       company: 'PT POSCO DX INDONESIA',
       role: 'Factory Automation Engineer',
       type: 'Full-time',
@@ -48,7 +48,7 @@ const About = () => {
     {
       startDate: 'Jan 2025',
       endDate: 'Oct 2025',
-      location: 'Central Jakarta, Jakarta, Indonesia',
+      location: 'Jakarta, Indonesia',
       company: 'PT. KARUNIA BERCA INDONESIA',
       role: 'Software Engineer',
       type: 'Contract',
@@ -69,7 +69,7 @@ const About = () => {
       startDate: 'Oct 2023',
       endDate: 'Mar 2024',
       location: 'Yogyakarta, Indonesia',
-      company: 'bpptkg',
+      company: 'BPPTKG',
       role: 'Bachelor Thesis',
       type: 'Hybrid',
       description: 'I developed a deep learning model using Convolutional Neural Network (CNN) to classify images of Mount Merapi captured in different environmental and volcanic conditions. The goal was to explore how convolutional neural networks can be used for volcanic activity monitoring and early warning systems.',
