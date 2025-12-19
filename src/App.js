@@ -7,25 +7,11 @@ import { motion, useScroll, useSpring } from 'framer-motion';
 import { ParallaxProvider } from 'react-scroll-parallax';
 import { useEffect, useState, useRef } from 'react';
 import Hero from './components/Hero';
+import About from './components/About';
 import ThemeSwitcher from './components/ThemeSwitcher';
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 import emailjs from '@emailjs/browser';
-import logo from './images/logo.png'; // Add your logo image
 
-const techStack = [
-  { name: "JavaScript", logo: "https://cdn.simpleicons.org/javascript/F7DF1E" },
-  { name: "React", logo: "https://cdn.simpleicons.org/react/61DAFB" },
-  { name: "Next.js", logo: "https://cdn.simpleicons.org/nextdotjs/FFFFFF" },
-  { name: "Node.js", logo: "https://cdn.simpleicons.org/nodedotjs/339933" },
-  { name: "Vite", logo: "https://cdn.simpleicons.org/vite/646CFF" },
-  { name: "Tailwind CSS", logo: "https://cdn.simpleicons.org/tailwindcss/06B6D4" },
-  { name: "MySQL", logo: "https://cdn.simpleicons.org/mysql/4479A1" },
-  { name: "MongoDB", logo: "https://cdn.simpleicons.org/mongodb/47A248" },
-  { name: "Python", logo: "https://cdn.simpleicons.org/python/3776AB" },
-  { name: "TypeScript", logo: "https://cdn.simpleicons.org/typescript/3178C6" },
-  { name: "Firebase", logo: "https://cdn.simpleicons.org/firebase/FFCA28" },
-  { name: "AWS", logo: "https://banner2.cleanpng.com/20190418/qty/kisspng-amazon-web-services-logo-cloud-computing-amazon-co-logoaws-1-itnext-summit-1713897691932.webp" }
-];
 
 const projects = [
   {
@@ -86,9 +72,9 @@ function AppContent() {
   };
 
   // Update active section based on scroll position
-  useEffect(() => {
+    useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'tech', 'projects'];
+    const sections = ['home', 'about', 'projects'];
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -203,14 +189,14 @@ function AppContent() {
               </li>
               <li>
                 <a
-                  href="#tech"
-                  className={`nav-link ${activeSection === 'tech' ? 'active' : ''}`}
+                  href="#about"
+                  className={`nav-link ${activeSection === 'about' ? 'active' : ''}`}
                   onClick={(e) => {
                     e.preventDefault();
-                    scrollToSection('tech');
+                    scrollToSection('about');
                   }}
                 >
-                  Tech
+                  About
                 </a>
               </li>
               <li>
@@ -284,36 +270,8 @@ function AppContent() {
           <Hero />
         </section>
 
-        {/* Tech Stack Section */}
-        <section id="tech" className="tech-stack-section">
-          <div className="container">
-            <motion.div 
-              className="section-header"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2>Tech Stack</h2>
-            </motion.div>
-
-            <div className="tech-grid">
-              {techStack.map((tech, index) => (
-                <motion.div
-                  key={tech.name}
-                  className="tech-card"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <img src={tech.logo} alt={tech.name} className="tech-logo" />
-                  <h3>{tech.name}</h3>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* About Section */}
+        <About />
 
         {/* Projects Section */}
         <section id="projects" className="projects-section">
