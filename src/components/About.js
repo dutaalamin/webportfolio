@@ -241,8 +241,6 @@ const About = () => {
           transition={{ duration: 0.6, delay: 0.5 }}
         >
           <h2>Education</h2>
-          <p className="education-intro">Get to know more about my educational background.</p>
-          
           <div className="education-card">
             <div className="education-period">{education.period}</div>
             <h3>{education.institution}</h3>
