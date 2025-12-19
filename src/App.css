@@ -2053,7 +2053,7 @@ body::after {
 
 /* About Section Styles */
 .about-section {
-  padding: 6rem 2rem;
+  padding: 6rem 2rem 3rem;
   background: transparent;
   position: relative;
   z-index: 1;
