@@ -78,7 +78,7 @@ const About = () => {
     {
       startDate: 'Aug 2022',
       endDate: 'Sep 2022',
-      location: 'Cilegon, Banten, Indonesia',
+      location: 'Cilegon, Indonesia',
       company: 'PT Indorama Polypet Indonesia',
       role: 'Information Technology Intern',
       type: 'Internship',
