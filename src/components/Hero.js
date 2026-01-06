@@ -197,9 +197,7 @@ const Hero = () => {
           <div className="hero-about-image" style={{
             position: 'relative',
             width: '100%',
-            height: '600px',
-            borderRadius: '12px',
-            overflow: 'hidden'
+            height: '800px'
           }}>
             <img 
               src="/images/duta1.png" 
@@ -207,7 +205,11 @@ const Hero = () => {
               style={{
                 width: '100%',
                 height: '100%',
-                objectFit: 'cover'
+                objectFit: 'cover',
+                objectPosition: 'center',
+                transform: 'scale(0.96)',
+                transformOrigin: 'center',
+                transition: 'transform 200ms ease'
               }}
             />
           </div>
