@@ -37,7 +37,7 @@ export default function AboutPage() {
       
       {/* Back to Home Button (Desktop) */}
       <Link href="/">
-        <button className="hidden md:flex absolute top-6 left-6 z-50 text-gray-400 hover:text-black transition-colors font-pressStart text-xs items-center justify-center cursor-pointer">
+        <button className="hidden md:flex absolute top-6 left-6 z-50 px-4 py-2 bg-white border-4 border-black text-black text-xs font-pressStart hover:bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
           &lt; Back
         </button>
       </Link>
@@ -71,17 +71,25 @@ export default function AboutPage() {
       >
         {/* Top Navigation */}
         <div className="absolute top-4 left-4 flex gap-4">
-          <button
-            onClick={() => { setPage((prev) => Math.max(0, prev - 1)); setIsInitialLoad(false); }}
-            disabled={page === 0}
-            className="text-lg cursor-pointer text-gray-400 hover:text-black font-pressStart disabled:opacity-30"
-          >
-            Prev
-          </button>
+          {page === 0 ? (
+            <Link href="/transition">
+              <button className="px-3 py-2 bg-white border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
+                Prev
+              </button>
+            </Link>
+          ) : (
+            <button
+              onClick={() => { setPage((prev) => Math.max(0, prev - 1)); setIsInitialLoad(false); }}
+              className="px-3 py-2 bg-white border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer"
+            >
+              Prev
+            </button>
+          )}
+
           <button
             onClick={() => { setPage((prev) => Math.min(aboutPages.length - 1, prev + 1)); setIsInitialLoad(false); }}
             disabled={isLastPage}
-            className="text-lg cursor-pointer text-gray-400 hover:text-black font-pressStart disabled:opacity-30"
+            className="px-3 py-2 bg-white border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
           >
             Next
           </button>
@@ -91,7 +99,7 @@ export default function AboutPage() {
         {isLastPage && (
           <div className="absolute top-4 right-4">
             <Link href="/experience">
-              <button className="text-lg cursor-pointer text-gray-400 hover:text-black font-pressStart disabled:opacity-30">
+              <button className="px-3 py-2 bg-[#f8b800] border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
                 Experience ▶
               </button>
             </Link>
