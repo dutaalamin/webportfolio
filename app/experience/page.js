@@ -268,15 +268,15 @@ export default function ExperiencePage() {
         </div>
 
         {/* Navigation Buttons at bottom */}
-        <div className={`flex justify-center gap-4 mt-4 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-          <Link href="/about">
-            <button className="px-4 md:px-6 py-3 bg-white border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
-              ◀ About
+        <div className={`flex justify-center gap-4 mt-4 w-[90%] md:w-[60%] mx-auto transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+          <Link href="/about" className="flex-1">
+            <button className="w-full px-2 py-3 bg-white border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center">
+              ◀ Back
             </button>
           </Link>
-          <Link href="/portfolio">
-            <button className="px-4 md:px-6 py-3 bg-[#f8b800] border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer animate-bounce">
-              Portfolio ▶
+          <Link href="/portfolio" className="flex-1">
+            <button className="w-full px-2 py-3 bg-[#f8b800] border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center">
+              Next ▶
             </button>
           </Link>
         </div>
