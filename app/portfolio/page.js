@@ -17,6 +17,7 @@ import {
 
 export default function ExperiencePage() {
   const [visibleCount, setVisibleCount] = useState(4);
+  const [isVisible, setIsVisible] = useState(false);
 
   const allProjects = portoData.reduce((acc, currentYear) => {
     Object.values(currentYear.sections).forEach(items => {
