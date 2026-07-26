@@ -78,10 +78,6 @@ export const getAboutPages = (isInitialLoad = false) => [
         </p>
       </>
     ),
-    info: (
-      <p className="bg-gray-300/80 border-2 rounded p-2">
-        <span className="underline">Bachelor Thesis Research</span>
-      </p>
-    ),
+    info: null,
   },
 ]
