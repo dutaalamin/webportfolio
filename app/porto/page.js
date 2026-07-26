@@ -120,6 +120,12 @@ export default function ExperiencePage() {
               </button>
             ))}
           </div>
+
+          <Link href="/end">
+            <button className="text-sm md:text-base cursor-pointer text-gray-400 hover:text-black font-pressStart ml-4">
+              Contact ▶
+            </button>
+          </Link>
         </div>
 
         <div className={`relative h-[500px] px-6 py-4 overflow-y-auto text-sm space-y-4 transition-all duration-700 ease-out
