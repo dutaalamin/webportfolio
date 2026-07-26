@@ -38,7 +38,7 @@ export default function AboutPage() {
           &lt; Back
         </button>
       </Link>
-      <BackgroundAudio src="/audio/experience.mp3" volume={1.0} delay={2500} className='fixed top-4 right-10 mr-4'/>
+      <BackgroundAudio src="/audio/experience.mp3" volume={0.15} delay={2500} className='fixed top-4 right-10 mr-4'/>
       
       <Cloud top={10} direction="left" speed={150} opacity={0.2} delay={2725}/>
       <Cloud top={40} direction="right" speed={40} opacity={0.2} delay={2725}/>

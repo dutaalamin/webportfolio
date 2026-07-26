@@ -107,7 +107,7 @@ export default function IntroPage() {
       <Cloud top={180} direction="left" speed={100} opacity={0.2} delay={2100} />
       <Cloud top={230} direction="right" speed={150} opacity={0.3} delay={2100} />
       <Cloud top={100} direction="right" speed={40} opacity={0.3} delay={2100} />   
-      <BackgroundAudio className="absolute pt-18 right-10 z-20" src="/audio/experience.mp3" volume={1.0} delay={2500} />
+      <BackgroundAudio className="absolute pt-18 right-10 z-20" src="/audio/experience.mp3" volume={0.15} delay={2500} />
       
 
       <div className="absolute bottom-0 w-full z-0">

@@ -51,7 +51,7 @@ export default function HomePage() {
     <main className="relative w-full min-h-screen bg-white text-black font-pressStart overflow-hidden">
       <BackgroundAudio
         src="/audio/home.mp3"
-        volume={1.0}
+        volume={0.15}
         delay={0}
         className="fixed right-4 top-4 z-50"
       />

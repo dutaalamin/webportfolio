@@ -81,7 +81,7 @@ export default function ExperiencePage() {
           &lt; Back
         </button>
       </Link>
-      <BackgroundAudio src="/audio/about.mp3" volume={1.0} delay={2500} className='fixed top-4 right-10 mr-4'/>
+      <BackgroundAudio src="/audio/about.mp3" volume={0.15} delay={2500} className='fixed top-4 right-10 mr-4'/>
       
       <Cloud top={0} direction="left" speed={150} opacity={0.2} delay={2725} />
       <Cloud top={25} direction="right" speed={40} opacity={0.2} delay={2725} />
