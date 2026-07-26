@@ -85,11 +85,12 @@ export default function PageTransitionLoader() {
       <div className="z-30 flex flex-col items-center xl:pb-50">
         <div className="mb-4">
           <Image
-            src="/images/dutaloading.png"
-            alt="Character"
-            width={250}
-            height={250}
+            src="/images/bulbasaur.gif"
+            alt="Loading Character"
+            width={150}
+            height={150}
             className={loading ? "animate-bounce" : ""}
+            unoptimized
             priority
           />
         </div>
