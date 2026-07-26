@@ -57,7 +57,7 @@ export default function ExperiencePage() {
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
     { label: 'Experience', href: '/experience' },
-    { label: 'Portfolio', href: '/porto' }
+    { label: 'Portfolio', href: '/portfolio' }
   ];
 
   function getIconForLabel(label) {
@@ -122,8 +122,8 @@ export default function ExperiencePage() {
           </div>
 
           <Link href="/end">
-            <button className="text-sm md:text-base cursor-pointer text-gray-400 hover:text-black font-pressStart ml-4">
-              Contact ▶
+            <button className="text-sm md:text-base cursor-pointer text-[#f8b800] drop-shadow-md hover:text-yellow-500 font-pressStart ml-4 animate-pulse">
+              Let's Talk 💬
             </button>
           </Link>
         </div>

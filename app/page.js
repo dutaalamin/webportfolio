@@ -93,9 +93,9 @@ export default function HomePage() {
                   &gt; Experience
                 </p>
               </Link>
-              <Link href="/porto">
+              <Link href="/portfolio">
                 <p className="text-gray-300 hover:text-black transition-all duration-300 cursor-pointer text-xl sm:text-2xl font-pressStart">
-                  &gt; Porto
+                  &gt; Portfolio
                 </p>
               </Link>
             </div>

@@ -23,7 +23,7 @@ export default function ContactForm() {
 
   return (
     <div className="bg-white/90 border-4 border-black rounded-lg shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-6 max-w-lg w-full font-pressStart relative z-30">
-      <h2 className="text-sm md:text-base text-black mb-6 text-center uppercase">Send a Message</h2>
+      <h2 className="text-sm md:text-base text-black mb-6 text-center uppercase">DROP A MESSAGE 📬</h2>
       <form ref={form} onSubmit={sendEmail} className="space-y-4 text-xs md:text-sm">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex flex-col gap-2 flex-1">

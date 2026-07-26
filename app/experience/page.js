@@ -58,7 +58,7 @@ export default function ExperiencePage() {
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
     { label: 'Experience', href: '/experience' },
-    { label: 'Portfolio', href: '/porto' }
+    { label: 'Portfolio', href: '/portfolio' }
   ];
 
   function getIconForLabel(label) {
@@ -122,7 +122,7 @@ export default function ExperiencePage() {
             ))}
           </div>
 
-          <Link href="/porto">
+          <Link href="/portfolio">
             <button className="text-sm md:text-base cursor-pointer text-gray-400 hover:text-black font-pressStart ml-4">
               Portfolio ▶
             </button>
