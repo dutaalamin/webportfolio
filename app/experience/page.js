@@ -80,10 +80,10 @@ export default function ExperiencePage() {
       ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
       >
         {/* Chapter Select Header */}
-        <div className={`flex items-center justify-between px-2 md:px-4 pt-2 pb-2 transition-all duration-700 ease-out
+        <div className={`flex flex-wrap md:flex-row items-start md:items-center justify-between px-2 md:px-4 pt-4 md:pt-2 pb-2 gap-3 transition-all duration-700 ease-out
           ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
         >
-          <div className="flex gap-3 md:gap-5">
+          <div className="flex flex-wrap gap-2 md:gap-5">
             {experienceData.map((item, index) => (
               <button
                 key={index}
@@ -98,8 +98,8 @@ export default function ExperiencePage() {
             ))}
           </div>
 
-          <Link href="/portfolio">
-            <button className="px-3 py-2 bg-[#f8b800] border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
+          <Link href="/portfolio" className="mr-14 md:mr-0 w-full md:w-auto mt-1 md:mt-0">
+            <button className="w-full md:w-auto px-3 py-2 bg-[#f8b800] border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
               Portfolio ▶
             </button>
           </Link>
