@@ -41,7 +41,21 @@ export default function IntroPage() {
       intervalRef.current = setInterval(() => {
         const currentIndex = indexRef.current
         if (currentIndex < textRef.current.length) {
-          setDisplayedText((prev) => prev + textRef.current[currentIndex])
+          const char = textRef.current[currentIndex];
+          setDisplayedText((prev) => prev + char);
+          if (char !== ' ' && char !== '\n') {
+            if (typeof window !== 'undefined') {
+              if (!window.typeSound) {
+                window.typeSound = new Audio('/audio/typing.wav');
+                window.typeSound.volume = 0.15;
+              }
+              try {
+                const clone = window.typeSound.cloneNode();
+                clone.volume = window.typeSound.volume;
+                clone.play().catch(() => {});
+              } catch (e) {}
+            }
+          }
           indexRef.current += 1
         } else {
           clearInterval(intervalRef.current)
