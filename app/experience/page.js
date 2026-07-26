@@ -83,7 +83,7 @@ export default function ExperiencePage() {
         <div className={`flex flex-wrap md:flex-row items-start md:items-center justify-between px-2 md:px-4 pt-4 md:pt-2 pb-2 gap-3 transition-all duration-700 ease-out
           ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
         >
-          <div className="flex flex-wrap gap-2 md:gap-5 w-full justify-center md:justify-start">
+          <div className="flex flex-wrap gap-2 md:gap-5 w-full md:w-auto justify-center md:justify-start">
             {experienceData.map((item, index) => (
               <button
                 key={index}
@@ -97,6 +97,13 @@ export default function ExperiencePage() {
               </button>
             ))}
           </div>
+
+          {/* Desktop Next Button */}
+          <Link href="/portfolio" className="hidden md:block">
+            <button className="px-3 py-2 bg-[#f8b800] border-4 border-black text-black text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
+              Portfolio ▶
+            </button>
+          </Link>
         </div>
 
         {/* Quest Log Scroll Panel */}
@@ -267,15 +274,15 @@ export default function ExperiencePage() {
           </div>
         </div>
 
-        {/* Navigation Buttons at bottom */}
-        <div className={`flex justify-center gap-4 mt-4 w-[90%] md:w-[60%] mx-auto transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        {/* Navigation Buttons at bottom (Mobile Only) */}
+        <div className={`flex md:hidden justify-center gap-4 mt-4 w-[90%] mx-auto transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <Link href="/about" className="flex-1">
-            <button className="w-full px-2 py-3 bg-white border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center">
+            <button className="w-full px-2 py-3 bg-white border-4 border-black text-black text-[10px] font-pressStart hover:bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center">
               ◀ Back
             </button>
           </Link>
           <Link href="/portfolio" className="flex-1">
-            <button className="w-full px-2 py-3 bg-[#f8b800] border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center">
+            <button className="w-full px-2 py-3 bg-[#f8b800] border-4 border-black text-black text-[10px] font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center">
               Next ▶
             </button>
           </Link>
