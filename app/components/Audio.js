@@ -13,16 +13,37 @@ export default function BackgroundAudio({
   const [isMuted, setIsMuted] = useState(false)
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (audioRef.current) {
-        audioRef.current.volume = volume
-        audioRef.current.play().catch((err) => {
-          console.warn('Autoplay blocked:', err)
-        })
+    const checkPreferenceAndPlay = () => {
+      const startMuted = sessionStorage.getItem('startMuted') === 'true';
+      if (startMuted) {
+        setIsMuted(true);
+        if (audioRef.current) audioRef.current.muted = true;
       }
-    }, delay)
+      
+      if (audioRef.current && !startMuted) {
+        audioRef.current.volume = volume;
+        audioRef.current.play().catch((err) => {
+          console.warn('Autoplay blocked:', err);
+        });
+      }
+    };
 
-    return () => clearTimeout(timeout)
+    const hasStarted = sessionStorage.getItem('hasStarted') === 'true';
+    let timeout;
+    
+    if (hasStarted) {
+      timeout = setTimeout(checkPreferenceAndPlay, delay);
+    } else {
+      const handlePreferenceSet = () => {
+        checkPreferenceAndPlay();
+      };
+      window.addEventListener('audioPreferenceSet', handlePreferenceSet);
+      return () => window.removeEventListener('audioPreferenceSet', handlePreferenceSet);
+    }
+
+    return () => {
+      if (timeout) clearTimeout(timeout);
+    };
   }, [src, volume, delay])
 
   const toggleMute = () => {

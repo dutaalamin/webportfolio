@@ -10,29 +10,63 @@ export default function PageTransitionLoader() {
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
+  const [showPrompt, setShowPrompt] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
     setShow(true);
     setLoading(true);
     setFadeOut(false);
+    setShowPrompt(false);
 
     preloadPage(pathname);
 
+    const isFirstTime = !sessionStorage.getItem('hasStarted');
     const showDuration = 1500;
     const totalDuration = 2000;
 
-    const fadeOutTimer = setTimeout(() => setFadeOut(true), showDuration);
-    const hideTimer = setTimeout(() => {
-      setShow(false);
-      setLoading(false);
-    }, totalDuration);
+    let fadeOutTimer;
+    let hideTimer;
+
+    if (isFirstTime) {
+      // First time: stop loading after 2s and show the prompt
+      const promptTimer = setTimeout(() => {
+        setLoading(false);
+        setShowPrompt(true);
+      }, totalDuration);
+      return () => clearTimeout(promptTimer);
+    } else {
+      // Not first time: just hide automatically
+      fadeOutTimer = setTimeout(() => setFadeOut(true), showDuration);
+      hideTimer = setTimeout(() => {
+        setShow(false);
+        setLoading(false);
+      }, totalDuration);
+    }
 
     return () => {
       clearTimeout(fadeOutTimer);
       clearTimeout(hideTimer);
     };
   }, [pathname]);
+
+  const handleStart = (playMusic) => {
+    sessionStorage.setItem('hasStarted', 'true');
+    if (!playMusic) {
+      sessionStorage.setItem('startMuted', 'true');
+    } else {
+      sessionStorage.removeItem('startMuted');
+    }
+    
+    // Notify Audio component
+    window.dispatchEvent(new CustomEvent('audioPreferenceSet'));
+
+    setFadeOut(true);
+    setTimeout(() => {
+      setShow(false);
+      setShowPrompt(false);
+    }, 500);
+  };
 
   if (!show) return null;
 
@@ -46,8 +80,6 @@ export default function PageTransitionLoader() {
       <Cloud top={60} direction="right" speed={20} opacity={0.3} delay={200} />
       <Cloud top={110} direction="left" speed={20} opacity={0.3} delay={200} />
 
-
-      {/* Progress Container */}
       <div className="z-30 flex flex-col items-center xl:pb-50">
         <div className="mb-4">
           <Image
@@ -55,19 +87,41 @@ export default function PageTransitionLoader() {
             alt="Character"
             width={250}
             height={250}
-            className="animate-bounce"
+            className={loading ? "animate-bounce" : ""}
             priority
           />
         </div>
-        <div className="text-center">
-          <p className="text-lg font-bold text-gray-700 animate-pulse">Loading</p>
-          <div className="w-64 max-w-[80vw] h-3 bg-gray-300 rounded-full mt-2 overflow-hidden relative">
-            <div className="absolute inset-0 w-full h-full animate-progress bg-gradient-to-r from-blue-900 to-blue-300" />
+        
+        {loading && (
+          <div className="text-center">
+            <p className="text-lg font-bold text-gray-700 animate-pulse font-pressStart mt-4">LOADING</p>
+            <div className="w-64 max-w-[80vw] h-3 bg-gray-300 rounded-full mt-4 overflow-hidden relative">
+              <div className="absolute inset-0 w-full h-full animate-progress bg-gradient-to-r from-blue-900 to-blue-300" />
+            </div>
           </div>
-        </div>
+        )}
+
+        {showPrompt && (
+          <div className="text-center mt-4 bg-white p-6 rounded-xl border-4 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)]">
+            <p className="text-sm md:text-base font-bold text-black mb-6 font-pressStart leading-relaxed">PLAY BACKGROUND<br/>MUSIC?</p>
+            <div className="flex justify-center gap-6">
+              <button
+                onClick={() => handleStart(true)}
+                className="px-6 py-3 bg-green-500 text-white font-pressStart text-sm border-2 border-black rounded shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:bg-green-400 hover:translate-y-1 hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] transition-all cursor-pointer"
+              >
+                YES
+              </button>
+              <button
+                onClick={() => handleStart(false)}
+                className="px-6 py-3 bg-red-500 text-white font-pressStart text-sm border-2 border-black rounded shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:bg-red-400 hover:translate-y-1 hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] transition-all cursor-pointer"
+              >
+                NO
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* Ground */}
       <div className="absolute bottom-0 w-full z-20">
         <Image
           src="/images/ground.png"
