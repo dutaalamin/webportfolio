@@ -51,6 +51,10 @@ export default function BackgroundAudio({
       const nextMuted = !isMuted;
       audioRef.current.muted = nextMuted;
       
+      if (typeof window !== 'undefined') {
+        window.startMuted = nextMuted;
+      }
+      
       // If we are unmuting and the audio is paused (because they clicked NO initially),
       // we need to explicitly start playing it.
       if (!nextMuted && audioRef.current.paused) {
