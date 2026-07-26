@@ -8,6 +8,7 @@ import BackgroundAudio from './components/Audio'
 import SocialLinks from './components/SocialLinks';
 import HamburgerMenu from './components/HamburgerMenu';
 import FarmAnimals from './components/FarmAnimals';
+import RoleRotate from './components/RoleRotate';
 
 import {
   DocumentIcon,
@@ -64,9 +65,7 @@ export default function HomePage() {
       {/* Content */}
       <div className={`relative z-5 max-w-7xl mx-auto pt-28 px-6 grid gap-8 grid-cols-1 lg:grid-cols-3 ${fadeClass(900)}`}>
         <div className="flex flex-col gap-2">
-          <p className="text-2xl lg:text-3xl xl:text-5xl transition-all duration-500">
-            SOFTWARE ENGINEER
-          </p>
+          <RoleRotate />
           <SocialLinks links={socialLinks} />
         </div>
         

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 
-const roles = ['SYSTEM ANALYST', 'PROJECT MANAGEMENT', 'UI/UX DESIGNER']
+const roles = ['DUTA ALAMIN', 'SOFTWARE ENGINEER']
 
 export default function RoleRotate() {
   const [index, setIndex] = useState(0)
