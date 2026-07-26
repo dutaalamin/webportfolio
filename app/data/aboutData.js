@@ -4,6 +4,7 @@ import Image from 'next/image'
 import RandomName from '../components/RandomName'
 import SocialLinks from '../components/SocialLinks'
 import Typewriter from '../components/Typewriter'
+import DelayedFadeIn from '../components/DelayedFadeIn'
 
 const socialLinksForAbout = [
   {
@@ -48,11 +49,13 @@ export const aboutPages = [
       </>
     ),
     info: (
-      <div className="bg-gray-300/80 border-2 rounded p-2">
-        <ul>
-          <li>🎯 Interests: Software Engineering, Automation, ERP Development, AI & Machine Learning, System Integration</li>
-        </ul>
-      </div>
+      <DelayedFadeIn delay={14000}>
+        <div className="bg-gray-300/80 border-2 rounded p-2">
+          <ul>
+            <li>🎯 Interests: Software Engineering, Automation, ERP Development, AI & Machine Learning, System Integration</li>
+          </ul>
+        </div>
+      </DelayedFadeIn>
     ),
   },
 
