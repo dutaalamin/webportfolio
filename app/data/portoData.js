@@ -101,8 +101,7 @@ export const portoData = [
             }
           ],
           links: [
-            { label: 'Project', url: 'https://casavastore.vercel.app/' },
-            { label: 'GitHub', url: 'https://github.com/dutaalamin/ecommerce' }
+            { label: 'Project', url: 'https://casavastore.vercel.app/' }
           ],
           skills: ['Payment Integration', 'Authentication'],
           tools: ['React', 'Firebase', 'Stripe API', 'Redux']
@@ -134,8 +133,7 @@ export const portoData = [
             }
           ],
           links: [
-            { label: 'Project', url: 'https://screenv.vercel.app/' },
-            { label: 'GitHub', url: 'https://github.com/dutaalamin/screenv' }
+            { label: 'Project', url: 'https://screenv.vercel.app/' }
           ],
           skills: ['API Integration', 'State Management'],
           tools: ['React', 'TMDB API', 'Tailwind CSS', 'Context API']
@@ -174,8 +172,7 @@ export const portoData = [
             }
           ],
           links: [
-            { label: 'Project', url: 'https://fishytype.vercel.app/' },
-            { label: 'GitHub', url: 'https://github.com/dutaalamin/FishyType' }
+            { label: 'Project', url: 'https://fishytype.vercel.app/' }
           ],
           skills: ['State Management', 'TypeScript'],
           tools: ['Next.js', 'Tailwind CSS', 'Zustand']

@@ -178,23 +178,19 @@ export default function ExperiencePage() {
                                 </li>
                               ))}
                               {item.links?.length > 0 && (
-                                <div className="pt-2 text-black font-bold">
-                                  <strong>Links:</strong>
-                                  <ul className="list-disc ml-5 mt-1 space-y-1">
-                                    {item.links.map((linkObj, index) => (
-                                      <li key={index}>
-                                        <a
-                                          href={linkObj.url}
-                                          className="text-blue-500 underline hover:text-blue-700 transition-colors"
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                        >
-                                          {getIconForLabel(linkObj.label)}
-                                          {linkObj.label}
-                                        </a>
-                                      </li>
-                                    ))}
-                                  </ul>
+                                <div className="pt-4 pb-2">
+                                  {item.links.map((linkObj, index) => (
+                                    <a
+                                      key={index}
+                                      href={linkObj.url}
+                                      className="inline-flex items-center gap-2 px-4 py-2 bg-[#f8b800] border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer"
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      <GlobeAltIcon className="w-4 h-4" />
+                                      VISIT SITE ▶
+                                    </a>
+                                  ))}
                                 </div>
                               )}
                             </ul>
