@@ -121,7 +121,7 @@ export default function ExperiencePage() {
             ))}
           </div>
 
-          <Link href="/end">
+          <Link href="/message">
             <button className="text-sm md:text-base cursor-pointer text-[#f8b800] drop-shadow-md hover:text-yellow-500 font-pressStart ml-4 animate-pulse">
               Let's Talk 💬
             </button>
