@@ -8,14 +8,9 @@ import HamburgerMenu from '../components/HamburgerMenu';
 import Cloud from '../components/Cloud';
 import BackgroundAudio from '../components/Audio';
 import FarmAnimals from '../components/FarmAnimals';
-import {
-  DocumentIcon,
-  GlobeAltIcon,
-  CodeBracketIcon,
-  LinkIcon
-} from '@heroicons/react/24/solid'
+import TradingCard from '../components/TradingCard';
 
-export default function ExperiencePage() {
+export default function PortfolioPage() {
   const [visibleCount, setVisibleCount] = useState(4);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -43,17 +38,6 @@ export default function ExperiencePage() {
     { label: 'Experience', href: '/experience' },
     { label: 'Portfolio', href: '/portfolio' }
   ];
-
-  function getIconForLabel(label) {
-  const lower = label.toLowerCase()
-
-  if (lower.includes('certificate')) return <DocumentIcon className="w-4 h-4 inline-block mr-1" />
-  if (lower.includes('project') || lower.includes('demo') || lower.includes('preview')) return <GlobeAltIcon className="w-4 h-4 inline-block mr-1" />
-  if (lower.includes('github')) return <CodeBracketIcon className="w-4 h-4 inline-block mr-1" />
-  
-  // default icon
-  return <LinkIcon className="w-4 h-4 inline-block mr-1" />
-}
 
   return (
     <div className="relative w-screen h-screen bg-white flex items-center justify-center overflow-hidden">
@@ -93,77 +77,21 @@ export default function ExperiencePage() {
 
       <FarmAnimals className={`transition-all duration-700 ease-out ${isVisible ? 'opacity-100' : 'opacity-0'}`} />
 
-      <div className={`relative z-20 w-[90%] max-w-screen-md flex flex-col items-stretch bg-transparent overflow-hidden transition-all duration-700 ease-out transform
+      <div className={`relative z-20 w-[95%] max-w-screen-lg flex flex-col items-stretch bg-transparent overflow-hidden transition-all duration-700 ease-out transform
       ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
       >
-        <div className={`relative h-[500px] px-6 py-4 overflow-y-auto text-sm space-y-4 transition-all duration-700 ease-out
+        {/* Header */}
+        <div className={`text-center pt-2 pb-4 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+          <h1 className="font-pressStart text-black text-base md:text-lg drop-shadow-sm">MY COLLECTION</h1>
+          <p className="text-gray-500 font-sans text-[10px] md:text-xs mt-1">{allProjects.length} cards • tap to flip</p>
+        </div>
+
+        <div className={`relative h-[450px] md:h-[500px] px-2 md:px-6 py-2 overflow-y-auto transition-all duration-700 ease-out
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8 mb-8 p-2">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-8 justify-items-center">
             {visibleProjects.map((item, index) => (
-              <div key={index} className="flex flex-col bg-white/70 backdrop-blur-md border-2 border-black rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-5 hover:-translate-y-2 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all">
-                {/* Image Placeholder */}
-                <div className="w-full h-40 md:h-48 bg-white/50 border-2 border-black rounded-xl mb-4 flex items-center justify-center overflow-hidden relative group">
-                  {/* Using standard img for easier onError fallback handling */}
-                  <img 
-                    src={`/images/projects/${item.title.toLowerCase()}.png`} 
-                    alt={item.title} 
-                    className="object-cover w-full h-full"
-                    onError={(e) => { e.target.src = 'https://placehold.co/600x400/eeeeee/000000?font=press-start-2p&text=NO+IMAGE' }}
-                  />
-                </div>
-
-                <h1 className='font-pressStart text-black text-sm md:text-base drop-shadow-sm mb-2 uppercase'>{item.title}</h1>
-                <p className="text-black font-sans font-bold text-xs md:text-sm mb-1">{item.position}</p>
-                <p className="text-gray-600 font-sans font-semibold text-[10px] md:text-xs mb-4">{item.date}</p>
-                
-                <div className="flex-grow space-y-2 mb-6">
-                  {item.description.map((desc, i) => (
-                    <p key={i} className="text-gray-800 font-sans text-xs md:text-sm font-medium leading-relaxed">
-                      {desc.subdesc}
-                    </p>
-                  ))}
-                </div>
-
-                <div className="mt-auto space-y-3">
-                  {item.skills && (
-                    <div className="flex flex-wrap gap-2">
-                      {item.skills.map((skill, i) => (
-                        <span key={i} className="px-2 py-1 bg-blue-100/80 border border-black rounded-lg text-black text-[10px] font-sans font-bold uppercase tracking-wider">
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                  
-                  {item.tools && (
-                    <div className="flex flex-wrap gap-2">
-                      {item.tools.map((tool, i) => (
-                        <span key={i} className="px-2 py-1 bg-green-100/80 border border-black rounded-lg text-black text-[10px] font-sans font-bold uppercase tracking-wider">
-                          {tool}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
-                  {item.links?.length > 0 && (
-                    <div className="pt-4">
-                      {item.links.map((linkObj, linkIdx) => (
-                        <a
-                          key={linkIdx}
-                          href={linkObj.url}
-                          className="flex items-center justify-center w-full gap-2 px-4 py-3 bg-[#f8b800] border-2 border-black rounded-xl text-black text-[10px] font-pressStart hover:bg-yellow-400 active:translate-y-1 active:shadow-none transition-all cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <GlobeAltIcon className="w-4 h-4" />
-                          VISIT SITE ▶
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
+              <TradingCard key={index} item={item} index={index} />
             ))}
           </div>
 
@@ -171,9 +99,9 @@ export default function ExperiencePage() {
             <div className="flex justify-center pb-8 pt-4">
               <button
                 onClick={handleViewMore}
-                className="px-6 py-3 bg-white border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-gray-200 active:translate-y-1 active:shadow-none transition-all cursor-pointer shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] animate-bounce"
+                className="px-6 py-3 bg-[#f8b800] border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-yellow-400 active:translate-y-1 active:shadow-none transition-all cursor-pointer shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] animate-bounce"
               >
-                VIEW MORE PROJECTS ▼
+                OPEN MORE PACKS ▼
               </button>
             </div>
           )}
