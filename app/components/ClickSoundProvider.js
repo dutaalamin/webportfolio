@@ -6,15 +6,6 @@ export default function ClickSoundProvider({ children }) {
   const audioContextRef = useRef(null);
 
   useEffect(() => {
-    // Determine if user is on a touch device (mobile/tablet)
-    const isTouchDevice = 
-      ('ontouchstart' in window) || 
-      (navigator.maxTouchPoints > 0) ||
-      (navigator.msMaxTouchPoints > 0);
-    
-    // Only enable sound for PC (non-touch devices)
-    if (isTouchDevice) return;
-
     const initAudio = () => {
       if (!audioContextRef.current) {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
