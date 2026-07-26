@@ -73,13 +73,13 @@ export default function HomePage() {
         <div className="lg:pl-20 lg:col-span-2 mt-4 lg:mt-0">
           <div className="p-8 inline-block">
             <p className="text-xl sm:text-2xl xl:text-4xl mb-4 text-black min-h-[32px] xl:min-h-[40px]">
-              <Typewriter text="Welcome, Player!" delay={900} speed={40} />
+              <Typewriter text="Welcome, Player!" delay={2500} speed={40} />
             </p>
             <p className="text-sm sm:text-lg xl:text-2xl pb-6 text-black leading-relaxed min-h-[60px] xl:min-h-[80px] whitespace-pre-wrap">
-              <Typewriter text={"Ready to embark on a journey\nthrough the quests?"} delay={1800} speed={30} />
+              <Typewriter text={"Ready to embark on a journey\nthrough the quests?"} delay={3400} speed={30} />
             </p>
             <p className="text-sm sm:text-lg xl:text-2xl mb-8 text-black leading-relaxed min-h-[60px] xl:min-h-[80px] whitespace-pre-wrap">
-              <Typewriter text={"Choose your stage and begin\nthe adventure!"} delay={3000} speed={30} />
+              <Typewriter text={"Choose your stage and begin\nthe adventure!"} delay={4600} speed={30} />
             </p>
             
             <div className="space-y-6 mt-4">

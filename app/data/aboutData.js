@@ -41,7 +41,7 @@ export const aboutPages = [
         <p className="pt-4 whitespace-pre-wrap leading-relaxed">
           <Typewriter 
             text={`I’m a Software Engineer with hands-on experience in ERP development, IT business systems, and supply chain processes. I currently work as a Factory Automation Engineer, bridging software, operations, and industrial systems to build reliable, efficient solutions.\n\nExperienced in building efficient systems, solving problems with tech, and delivering projects that align with business needs and operational objectives.`} 
-            delay={500} 
+            delay={2500} 
             speed={30} 
           />
         </p>
