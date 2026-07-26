@@ -48,9 +48,17 @@ export default function BackgroundAudio({
 
   const toggleMute = () => {
     if (audioRef.current) {
-      audioRef.current.muted = !isMuted
+      const nextMuted = !isMuted;
+      audioRef.current.muted = nextMuted;
+      
+      // If we are unmuting and the audio is paused (because they clicked NO initially),
+      // we need to explicitly start playing it.
+      if (!nextMuted && audioRef.current.paused) {
+        audioRef.current.volume = volume;
+        audioRef.current.play().catch(() => {});
+      }
     }
-    setIsMuted(!isMuted)
+    setIsMuted(!isMuted);
   }
 
   return (
