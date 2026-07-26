@@ -123,7 +123,7 @@ export default function ExperiencePage() {
           </div>
 
           <Link href="/portfolio">
-            <button className="text-sm md:text-base cursor-pointer text-gray-400 hover:text-black font-pressStart ml-4">
+            <button className="px-3 py-2 bg-[#f8b800] border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer ml-2 md:ml-4">
               Portfolio ▶
             </button>
           </Link>

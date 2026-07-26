@@ -74,7 +74,7 @@ export default function BackgroundAudio({
         aria-label={isMuted ? 'Unmute' : 'Mute'}
       >
         {isMuted ? (
-          <SpeakerXMarkIcon className="w-8 h-8 text-black" />
+          <SpeakerXMarkIcon className="w-8 h-8 text-[#f8b800]" />
         ) : (
           <SpeakerWaveIcon className="w-8 h-8 text-[#f8b800]" />
         )}
