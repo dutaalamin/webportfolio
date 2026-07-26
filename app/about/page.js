@@ -63,7 +63,7 @@ export default function AboutPage() {
 
       {/* Main Container */}
       <div
-        className={`relative z-20 w-[90%] max-w-screen-md h-[550px] bg-transparent p-6 flex flex-col overflow-hidden transition-all duration-700 ease-out transform
+        className={`relative z-20 w-[90%] max-w-screen-md min-h-[550px] h-auto bg-transparent p-6 flex flex-col transition-all duration-700 ease-out transform
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
       >
         {/* Top Navigation */}
@@ -96,7 +96,7 @@ export default function AboutPage() {
         )}
 
         {/* Scrollable Content */}
-        <div className="overflow-y-auto mt-12 flex-1 pr-2">
+        <div className="mt-12 flex-1 pr-2">
           <div className={`flex flex-col sm:flex-row ${current.photoPosition === 'right' ? 'sm:flex-row-reverse' : ''} items-start gap-6`}>
             {current.photoSrc && (
               <Image
