@@ -95,13 +95,25 @@ export default function PortfolioPage() {
             ))}
           </div>
 
-          {visibleCount < allProjects.length && (
+          {visibleCount < allProjects.length ? (
             <div className="flex justify-center pb-8 pt-4">
               <button
                 onClick={handleViewMore}
                 className="px-6 py-3 bg-[#f8b800] border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-yellow-400 active:translate-y-1 active:shadow-none transition-all cursor-pointer shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] animate-bounce"
               >
                 OPEN MORE PACKS ▼
+              </button>
+            </div>
+          ) : (
+            <div className="flex justify-center pb-8 pt-4">
+              <button
+                onClick={() => {
+                  setVisibleCount(4);
+                  document.querySelector('.overflow-y-auto').scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="px-6 py-3 bg-white border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-gray-200 active:translate-y-1 active:shadow-none transition-all cursor-pointer shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+              >
+                SHOW LESS PACKS ▲
               </button>
             </div>
           )}
