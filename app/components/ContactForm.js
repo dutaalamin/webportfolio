@@ -28,16 +28,16 @@ export default function ContactForm() {
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex flex-col gap-2 flex-1">
             <label className="text-[10px] text-gray-500 uppercase">Your Name</label>
-            <input type="text" name="user_name" required className="border-2 border-black p-2 bg-gray-50 focus:bg-white outline-none focus:border-[#f8b800]" placeholder="Name" />
+            <input type="text" name="user_name" required className="w-full border-2 border-black p-2 bg-gray-50 focus:bg-white outline-none focus:border-[#f8b800]" placeholder="Name" />
           </div>
           <div className="flex flex-col gap-2 flex-1">
             <label className="text-[10px] text-gray-500 uppercase">Email</label>
-            <input type="email" name="user_email" required className="border-2 border-black p-2 bg-gray-50 focus:bg-white outline-none focus:border-[#f8b800]" placeholder="Email" />
+            <input type="email" name="user_email" required className="w-full border-2 border-black p-2 bg-gray-50 focus:bg-white outline-none focus:border-[#f8b800]" placeholder="Email" />
           </div>
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-[10px] text-gray-500 uppercase">Message</label>
-          <textarea name="message" required rows="4" className="border-2 border-black p-2 bg-gray-50 focus:bg-white outline-none focus:border-[#f8b800] resize-none" placeholder="What's on your mind?"></textarea>
+          <textarea name="message" required rows="4" className="w-full border-2 border-black p-2 bg-gray-50 focus:bg-white outline-none focus:border-[#f8b800] resize-none" placeholder="What's on your mind?"></textarea>
         </div>
         <button type="submit" className="w-full bg-[#f8b800] border-2 border-black text-black font-bold py-3 mt-4 hover:bg-yellow-400 active:translate-y-1 transition-all cursor-pointer">
           SEND
