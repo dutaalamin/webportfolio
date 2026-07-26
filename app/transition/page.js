@@ -131,9 +131,9 @@ export default function IntroPage() {
       <div className="relative z-10 flex flex-col items-center justify-center h-full px-6">
         <button
           onClick={handleGoHome}
-          className="absolute top-5 left-5 px-6 py-2 rounded-xl cursor-pointer hover:bg-gray-200"
+          className="hidden md:flex absolute top-6 left-6 z-50 px-4 py-2 bg-white border-4 border-black text-black text-xs font-pressStart hover:bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer"
         >
-          Back to Home
+          &lt; Back
         </button>
 
         <div className="flex flex-col md:flex-row items-center md:items-end justify-center gap-6 md:gap-10 max-w-5xl w-full mx-auto pb-20 md:pb-40">
@@ -151,9 +151,7 @@ export default function IntroPage() {
           {/* Dialogue Box */}
           <div
             onClick={handleTextClick}
-            className={`relative p-6 md:p-10 w-full min-h-[200px] ${
-              isLocked ? 'pointer-events-none' : 'pointer-events-auto cursor-pointer'
-            }`}
+            className="relative p-6 md:p-10 w-full min-h-[200px] cursor-pointer"
           >
             <p className="whitespace-pre-wrap text-black text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed font-pressStart">
               {displayedText}
@@ -164,7 +162,7 @@ export default function IntroPage() {
             {isFinished && (
               <button 
                 onClick={handleSkip} 
-                className="absolute bottom-4 right-6 text-gray-500 text-sm md:text-base animate-pulse hover:text-black transition-colors cursor-pointer font-pressStart"
+                className="absolute bottom-4 right-6 px-3 py-2 bg-[#f8b800] border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer animate-pulse"
               >
                 Next ▶
               </button>
