@@ -10,19 +10,29 @@ export default function HamburgerMenu({ menuItems = [] }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const pathname = usePathname();
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setIsOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
     <>
       {/* Tombol Hamburger */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed z-50 top-4 right-4 w-12 h-12 md:hidden cursor-pointer active:scale-95 transition-transform"
+        className="fixed z-50 top-4 right-4 w-10 h-10 md:w-12 md:h-12 cursor-pointer active:scale-95 transition-transform"
         aria-label="Open Menu"
       >
         <Image
           src="/images/hamburger.png"
           alt="Hamburger"
           fill
-          className="object-contain drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]"
+          className="object-contain drop-shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:drop-shadow-[3px_3px_0px_rgba(248,184,0,1)] transition-all"
           priority
         />
       </button>
