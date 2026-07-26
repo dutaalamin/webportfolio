@@ -49,11 +49,14 @@ export default function IntroPage() {
                 window.typeSound = new Audio('/audio/typing.wav');
                 window.typeSound.volume = 0.15;
               }
-              try {
-                const clone = window.typeSound.cloneNode();
-                clone.volume = window.typeSound.volume;
-                clone.play().catch(() => {});
-              } catch (e) {}
+              const now = Date.now();
+              if (!window.lastPlayTime || now - window.lastPlayTime > 80) {
+                try {
+                  window.typeSound.currentTime = 0;
+                  window.typeSound.play().catch(() => {});
+                  window.lastPlayTime = now;
+                } catch (e) {}
+              }
             }
           }
           indexRef.current += 1

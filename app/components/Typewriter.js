@@ -16,15 +16,18 @@ export default function Typewriter({ text, speed = 25, delay = 0 }) {
       audioRef.current.volume = 0.15; // Set a subtle volume
     }
 
+    let lastPlayTime = 0;
     const playClick = () => {
       if (!audioRef.current) return;
-      try {
-        // Clone the node so rapid firing doesn't cut off or fail
-        const clickSound = audioRef.current.cloneNode();
-        clickSound.volume = audioRef.current.volume;
-        clickSound.play().catch(() => {});
-      } catch (e) {
-        // Ignore errors
+      const now = Date.now();
+      if (now - lastPlayTime > 80) { // Throttle audio to prevent mobile jank
+        try {
+          audioRef.current.currentTime = 0;
+          audioRef.current.play().catch(() => {});
+          lastPlayTime = now;
+        } catch (e) {
+          // Ignore errors
+        }
       }
     };
 
