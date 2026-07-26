@@ -87,8 +87,8 @@ export default function PageTransitionLoader() {
           <Image
             src="/images/bulbasaur.gif"
             alt="Loading Character"
-            width={150}
-            height={150}
+            width={80}
+            height={80}
             className={loading ? "animate-bounce" : ""}
             unoptimized
             priority
