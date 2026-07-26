@@ -18,9 +18,12 @@ export default function Typewriter({ text, speed = 25, delay = 0 }) {
 
     let lastPlayTime = 0;
     const playClick = () => {
-      if (!audioRef.current) return;
+      // Disable typing sound on mobile devices to prevent lag
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+      if (isMobile || !audioRef.current) return;
+      
       const now = Date.now();
-      if (now - lastPlayTime > 80) { // Throttle audio to prevent mobile jank
+      if (now - lastPlayTime > 80) { // Throttle audio to prevent jank
         try {
           audioRef.current.currentTime = 0;
           audioRef.current.play().catch(() => {});

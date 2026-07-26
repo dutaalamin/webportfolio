@@ -43,7 +43,9 @@ export default function IntroPage() {
         if (currentIndex < textRef.current.length) {
           const char = textRef.current[currentIndex];
           setDisplayedText((prev) => prev + char);
-          if (char !== ' ' && char !== '\n') {
+          
+          const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+          if (char !== ' ' && char !== '\n' && !isMobile) {
             if (typeof window !== 'undefined') {
               if (!window.typeSound) {
                 window.typeSound = new Audio('/audio/typing.wav');
