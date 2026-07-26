@@ -81,9 +81,9 @@ export default function ExperiencePage() {
           &lt; Back
         </button>
       </Link>
-      {/* Message Button (Floating) */}
+      {/* Message Button (Top Right) */}
       <Link href="/message">
-        <button className="fixed bottom-20 right-6 md:right-10 z-50 px-4 py-3 bg-[#f8b800] border-4 border-black text-black font-pressStart text-[10px] md:text-xs hover:bg-yellow-400 hover:scale-105 active:translate-y-1 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] animate-bounce cursor-pointer">
+        <button className="hidden md:flex absolute top-6 right-6 z-50 px-4 py-2 bg-[#f8b800] border-4 border-black text-black text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
           MESSAGE
         </button>
       </Link>
