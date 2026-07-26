@@ -21,7 +21,7 @@ export default function PageTransitionLoader() {
 
     preloadPage(pathname);
 
-    const isFirstTime = !sessionStorage.getItem('hasStarted');
+    const isFirstTime = typeof window !== 'undefined' && !window.hasStarted;
     const showDuration = 1500;
     const totalDuration = 2000;
 
@@ -51,11 +51,13 @@ export default function PageTransitionLoader() {
   }, [pathname]);
 
   const handleStart = (playMusic) => {
-    sessionStorage.setItem('hasStarted', 'true');
-    if (!playMusic) {
-      sessionStorage.setItem('startMuted', 'true');
-    } else {
-      sessionStorage.removeItem('startMuted');
+    if (typeof window !== 'undefined') {
+      window.hasStarted = true;
+      if (!playMusic) {
+        window.startMuted = true;
+      } else {
+        window.startMuted = false;
+      }
     }
     
     // Notify Audio component

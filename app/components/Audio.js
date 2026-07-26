@@ -14,7 +14,7 @@ export default function BackgroundAudio({
 
   useEffect(() => {
     const checkPreferenceAndPlay = () => {
-      const startMuted = sessionStorage.getItem('startMuted') === 'true';
+      const startMuted = typeof window !== 'undefined' && window.startMuted === true;
       if (startMuted) {
         setIsMuted(true);
         if (audioRef.current) audioRef.current.muted = true;
@@ -28,7 +28,7 @@ export default function BackgroundAudio({
       }
     };
 
-    const hasStarted = sessionStorage.getItem('hasStarted') === 'true';
+    const hasStarted = typeof window !== 'undefined' && window.hasStarted === true;
     let timeout;
     
     if (hasStarted) {
