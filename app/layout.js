@@ -17,12 +17,16 @@ export const metadata = {
   },
 }
 
+import ClickSoundProvider from './components/ClickSoundProvider'
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={pressStart.variable}>
       <body>
-        <Loader />
-        {children}
+        <ClickSoundProvider>
+          <Loader />
+          {children}
+        </ClickSoundProvider>
       </body>
     </html>
   )
