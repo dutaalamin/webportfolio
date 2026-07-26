@@ -136,85 +136,75 @@ export default function ExperiencePage() {
 
 
           {Object.entries(current.sections).map(([sectionTitle, items], idx) => (
-            <div key={idx} className="mb-4 bg-transparent overflow-hidden">
-              <button
-                className="w-full text-left py-2 text-black font-bold flex justify-between items-center cursor-pointer"
-                onClick={() => toggleSection(sectionTitle)}
-              >
-                <span>{sectionTitle}</span>
-                <span>{openSections[sectionTitle] ? '▾' : '▸'}</span>
-              </button>
+            <div key={idx} className="mb-8 bg-transparent">
+              <h2 className="text-black font-pressStart text-sm mb-6 pb-2 border-b-4 border-black inline-block">{sectionTitle}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+                {items.map((item, index) => (
+                  <div key={index} className="flex flex-col bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-5 hover:-translate-y-2 hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] transition-all">
+                    {/* Image Placeholder */}
+                    <div className="w-full h-40 bg-gray-200 border-4 border-black mb-4 flex items-center justify-center overflow-hidden relative group">
+                      {/* Using standard img for easier onError fallback handling */}
+                      <img 
+                        src={`/images/projects/${item.title.toLowerCase()}.png`} 
+                        alt={item.title} 
+                        className="object-cover w-full h-full"
+                        onError={(e) => { e.target.src = 'https://placehold.co/600x400/eeeeee/000000?font=press-start-2p&text=NO+IMAGE' }}
+                      />
+                    </div>
 
-              {openSections[sectionTitle] && (
-                <ul className="divide-y divide-gray-200">
-                  {items.map((item, index) => {
-                    const key = `${sectionTitle}-${index}`;
-                    const isOpen = openItems[key];
+                    <h1 className='font-pressStart text-black text-xs md:text-sm drop-shadow-md mb-2 uppercase'>{item.title}</h1>
+                    <p className="text-black font-pressStart text-[8px] md:text-[10px] mb-1">{item.position}</p>
+                    <p className="text-gray-500 font-pressStart text-[8px] mb-4">({item.date})</p>
+                    
+                    <div className="flex-grow space-y-2 mb-6">
+                      {item.description.map((desc, i) => (
+                        <p key={i} className="text-black text-xs font-bold leading-relaxed">
+                          {desc.subdesc}
+                        </p>
+                      ))}
+                    </div>
 
-                    return (
-                      <li key={key} className="px-4 py-3">
-                        <button
-                          onClick={() => toggleItem(key)}
-                          className="w-full text-left font-medium flex justify-between items-center"
-                        >
-                          <div className="flex gap-4">
-                            <span>
-                              <h1 className='font-bold pb-1 text-black text-sm drop-shadow-md'>{item.title}</h1>
-                              <p className="text-black font-bold text-xs">{item.position}</p>
-                              <p className="text-gray-800 font-bold text-xs">({item.date})</p>
-                              <p className="italic text-gray-800 font-bold text-xs">{item.location}</p>
+                    <div className="mt-auto space-y-3">
+                      {item.skills && (
+                        <div className="flex flex-wrap gap-2">
+                          {item.skills.map((skill, i) => (
+                            <span key={i} className="px-2 py-1 bg-blue-100 border-2 border-black text-black text-[8px] font-pressStart uppercase">
+                              {skill}
                             </span>
-                          </div>
-                          <span>{isOpen ? '▾' : '▸'}</span>
-                        </button>
+                          ))}
+                        </div>
+                      )}
+                      
+                      {item.tools && (
+                        <div className="flex flex-wrap gap-2">
+                          {item.tools.map((tool, i) => (
+                            <span key={i} className="px-2 py-1 bg-green-100 border-2 border-black text-black text-[8px] font-pressStart uppercase">
+                              {tool}
+                            </span>
+                          ))}
+                        </div>
+                      )}
 
-                        {isOpen && (
-                          <div className="mt-2 text-sm space-y-2 pt-4">
-                            <ul className="list-disc list-inside space-y-6 text-xs">
-                              {item.description.map((desc, i) => (
-                                <li key={i} className="text-black leading-relaxed">
-                                  <span className="font-bold text-black">{desc.subtitle}</span>
-                                  <p className="pt-2 text-black font-bold">{desc.subdesc}</p>
-                                </li>
-                              ))}
-                              {item.links?.length > 0 && (
-                                <div className="pt-4 pb-2">
-                                  {item.links.map((linkObj, index) => (
-                                    <a
-                                      key={index}
-                                      href={linkObj.url}
-                                      className="inline-flex items-center gap-2 px-4 py-2 bg-[#f8b800] border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer"
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                    >
-                                      <GlobeAltIcon className="w-4 h-4" />
-                                      VISIT SITE ▶
-                                    </a>
-                                  ))}
-                                </div>
-                              )}
-                            </ul>
-
-                            {item.skills && (
-                              <div className='text-xs border-2 border-black rounded-xl p-3'>
-                                <strong className="text-black">🎮 Skills:</strong>
-                                <p className='text-black font-bold pt-1'>{item.skills.join(', ')}</p>
-                              </div>
-                            )}
-
-                            {item.tools && (
-                              <div className='text-xs border-2 border-black rounded-xl p-3 mt-2'>
-                                <strong className="text-black">⚒ Tools:</strong> 
-                                <p className='text-black font-bold pt-1'>{item.tools.join(', ')}</p>
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
+                      {item.links?.length > 0 && (
+                        <div className="pt-4">
+                          {item.links.map((linkObj, linkIdx) => (
+                            <a
+                              key={linkIdx}
+                              href={linkObj.url}
+                              className="flex items-center justify-center w-full gap-2 px-4 py-3 bg-[#f8b800] border-4 border-black text-black text-[10px] font-pressStart hover:bg-yellow-400 active:translate-y-1 active:shadow-none transition-all cursor-pointer shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <GlobeAltIcon className="w-4 h-4" />
+                              VISIT SITE ▶
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>
