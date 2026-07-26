@@ -34,14 +34,35 @@ body {
   animation: cloud-move-right 100s linear infinite;
 }
 
-/* Character */
-@keyframes charMove {
-  0% { transform: translateX(-100px); }
-  50% { transform: translateX(50px); }
-  100% { transform: translateX(-100px); }
+/* Character Running */
+@keyframes runBackAndForth {
+  0% { transform: translateX(-20vw) scaleX(1); }
+  49% { transform: translateX(100vw) scaleX(1); }
+  50% { transform: translateX(100vw) scaleX(-1); }
+  99% { transform: translateX(-20vw) scaleX(-1); }
+  100% { transform: translateX(-20vw) scaleX(1); }
 }
-.animate-charMove {
-  animation: charMove 20s ease-in-out infinite;
+@keyframes runBackAndForthRev {
+  0% { transform: translateX(100vw) scaleX(-1); }
+  49% { transform: translateX(-20vw) scaleX(-1); }
+  50% { transform: translateX(-20vw) scaleX(1); }
+  99% { transform: translateX(100vw) scaleX(1); }
+  100% { transform: translateX(100vw) scaleX(-1); }
+}
+.animate-run {
+  animation: runBackAndForth 15s linear infinite;
+}
+.animate-run-fast {
+  animation: runBackAndForth 11s linear infinite 2s backwards;
+}
+.animate-run-slow {
+  animation: runBackAndForth 22s linear infinite 5s backwards;
+}
+.animate-run-rev {
+  animation: runBackAndForthRev 18s linear infinite;
+}
+.animate-run-rev-fast {
+  animation: runBackAndForthRev 13s linear infinite 4s backwards;
 }
 
 /* Loading */

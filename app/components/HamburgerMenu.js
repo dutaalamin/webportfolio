@@ -12,7 +12,7 @@ export default function HamburgerMenu({ menuItems = [] }) {
       {/* Tombol Hamburger */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed z-1 top-4 right-4 w-10 h-10"
+        className="fixed z-50 top-4 right-4 w-12 h-12 md:hidden cursor-pointer"
         aria-label="Open Menu"
       >
         <Image

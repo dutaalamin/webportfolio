@@ -9,19 +9,19 @@ const socialLinksForAbout = [
     icon: '/logo/cv.svg', 
     alt: 'CV' 
   },
-  { href: 'https://wa.me/6285795281890', 
-    icon: '/logo/wa.png', 
-    alt: 'WhatsApp' 
+  { href: 'mailto:dutaalamin@gmail.com', 
+    icon: '/logo/gmail.png', 
+    alt: 'Gmail' 
   },
   {
-    href: 'https://mail.google.com/mail/?view=cm&fs=1&to=cacasalsabilaadrian@gmail.com',
-    icon: '/logo/gmail.png',
-    alt: 'Gmail',
-  },
-  {
-    href: 'https://www.linkedin.com/in/salsabila-adrian-a66741226/',
+    href: 'https://www.linkedin.com/in/dutaalamin',
     icon: '/logo/linkedin.png',
     alt: 'LinkedIn',
+  },
+  {
+    href: 'https://github.com/dutaalamin',
+    icon: '/logo/github.png',
+    alt: 'Github',
   },
 ]
 
@@ -30,28 +30,28 @@ export const aboutPages = [
     content: (
       <>
         <div className="text-sm flex flex-row items-center gap-6">
-          <Image src="/images/caca.png" width={90} height={90} alt="Avatar" />
+          <Image src="/images/duta.png" width={90} height={90} alt="Avatar" className="rounded-full" />
           <div className="flex-1">
             <h2 className="text-2xl font-bold">
-              <RandomName /> 🎮
+              Duta Alamin 🎮
             </h2>
-            <p className="text-sm text-gray-400 pt-2 pb-2">Jakarta, ID</p>
+            <p className="text-sm text-gray-400 pt-2 pb-2">Cilegon, Indonesia</p>
             <SocialLinks links={socialLinksForAbout} />
           </div>
         </div>
 
         <p className="pt-4">
-          Computer Science grad from BINUS with real-world experience as a Business Analyst and Product Management, skilled in turning business needs into smart, user-friendly solutions.
+          I’m a Software Engineer with hands-on experience in ERP development, IT business systems, and supply chain processes. I currently work as a Factory Automation Engineer, bridging software, operations, and industrial systems to build reliable, efficient solutions.
           <br />
           <br />
-          I’ve led cross-functional teams, delivered projects using Scrum, and worked with tools like Figma, Draw.io, JIRA, and SQL to design, test, and improve products. Experienced about building efficient systems, solving problems with tech, and making sure users actually love what they use.
+          Experienced in building efficient systems, solving problems with tech, and delivering projects that align with business needs and operational objectives.
         </p>
       </>
     ),
     info: (
       <div className="bg-gray-300/80 border-2 rounded p-2">
         <ul>
-          <li>🎯 Interests: Business Analyst, System Analyst, IT Project Management, UI/UX Design, Data Analyst, QA</li>
+          <li>🎯 Interests: Software Engineering, Automation, ERP Development, AI & Machine Learning, System Integration</li>
         </ul>
       </div>
     ),
@@ -60,46 +60,25 @@ export const aboutPages = [
   {
     content: (
       <>
-        <a
-          href="https://graduation.apps.binus.ac.id/graduates/2440112033/?ref"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block mt-1"
-        >
-          <h2 className="text-xl font-bold lg:text-2xl">Bina Nusantara</h2>
-          <p>(2020 - 2024)</p>
-          <p className='text-gray-500'>Bachelor of Computer Science (3.62/4.00)</p>
-        </a>
+        <div className="block mt-1">
+          <h2 className="text-xl font-bold lg:text-2xl">UPN Veteran Yogyakarta</h2>
+          <p>(2019 - 2023)</p>
+          <p className='text-gray-500'>Bachelor of Informatics</p>
+        </div>
 
         <p className="pt-2">Research:</p>
-        <a
-          href="https://ieeexplore.ieee.org/document/10762027"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline text-blue-800"
-        >
-          Analysis of the Potential for Solar Panel Development on House Roofs in West Jakarta, Indonesia using GIS Applications and the Mask R-CNN Model
-        </a>
+        <p className="font-bold text-blue-800">
+          Convolutional Neural Network (CNN) Deep Learning Model to Classify Images of Mount Merapi
+        </p>
 
         <p className="pt-2">
-          This study analyzes the potential for solar panel development in West Jakarta by detecting rooftops using the Mask R-CNN model,
-          comparing the accuracy of ResNet 34 and ResNet 50. The results show that ResNet 50&apos;s performs better with 40% accuracy compared to
-          ResNet 34&apos;s 7.9%, generating a potential of over 6,800 MWh of electricity per year to support sustainable energy goals.
+          Analyzed volcanic images captured under diverse environmental conditions to improve early warning detection accuracy. Explored and demonstrated the efficacy of deep learning networks in real-time volcanic activity monitoring systems.
         </p>
       </>
     ),
     info: (
       <p className="bg-gray-300/80 border-2 rounded p-2">
-        <a
-          href="https://ieeexplore.ieee.org/xpl/conhome/10761122/proceeding"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Published in:{' '}
-          <p className="underline">
-            2024 International Conference on Information Technology and Computing (ICITCOM)
-          </p>
-        </a>
+        <span className="underline">Bachelor Thesis Research</span>
       </p>
     ),
   },

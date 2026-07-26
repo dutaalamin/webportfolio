@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { trackEvent } from '../lib/trackEvent' // Pastikan path ini sesuai
+
 
 export default function SocialLinks({ links = [] }) {
   return (
@@ -13,7 +13,6 @@ export default function SocialLinks({ links = [] }) {
             target="_blank"
             rel="noopener noreferrer"
             download={href.endsWith('.pdf')}
-            onClick={() => trackEvent(`click-${alt.toLowerCase()}`, href)}
           >
             <Image
               src={icon}

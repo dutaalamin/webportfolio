@@ -51,10 +51,10 @@ export default function PageTransitionLoader() {
       <div className="z-30 flex flex-col items-center xl:pb-50">
         <div className="mb-4">
           <Image
-            src="/images/char.png"
+            src="/images/dutaloading.png"
             alt="Character"
-            width={64}
-            height={64}
+            width={250}
+            height={250}
             className="animate-bounce"
             priority
           />

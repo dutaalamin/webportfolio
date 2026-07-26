@@ -5,10 +5,11 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Cloud from '../components/Cloud';
 import BackgroundAudio from '../components/Audio';
+import FarmAnimals from '../components/FarmAnimals';
 
 const storyPages = [
   {
-    text: `Meet our hero, in a bustling city of Jakarta.. A young Computer Science enthusiast emerged—skilled in problem-solving, teamwork, and turning business needs into impactful digital solutions.`,
+    text: `Meet our hero, an Informatics graduate from Yogyakarta... With a deep passion for technology, a young Software Engineer emerged—skilled in AI, system automation, and turning complex industrial challenges into seamless digital solutions.`,
   }
 ]
 
@@ -87,7 +88,7 @@ export default function IntroPage() {
   }
 
   return (
-    <div className="relative h-screen w-screen overflow-hidden">
+    <div className="relative w-screen h-screen bg-white text-black font-pressStart overflow-hidden">
       <Cloud top={45} direction="left" speed={50} opacity={0.4} delay={2100} />
       <Cloud top={180} direction="left" speed={100} opacity={0.2} delay={2100} />
       <Cloud top={230} direction="right" speed={150} opacity={0.3} delay={2100} />
@@ -97,14 +98,16 @@ export default function IntroPage() {
 
       <div className="absolute bottom-0 w-full z-0">
         <Image
-          src="/images/city.png"
-          alt="City Background"
+          src="/images/ground.png"
+          alt="Ground Background"
           width={1920}
           height={200}
           className="w-full h-auto object-contain"
           priority
         />
       </div>
+
+      <FarmAnimals />
 
       <div className="relative z-10 flex flex-col items-center justify-center h-full px-6">
         <button
@@ -114,45 +117,40 @@ export default function IntroPage() {
           Back to Home
         </button>
 
-        <button
-          onClick={handleSkip}
-          className="absolute top-5 right-5 px-6 py-2 rounded-xl cursor-pointer hover:bg-gray-200"
-        >
-          Skip
-        </button>
+        <div className="flex flex-col md:flex-row items-center md:items-end justify-center gap-6 md:gap-10 max-w-5xl w-full mx-auto pb-20 md:pb-40">
+          {/* Character */}
+          <div className="flex-shrink-0 mt-16 md:mt-0">
+            <Image 
+              src="/images/dutaloading.png" 
+              alt="Duta" 
+              width={350} 
+              height={350} 
+              className="object-contain w-48 md:w-[350px] h-auto"
+            />
+          </div>
 
-        <div
-          onClick={handleTextClick}
-          className={`max-w-3xl select-none ${
-            isLocked ? 'pointer-events-none' : 'pointer-events-auto'
-          }`}
-        >
-          <p className="whitespace-pre-wrap text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed pb-40 sm:pb-60 md:pb-72 lg:pb-80 px-4 sm:px-6 md:px-8">
-            {displayedText}
-            {!isFinished && <span>|</span>}
-          </p>
-        </div>
-
-        <div className="absolute bottom-5 right-5 flex gap-4">
-          {currentPage > 0 && (
-            <button
-              onClick={handleBack}
-              className="px-6 py-2 pixel-button bg-gray-600 rounded hover:bg-gray-500"
-            >
-              Back
-            </button>
-          )}
-          <button
-            onClick={handleNext}
-            disabled={!isFinished}
-            className={`px-6 py-2 pixel-button rounded cursor-pointer ${
-              isFinished
-                ? 'bg-blue-600 hover:bg-blue-500'
-                : 'bg-gray-400 cursor-not-allowed'
+          {/* Dialogue Box */}
+          <div
+            onClick={handleTextClick}
+            className={`relative p-6 md:p-10 w-full min-h-[200px] ${
+              isLocked ? 'pointer-events-none' : 'pointer-events-auto cursor-pointer'
             }`}
           >
-            Next
-          </button>
+            <p className="whitespace-pre-wrap text-black text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed font-pressStart">
+              {displayedText}
+              {!isFinished && <span className="animate-pulse">_</span>}
+            </p>
+
+            {/* Next Indicator */}
+            {isFinished && (
+              <button 
+                onClick={handleSkip} 
+                className="absolute bottom-4 right-6 text-gray-500 text-sm md:text-base animate-pulse hover:text-black transition-colors cursor-pointer font-pressStart"
+              >
+                Next ▶
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -10,8 +10,11 @@ const pressStart = Press_Start_2P({
 })
 
 export const metadata = {
-  title: 'Salsabila Adrian',
+  title: 'Duta Alamin - Portfolio',
   description: 'Portofolio bertema game retro',
+  icons: {
+    icon: '/images/duta.png',
+  },
 }
 
 export default function RootLayout({ children }) {

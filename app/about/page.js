@@ -7,13 +7,9 @@ import { aboutPages } from '../data/aboutData';
 import HamburgerMenu from '../components/HamburgerMenu';
 import Cloud from '../components/Cloud';
 import BackgroundAudio from '../components/Audio';
+import FarmAnimals from '../components/FarmAnimals';
 
 export default function AboutPage() {
-  useEffect(() => {
-    import('../lib/trackEvent').then(({ trackEvent }) => {
-      trackEvent('pageview', '/about')
-    });
-  }, []);
 
   const [page, setPage] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -24,8 +20,7 @@ export default function AboutPage() {
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
     { label: 'Experience', href: '/experience' },
-    { label: 'Porto', href: '/porto' },
-    { label: 'Certificate', href: '/certificate' }
+    { label: 'Portfolio', href: '/porto' }
   ];
 
   useEffect(() => {
@@ -34,8 +29,15 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <div className="relative w-screen h-screen bg-cover bg-center flex items-center justify-center overflow-hidden">
+    <div className="relative w-screen h-screen bg-white flex items-center justify-center overflow-hidden">
       <HamburgerMenu menuItems={menu} />
+      
+      {/* Back to Home Button (Desktop) */}
+      <Link href="/">
+        <button className="hidden md:flex absolute top-6 left-6 z-50 text-gray-400 hover:text-black transition-colors font-pressStart text-xs items-center justify-center cursor-pointer">
+          &lt; Back
+        </button>
+      </Link>
       <BackgroundAudio src="/audio/experience.mp3" volume={1.0} delay={2500} className='fixed top-4 right-10 mr-4'/>
       
       <Cloud top={10} direction="left" speed={150} opacity={0.2} delay={2725}/>
@@ -48,8 +50,8 @@ export default function AboutPage() {
       {/* City Background */}
       <div className="absolute bottom-0 w-full z-0">
         <Image
-          src="/images/city.png"
-          alt="City Background"
+          src="/images/ground.png"
+          alt="Ground Background"
           width={1920}
           height={200}
           className="w-full h-auto object-contain"
@@ -57,26 +59,28 @@ export default function AboutPage() {
         />
       </div>
 
+      <FarmAnimals className={`transition-all duration-700 ease-out ${isVisible ? 'opacity-100' : 'opacity-0'}`} />
+
       {/* Main Container */}
       <div
-        className={`relative z-20 w-[90%] max-w-screen-md h-[550px] bg-gray-100/80 p-6 rounded-xl shadow-2xl shadow-black/60 flex flex-col overflow-hidden transition-all duration-700 ease-out transform
+        className={`relative z-20 w-[90%] max-w-screen-md h-[550px] bg-transparent p-6 flex flex-col overflow-hidden transition-all duration-700 ease-out transform
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
       >
         {/* Top Navigation */}
-        <div className="absolute top-4 left-4 flex gap-2">
+        <div className="absolute top-4 left-4 flex gap-4">
           <button
             onClick={() => setPage((prev) => Math.max(0, prev - 1))}
             disabled={page === 0}
-            className="text-lg cursor-pointer border border-gray-500 rounded-md px-3 py-1 hover:bg-gray-200 disabled:opacity-30"
+            className="text-lg cursor-pointer text-gray-400 hover:text-black font-pressStart disabled:opacity-30"
           >
-            {'<'}
+            Prev
           </button>
           <button
             onClick={() => setPage((prev) => Math.min(aboutPages.length - 1, prev + 1))}
             disabled={isLastPage}
-            className="text-lg cursor-pointer border border-gray-500 rounded-md px-3 py-1 hover:bg-gray-200 disabled:opacity-30"
+            className="text-lg cursor-pointer text-gray-400 hover:text-black font-pressStart disabled:opacity-30"
           >
-            {'>'}
+            Next
           </button>
         </div>
 
@@ -84,8 +88,8 @@ export default function AboutPage() {
         {isLastPage && (
           <div className="absolute top-4 right-4">
             <Link href="/experience">
-              <button className="text-lg cursor-pointer border border-gray-500 rounded-md px-3 py-1 hover:bg-gray-200 disabled:opacity-30">
-                Next
+              <button className="text-lg cursor-pointer text-gray-400 hover:text-black font-pressStart disabled:opacity-30">
+                Experience ▶
               </button>
             </Link>
           </div>
