@@ -41,7 +41,7 @@ export const getAboutPages = (isInitialLoad = false) => [
 
         <p className="pt-4 whitespace-pre-wrap leading-relaxed">
           <Typewriter 
-            text={`I’m a Software Engineer with hands-on experience in ERP development, IT business systems, and supply chain processes. I currently work as a Factory Automation Engineer, bridging software, operations, and industrial systems to build reliable, efficient solutions.\n\nExperienced in building efficient systems, solving problems with tech, and delivering projects that align with business needs and operational objectives.`} 
+            text={`I’m a Software Engineer with experience in ERP and IT systems. Currently a Factory Automation Engineer, bridging software and industrial operations to build reliable solutions.\n\nPassionate about solving problems with tech and delivering efficient projects.`} 
             delay={isInitialLoad ? 2500 : 0} 
             speed={30} 
           />
@@ -49,10 +49,10 @@ export const getAboutPages = (isInitialLoad = false) => [
       </>
     ),
     info: (
-      <DelayedFadeIn delay={isInitialLoad ? 14000 : 11500}>
+      <DelayedFadeIn delay={isInitialLoad ? 8000 : 6500}>
         <div className="bg-gray-300/80 border-2 rounded p-2">
           <ul>
-            <li>🎯 Interests: Software Engineering, Automation, ERP Development, AI & Machine Learning, System Integration</li>
+            <li>🎯 Interests: Software Engineering, Automation, ERP, AI, System Integration</li>
           </ul>
         </div>
       </DelayedFadeIn>
