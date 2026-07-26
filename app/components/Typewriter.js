@@ -4,43 +4,27 @@ import { useState, useEffect, useRef } from 'react'
 
 export default function Typewriter({ text, speed = 25, delay = 0 }) {
   const [displayedText, setDisplayedText] = useState('')
-  const audioCtxRef = useRef(null)
+  const audioRef = useRef(null)
 
   useEffect(() => {
     let timeout;
     let typeInterval;
     
-    // Initialize audio context
-    if (!audioCtxRef.current && typeof window !== 'undefined') {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (AudioContext) {
-        audioCtxRef.current = new AudioContext();
-      }
+    // Initialize audio element
+    if (!audioRef.current && typeof window !== 'undefined') {
+      audioRef.current = new Audio('/audio/typing.wav');
+      audioRef.current.volume = 0.15; // Set a subtle volume
     }
 
-    const playBlip = () => {
-      if (!audioCtxRef.current) return;
-      if (audioCtxRef.current.state === 'suspended') {
-        audioCtxRef.current.resume().catch(() => {});
-      }
+    const playClick = () => {
+      if (!audioRef.current) return;
       try {
-        const osc = audioCtxRef.current.createOscillator();
-        const gainNode = audioCtxRef.current.createGain();
-        
-        osc.type = 'square';
-        // Randomize pitch slightly for a more mechanical typing feel
-        osc.frequency.setValueAtTime(300 + Math.random() * 100, audioCtxRef.current.currentTime);
-        
-        gainNode.gain.setValueAtTime(0.01, audioCtxRef.current.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtxRef.current.currentTime + 0.05);
-        
-        osc.connect(gainNode);
-        gainNode.connect(audioCtxRef.current.destination);
-        
-        osc.start();
-        osc.stop(audioCtxRef.current.currentTime + 0.05);
+        // Clone the node so rapid firing doesn't cut off or fail
+        const clickSound = audioRef.current.cloneNode();
+        clickSound.volume = audioRef.current.volume;
+        clickSound.play().catch(() => {});
       } catch (e) {
-        // Ignore audio errors if browser blocks it
+        // Ignore errors
       }
     };
 
@@ -51,7 +35,7 @@ export default function Typewriter({ text, speed = 25, delay = 0 }) {
           const char = text[currentIndex];
           setDisplayedText((prev) => prev + char);
           if (char !== ' ' && char !== '\n') {
-             playBlip();
+             playClick();
           }
           currentIndex++;
         } else {
@@ -63,10 +47,6 @@ export default function Typewriter({ text, speed = 25, delay = 0 }) {
     return () => {
       clearTimeout(timeout);
       clearInterval(typeInterval);
-      if (audioCtxRef.current && audioCtxRef.current.state !== 'closed') {
-        audioCtxRef.current.close().catch(() => {});
-        audioCtxRef.current = null;
-      }
     }
   }, [text, speed, delay])
 
