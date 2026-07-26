@@ -197,13 +197,12 @@ export default function TradingCard({ item, index }) {
               {item.links?.length > 0 && (
                 <a
                   href={item.links[0].url}
-                  className="inline-flex items-center gap-2 px-5 py-2 bg-[#f8b800] text-black text-[10px] font-pressStart rounded-lg border-2 border-black hover:bg-yellow-400 active:translate-y-1 transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,0.4)] cursor-pointer"
+                  className="inline-flex items-center justify-center px-5 py-2 bg-[#f8b800] text-black text-[10px] font-pressStart rounded-lg border-2 border-black hover:bg-yellow-400 active:translate-y-1 transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,0.4)] cursor-pointer"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <GlobeAltIcon className="w-4 h-4" />
-                  VISIT SITE ▶
+                  VISIT SITE
                 </a>
               )}
 
