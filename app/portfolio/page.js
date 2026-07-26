@@ -99,11 +99,11 @@ export default function ExperiencePage() {
         <div className={`relative h-[500px] px-6 py-4 overflow-y-auto text-sm space-y-4 transition-all duration-700 ease-out
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8 mb-8 p-2">
             {visibleProjects.map((item, index) => (
-              <div key={index} className="flex flex-col bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-5 hover:-translate-y-2 hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] transition-all">
+              <div key={index} className="flex flex-col bg-white/70 backdrop-blur-md border-2 border-black rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-5 hover:-translate-y-2 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all">
                 {/* Image Placeholder */}
-                <div className="w-full h-40 bg-gray-200 border-4 border-black mb-4 flex items-center justify-center overflow-hidden relative group">
+                <div className="w-full h-40 md:h-48 bg-white/50 border-2 border-black rounded-xl mb-4 flex items-center justify-center overflow-hidden relative group">
                   {/* Using standard img for easier onError fallback handling */}
                   <img 
                     src={`/images/projects/${item.title.toLowerCase()}.png`} 
@@ -113,13 +113,13 @@ export default function ExperiencePage() {
                   />
                 </div>
 
-                <h1 className='font-pressStart text-black text-xs md:text-sm drop-shadow-md mb-2 uppercase'>{item.title}</h1>
-                <p className="text-black font-pressStart text-[8px] md:text-[10px] mb-1">{item.position}</p>
-                <p className="text-gray-500 font-pressStart text-[8px] mb-4">({item.date})</p>
+                <h1 className='font-pressStart text-black text-sm md:text-base drop-shadow-sm mb-2 uppercase'>{item.title}</h1>
+                <p className="text-black font-sans font-bold text-xs md:text-sm mb-1">{item.position}</p>
+                <p className="text-gray-600 font-sans font-semibold text-[10px] md:text-xs mb-4">{item.date}</p>
                 
                 <div className="flex-grow space-y-2 mb-6">
                   {item.description.map((desc, i) => (
-                    <p key={i} className="text-black text-xs font-bold leading-relaxed">
+                    <p key={i} className="text-gray-800 font-sans text-xs md:text-sm font-medium leading-relaxed">
                       {desc.subdesc}
                     </p>
                   ))}
@@ -129,7 +129,7 @@ export default function ExperiencePage() {
                   {item.skills && (
                     <div className="flex flex-wrap gap-2">
                       {item.skills.map((skill, i) => (
-                        <span key={i} className="px-2 py-1 bg-blue-100 border-2 border-black text-black text-[8px] font-pressStart uppercase">
+                        <span key={i} className="px-2 py-1 bg-blue-100/80 border border-black rounded-lg text-black text-[10px] font-sans font-bold uppercase tracking-wider">
                           {skill}
                         </span>
                       ))}
@@ -139,7 +139,7 @@ export default function ExperiencePage() {
                   {item.tools && (
                     <div className="flex flex-wrap gap-2">
                       {item.tools.map((tool, i) => (
-                        <span key={i} className="px-2 py-1 bg-green-100 border-2 border-black text-black text-[8px] font-pressStart uppercase">
+                        <span key={i} className="px-2 py-1 bg-green-100/80 border border-black rounded-lg text-black text-[10px] font-sans font-bold uppercase tracking-wider">
                           {tool}
                         </span>
                       ))}
@@ -152,7 +152,7 @@ export default function ExperiencePage() {
                         <a
                           key={linkIdx}
                           href={linkObj.url}
-                          className="flex items-center justify-center w-full gap-2 px-4 py-3 bg-[#f8b800] border-4 border-black text-black text-[10px] font-pressStart hover:bg-yellow-400 active:translate-y-1 active:shadow-none transition-all cursor-pointer shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                          className="flex items-center justify-center w-full gap-2 px-4 py-3 bg-[#f8b800] border-2 border-black rounded-xl text-black text-[10px] font-pressStart hover:bg-yellow-400 active:translate-y-1 active:shadow-none transition-all cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
