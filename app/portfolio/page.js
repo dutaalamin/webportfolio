@@ -81,6 +81,13 @@ export default function ExperiencePage() {
           &lt; Back
         </button>
       </Link>
+      {/* Message Button (Floating) */}
+      <Link href="/message">
+        <button className="fixed bottom-20 right-6 md:right-10 z-50 px-4 py-3 bg-[#f8b800] border-4 border-black text-black font-pressStart text-[10px] md:text-xs hover:bg-yellow-400 hover:scale-105 active:translate-y-1 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] animate-bounce cursor-pointer">
+          MESSAGE
+        </button>
+      </Link>
+
       <BackgroundAudio src="/audio/about.mp3" volume={0.15} delay={2500} className='fixed top-4 right-10 mr-4'/>
       
       <Cloud top={0} direction="left" speed={150} opacity={0.2} delay={2725} />
@@ -120,12 +127,6 @@ export default function ExperiencePage() {
               </button>
             ))}
           </div>
-
-          <Link href="/message">
-            <button className="text-sm md:text-base cursor-pointer text-[#f8b800] drop-shadow-md hover:text-yellow-500 font-pressStart ml-4 animate-pulse">
-              Let's Talk 💬
-            </button>
-          </Link>
         </div>
 
         <div className={`relative h-[500px] px-6 py-4 overflow-y-auto text-sm space-y-4 transition-all duration-700 ease-out
