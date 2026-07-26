@@ -122,22 +122,16 @@ export default function ExperiencePage() {
             ))}
           </div>
 
+          <Link href="/porto">
+            <button className="text-sm md:text-base cursor-pointer text-gray-400 hover:text-black font-pressStart ml-4">
+              Portfolio ▶
+            </button>
+          </Link>
         </div>
 
         <div className={`relative h-[500px] px-6 py-4 overflow-y-auto text-sm space-y-4 transition-all duration-700 ease-out
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
         >
-
-
-          {isLastPage && (
-            <div className="absolute top-4 right-4">
-              <Link href="/porto">
-                <button className="text-lg md:text-xl cursor-pointer text-gray-400 hover:text-black font-pressStart disabled:opacity-30">
-                  Portfolio ▶
-                </button>
-              </Link>
-            </div>
-          )}
 
           {Object.entries(current.sections).map(([sectionTitle, items], idx) => (
             <div key={idx} className="mb-4 text-black font-pressStart overflow-hidden">
