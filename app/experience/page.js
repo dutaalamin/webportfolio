@@ -83,7 +83,7 @@ export default function ExperiencePage() {
         <div className={`flex flex-wrap md:flex-row items-start md:items-center justify-between px-2 md:px-4 pt-4 md:pt-2 pb-2 gap-3 transition-all duration-700 ease-out
           ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
         >
-          <div className="flex flex-wrap gap-2 md:gap-5">
+          <div className="flex flex-wrap gap-2 md:gap-5 w-full justify-center md:justify-start">
             {experienceData.map((item, index) => (
               <button
                 key={index}
@@ -97,12 +97,6 @@ export default function ExperiencePage() {
               </button>
             ))}
           </div>
-
-          <Link href="/portfolio" className="mr-14 md:mr-0 w-full md:w-auto mt-1 md:mt-0">
-            <button className="w-full md:w-auto px-3 py-2 bg-[#f8b800] border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
-              Portfolio ▶
-            </button>
-          </Link>
         </div>
 
         {/* Quest Log Scroll Panel */}
@@ -271,6 +265,15 @@ export default function ExperiencePage() {
               </p>
             </div>
           </div>
+        </div>
+
+        {/* Portfolio Button at bottom */}
+        <div className={`flex justify-center mt-4 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+          <Link href="/portfolio">
+            <button className="px-6 py-3 bg-[#f8b800] border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer animate-bounce">
+              Go to Portfolio ▶
+            </button>
+          </Link>
         </div>
       </div>
     </div>
