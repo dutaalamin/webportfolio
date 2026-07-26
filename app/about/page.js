@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { aboutPages } from '../data/aboutData';
+import { getAboutPages } from '../data/aboutData';
 import HamburgerMenu from '../components/HamburgerMenu';
 import Cloud from '../components/Cloud';
 import BackgroundAudio from '../components/Audio';
@@ -13,6 +13,9 @@ export default function AboutPage() {
 
   const [page, setPage] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  
+  const aboutPages = getAboutPages(isInitialLoad);
   const current = aboutPages[page];
   const isLastPage = page === aboutPages.length - 1;
 
@@ -69,14 +72,14 @@ export default function AboutPage() {
         {/* Top Navigation */}
         <div className="absolute top-4 left-4 flex gap-4">
           <button
-            onClick={() => setPage((prev) => Math.max(0, prev - 1))}
+            onClick={() => { setPage((prev) => Math.max(0, prev - 1)); setIsInitialLoad(false); }}
             disabled={page === 0}
             className="text-lg cursor-pointer text-gray-400 hover:text-black font-pressStart disabled:opacity-30"
           >
             Prev
           </button>
           <button
-            onClick={() => setPage((prev) => Math.min(aboutPages.length - 1, prev + 1))}
+            onClick={() => { setPage((prev) => Math.min(aboutPages.length - 1, prev + 1)); setIsInitialLoad(false); }}
             disabled={isLastPage}
             className="text-lg cursor-pointer text-gray-400 hover:text-black font-pressStart disabled:opacity-30"
           >

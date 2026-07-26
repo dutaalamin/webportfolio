@@ -24,7 +24,7 @@ const socialLinksForAbout = [
   },
 ]
 
-export const aboutPages = [
+export const getAboutPages = (isInitialLoad = false) => [
   {
     content: (
       <>
@@ -42,14 +42,14 @@ export const aboutPages = [
         <p className="pt-4 whitespace-pre-wrap leading-relaxed">
           <Typewriter 
             text={`I’m a Software Engineer with hands-on experience in ERP development, IT business systems, and supply chain processes. I currently work as a Factory Automation Engineer, bridging software, operations, and industrial systems to build reliable, efficient solutions.\n\nExperienced in building efficient systems, solving problems with tech, and delivering projects that align with business needs and operational objectives.`} 
-            delay={2500} 
+            delay={isInitialLoad ? 2500 : 0} 
             speed={30} 
           />
         </p>
       </>
     ),
     info: (
-      <DelayedFadeIn delay={14000}>
+      <DelayedFadeIn delay={isInitialLoad ? 14000 : 11500}>
         <div className="bg-gray-300/80 border-2 rounded p-2">
           <ul>
             <li>🎯 Interests: Software Engineering, Automation, ERP Development, AI & Machine Learning, System Integration</li>
