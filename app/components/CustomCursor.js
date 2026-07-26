@@ -3,6 +3,8 @@
 
 import { useEffect, useState } from 'react'
 
+import Image from 'next/image'
+
 export default function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 })
 
@@ -25,7 +27,7 @@ export default function CustomCursor() {
       }}
     >
       {/* Ganti src ini dengan cursor lucu kamu */}
-      <img src="/images/cursor.png" alt="cursor" className="w-10 h-10" />
+      <Image src="/images/cursor.png" alt="cursor" width={40} height={40} className="w-10 h-10" priority />
     </div>
   )
 }
