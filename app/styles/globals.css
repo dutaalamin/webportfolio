@@ -79,33 +79,31 @@ body {
   transform: translateY(-2px);
 }
 
-/* Trading Cards */
-.trading-card-wrapper {
+/* Trading Cards - Yu-Gi-Oh Style */
+.yugioh-card-wrapper {
   width: 100%;
-  max-width: 280px;
-  aspect-ratio: 2.5/3.5;
+  max-width: 240px;
+  aspect-ratio: 59/86;
   margin: 0 auto;
 }
 
-.trading-card-inner {
+.yugioh-card-inner {
   position: relative;
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
 }
 
-.trading-card-front,
-.trading-card-back {
+.yugioh-card-face {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
 }
 
-.trading-card-back {
-  backface-visibility: hidden;
-}
-
 @media (max-width: 640px) {
-  .trading-card-wrapper {
-    max-width: 220px;
+  .yugioh-card-wrapper {
+    max-width: 170px;
   }
 }
