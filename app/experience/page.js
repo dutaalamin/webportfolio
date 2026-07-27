@@ -152,12 +152,12 @@ export default function ExperiencePage() {
                               <div className="flex-1 min-w-0">
                                 {/* Quest Title */}
                                 <div className="flex items-center gap-2 mb-1">
-                                  <span className="text-[10px]">{status.icon}</span>
-                                  <h3 className="font-pressStart text-[9px] md:text-[11px] text-[#8b7332] leading-tight truncate">{item.title}</h3>
+                                  <span className="text-[10px] md:text-xs">{status.icon}</span>
+                                  <h3 className="font-pressStart text-[11px] md:text-xs text-[#8b7332] leading-tight truncate">{item.title}</h3>
                                 </div>
                                 {/* Position & Date */}
-                                <p className="font-pressStart text-[7px] md:text-[8px] text-black/70 mt-1">{item.position}</p>
-                                <p className="font-sans text-[10px] md:text-[11px] text-black/50 font-medium mt-1">{item.date} • {item.location}</p>
+                                <p className="font-pressStart text-[9px] md:text-[11px] text-black/70 mt-2">{item.position}</p>
+                                <p className="font-sans text-xs md:text-sm text-black/60 font-medium mt-1">{item.date} • {item.location}</p>
                               </div>
                               
                               {/* Quest Rank Badge */}
