@@ -63,6 +63,15 @@ export default function HomePage() {
         <div className="flex flex-col gap-2">
           <RoleRotate />
           <SocialLinks links={socialLinks} />
+          
+          <div className="mt-8 relative w-48 h-48 sm:w-64 sm:h-64 self-center md:self-start md:ml-12">
+            <Image 
+              src="/images/hello.gif" 
+              alt="Hero Greeting" 
+              fill
+              className="object-contain drop-shadow-md"
+            />
+          </div>
         </div>
         
         <div className="lg:pl-20 lg:col-span-2 mt-4 lg:mt-0">

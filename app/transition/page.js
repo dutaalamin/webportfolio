@@ -140,18 +140,18 @@ export default function IntroPage() {
           {/* Character */}
           <div className="flex-shrink-0 mt-16 md:mt-0">
             <Image 
-              src="/images/dutaloading.png" 
-              alt="Duta" 
-              width={350} 
-              height={350} 
-              className="object-contain w-48 md:w-[350px] h-auto"
+              src="/images/hero2.gif" 
+              alt="Hero Character" 
+              width={250} 
+              height={250} 
+              className="object-contain w-48 md:w-[250px] h-auto drop-shadow-lg"
             />
           </div>
 
           {/* Dialogue Box */}
           <div
             onClick={handleTextClick}
-            className="relative p-6 md:p-10 w-full min-h-[200px] cursor-pointer"
+            className="relative p-6 md:p-10 w-full min-h-[200px] cursor-pointer md:self-start"
           >
             <p className="whitespace-pre-wrap text-black text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed font-pressStart">
               {displayedText}
