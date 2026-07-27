@@ -37,7 +37,7 @@ export default function IntroPage() {
     setIsFinished(false)
     setIsLocked(true)
 
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       intervalRef.current = setInterval(() => {
         const currentIndex = indexRef.current
         if (currentIndex < textRef.current.length) {
@@ -71,6 +71,7 @@ export default function IntroPage() {
     }, 2500);
     
     return () => {
+      clearTimeout(timeoutId)
       if (intervalRef.current) clearInterval(intervalRef.current)
     }
   }, [currentPage])
