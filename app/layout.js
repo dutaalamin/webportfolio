@@ -10,8 +10,15 @@ const pressStart = Press_Start_2P({
 })
 
 export const metadata = {
-  title: 'Duta Alamin - Portfolio',
-  description: 'Portofolio bertema game retro',
+  title: 'Duta Alamin | Software Engineer & ERP Consultant',
+  description: 'Duta Alamin - Software Engineer, Automation Engineer & ERP Consultant. Explore my digital quests and projects!',
+  openGraph: {
+    title: 'Duta Alamin | Software Engineer & ERP Consultant',
+    description: 'Duta Alamin - Software Engineer, Automation Engineer & ERP Consultant. Explore my digital quests and projects!',
+    url: 'https://duta1.com',
+    siteName: 'Duta Alamin Portfolio',
+    type: 'website',
+  },
   icons: {
     icon: '/images/duta.png',
   },
