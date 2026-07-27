@@ -29,11 +29,6 @@ const socialLinks = [
     icon: '/logo/instagram.svg', 
     alt: 'Instagram',
   },
-  {
-    href: 'https://open.spotify.com/playlist/2gQgfHfdjW8S0S4Ypfu1jV',
-    icon: '/logo/spotify.svg', 
-    alt: 'Spotify',
-  },
 ]
 
 export default function HomePage() {
