@@ -7,6 +7,7 @@ export default function Typewriter({ text, speed = 25, delay = 0 }) {
   const audioRef = useRef(null)
 
   useEffect(() => {
+    setDisplayedText(''); // Reset text to prevent duplicate in Strict Mode
     let timeout;
     let typeInterval;
     
