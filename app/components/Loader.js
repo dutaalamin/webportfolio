@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { preloadPage } from '../utils/preloadHelper';
 import Cloud from '../components/Cloud';
+import FarmAnimals from '../components/FarmAnimals';
 
 export default function PageTransitionLoader() {
   const [loading, setLoading] = useState(false);
@@ -125,7 +126,8 @@ export default function PageTransitionLoader() {
         )}
       </div>
 
-      <div className="absolute bottom-0 w-full z-20">
+      <FarmAnimals className="z-10" />
+      <div className="absolute bottom-0 w-full z-0">
         <Image
           src="/images/ground.png"
           alt="Ground"
