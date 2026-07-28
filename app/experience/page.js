@@ -166,8 +166,7 @@ export default function ExperiencePage() {
                 <img 
                   src={pokemonSprites[expandedQuest % pokemonSprites.length]} 
                   alt="Pokemon Sprite" 
-                  className="w-full h-full object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.4)] animate-bounce"
-                  style={{ animationDuration: '3s' }}
+                  className="w-full h-full object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.4)]"
                 />
               </div>
 
