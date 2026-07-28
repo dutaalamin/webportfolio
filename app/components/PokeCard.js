@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 const typeColors = {
   fire: {
@@ -109,6 +109,9 @@ const mapToElement = (title) => {
 
 export default function PokeCard({ item, index }) {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [isUnboxed, setIsUnboxed] = useState(false);
+  const [isShaking, setIsShaking] = useState(false);
+  const [isFlashing, setIsFlashing] = useState(false);
   const cardRef = useRef(null);
   
   const elementType = mapToElement(item.title);
@@ -119,12 +122,61 @@ export default function PokeCard({ item, index }) {
   const abilityDesc = item.description?.[0]?.subdesc || 'A digital project by Duta Alamin.';
   const imageSrc = `/images/projects/${item.title.toLowerCase()}.png`;
 
+  useEffect(() => {
+    // Jalankan otomatis dengan delay bertahap berdasarkan urutan kartu (index)
+    // agar terlihat seperti dilempar berurutan
+    const initialDelay = 300 + (index * 150);
+    
+    const timer = setTimeout(() => {
+      if (isUnboxed || isShaking) return;
+      setIsShaking(true);
+      
+      // Berguncang selama 600ms, lalu mulai flash
+      setTimeout(() => {
+        setIsShaking(false);
+        setIsFlashing(true);
+        
+        // Saat flash paling putih (400ms), buka kartunya
+        setTimeout(() => {
+          setIsUnboxed(true);
+        }, 400);
+
+        // Selesai flash di 800ms
+        setTimeout(() => {
+          setIsFlashing(false);
+        }, 800);
+        
+      }, 600);
+    }, initialDelay);
+
+    return () => clearTimeout(timer);
+  }, [index]);
+
+  if (!isUnboxed) {
+    return (
+      <div 
+        className="relative cursor-pointer w-full max-w-[240px] flex items-center justify-center group"
+        style={{ aspectRatio: '59/86' }}
+      >
+        <div className={`transition-transform duration-300 ${isShaking ? 'animate-pokeball-shake' : (index % 2 === 0 ? 'animate-float' : 'animate-float-delay')}`}>
+          <div className="pokeball-container">
+            <div className="pokeball-center">
+              <div className="pokeball-button"></div>
+            </div>
+          </div>
+        </div>
+        {isFlashing && <div className="flash-overlay"></div>}
+      </div>
+    );
+  }
+
   return (
     <div 
       className="relative cursor-pointer group perspective-1000 w-full max-w-[240px]"
       style={{ aspectRatio: '59/86' }}
       onClick={() => setIsFlipped(!isFlipped)}
     >
+      {isFlashing && <div className="flash-overlay"></div>}
       <div 
         className={`w-full h-full transition-transform duration-700 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}
       >

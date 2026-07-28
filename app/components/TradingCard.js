@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { GlobeAltIcon } from '@heroicons/react/24/solid';
 
 const CARD_ATTRS = [
@@ -20,14 +20,48 @@ export default function TradingCard({ item, index }) {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
+  
+  // Flip Summon states
+  const [isFaceDown, setIsFaceDown] = useState(true);
+  const [isSummoning, setIsSummoning] = useState(false);
+  const [showAura, setShowAura] = useState(false);
 
   const attr = CARD_ATTRS[index % CARD_ATTRS.length];
   const starCount = Math.min(item.tools?.length || 1, 8);
   const atkVal = (item.skills?.length || 1) * 800;
   const defVal = (item.tools?.length || 1) * 500;
 
+  useEffect(() => {
+    // Delay bertahap berurutan
+    const initialDelay = 300 + (index * 150);
+    
+    const timer = setTimeout(() => {
+      if (!isFaceDown || isSummoning) return;
+      setIsSummoning(true); // Memulai animasi melompat (1.2 detik)
+      setShowAura(true);
+      
+      // Di puncak lompatan (500ms), balik kartunya 3D
+      setTimeout(() => {
+        setIsFaceDown(false);
+      }, 500);
+
+      // Selesai seluruh animasi di 1200ms
+      setTimeout(() => {
+        setIsSummoning(false);
+      }, 1200);
+      
+      // Aura menghilang perlahan
+      setTimeout(() => {
+        setShowAura(false);
+      }, 1200);
+      
+    }, initialDelay);
+
+    return () => clearTimeout(timer);
+  }, [index]);
+
   const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || isFaceDown) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -39,32 +73,44 @@ export default function TradingCard({ item, index }) {
   };
 
   const handleMouseLeave = () => {
+    if (isFaceDown) return;
     setTilt({ x: 0, y: 0 });
     setIsHovered(false);
   };
 
   const handleMouseEnter = () => {
+    if (isFaceDown) return;
     setIsHovered(true);
   };
+
+  // Logika Rotasi:
+  // Jika FaceDown = -180deg (menampilkan bagian belakang palsu/vortex)
+  // Jika isFlipped = 180deg (menampilkan deskripsi)
+  // Default = 0deg (menampilkan depan)
+  let rotateVal = `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`;
+  if (isFaceDown) rotateVal = 'rotateY(-180deg)';
+  else if (isFlipped) rotateVal = 'rotateY(180deg)';
 
   return (
     <div
       ref={cardRef}
-      className="yugioh-card-wrapper cursor-pointer"
+      className={`yugioh-card-wrapper cursor-pointer relative ${isSummoning ? 'animate-ygo-summon' : (isFaceDown && index % 2 === 0 ? 'animate-float' : (isFaceDown ? 'animate-float-delay' : ''))}`}
       style={{ perspective: '1200px' }}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={() => setIsFlipped(!isFlipped)}
+      onClick={() => {
+        if (isFaceDown) return; // Jangan bisa di-klik manual saat masih Face-Down
+        setIsFlipped(!isFlipped);
+      }}
     >
+      {showAura && <div className="ygo-aura-overlay"></div>}
       <div
         className="yugioh-card-inner"
         style={{
-          transform: isFlipped
-            ? `rotateY(180deg)`
-            : `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+          transform: rotateVal,
           transformStyle: 'preserve-3d',
-          transition: isFlipped || !isHovered ? 'transform 0.6s ease' : 'transform 0.1s ease',
+          transition: isFaceDown || isFlipped || !isHovered ? 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)' : 'transform 0.1s ease',
         }}
       >
         {/* ===== FRONT OF CARD ===== */}
@@ -166,49 +212,57 @@ export default function TradingCard({ item, index }) {
         {/* ===== BACK OF CARD ===== */}
         <div
           className="yugioh-card-face yugioh-card-back"
-          style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+          style={{ backfaceVisibility: 'hidden', transform: isFaceDown ? 'rotateY(-180deg)' : 'rotateY(180deg)' }}
         >
-          <div className="w-full h-full rounded-[12px] p-[6px]"
-            style={{ background: 'linear-gradient(145deg, #d4a843, #b8942e, #e8c95a, #c9a23a, #d4a843)' }}
-          >
-            <div className="w-full h-full rounded-[8px] flex flex-col items-center justify-center p-5"
-              style={{ background: 'linear-gradient(180deg, #e8d5a3 0%, #d4be82 100%)' }}
-            >
-              <h2 className="font-pressStart text-black text-xs md:text-sm mb-3 uppercase text-center" style={{ textShadow: '0 1px 0 rgba(255,255,255,0.3)' }}>
-                {item.title}
-              </h2>
-              <p className="text-black/70 font-sans text-[10px] md:text-xs mb-2 font-bold text-center">{item.position}</p>
-              <p className="text-black/60 font-sans text-[9px] md:text-[11px] leading-relaxed mb-5 text-center">
-                {item.description?.[0]?.subdesc}
-              </p>
-
-              {/* Skills */}
-              {item.skills && (
-                <div className="flex flex-wrap gap-2 justify-center mb-5">
-                  {item.skills.map((skill, i) => (
-                    <span key={i} className="px-2 py-1 bg-[#8b7332]/20 border border-[#8b7332] text-black text-[8px] font-sans font-bold rounded uppercase">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              )}
-
-              {/* Visit Site Button */}
-              {item.links?.length > 0 && (
-                <a
-                  href={item.links[0].url}
-                  className="inline-flex items-center justify-center px-5 py-2 bg-[#f8b800] text-black text-[10px] font-pressStart rounded-lg border-2 border-black hover:bg-yellow-400 active:translate-y-1 transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,0.4)] cursor-pointer"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  VISIT SITE
-                </a>
-              )}
-
-              <p className="text-black/40 text-[7px] font-pressStart mt-4">TAP TO FLIP</p>
+          {isFaceDown ? (
+            /* Desain Vortex/Pusaran saat belum disummon (Face-Down) */
+            <div className="ygo-card-back-design shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
+              <div className="ygo-card-back-inner"></div>
             </div>
-          </div>
+          ) : (
+            /* Desain Teks Deskripsi saat diklik manual (Flipped) */
+            <div className="w-full h-full rounded-[12px] p-[6px]"
+              style={{ background: 'linear-gradient(145deg, #d4a843, #b8942e, #e8c95a, #c9a23a, #d4a843)' }}
+            >
+              <div className="w-full h-full rounded-[8px] flex flex-col items-center justify-center p-5"
+                style={{ background: 'linear-gradient(180deg, #e8d5a3 0%, #d4be82 100%)' }}
+              >
+                <h2 className="font-pressStart text-black text-xs md:text-sm mb-3 uppercase text-center" style={{ textShadow: '0 1px 0 rgba(255,255,255,0.3)' }}>
+                  {item.title}
+                </h2>
+                <p className="text-black/70 font-sans text-[10px] md:text-xs mb-2 font-bold text-center">{item.position}</p>
+                <p className="text-black/60 font-sans text-[9px] md:text-[11px] leading-relaxed mb-5 text-center">
+                  {item.description?.[0]?.subdesc}
+                </p>
+
+                {/* Skills */}
+                {item.skills && (
+                  <div className="flex flex-wrap gap-2 justify-center mb-5">
+                    {item.skills.map((skill, i) => (
+                      <span key={i} className="px-2 py-1 bg-[#8b7332]/20 border border-[#8b7332] text-black text-[8px] font-sans font-bold rounded uppercase">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Visit Site Button */}
+                {item.links?.length > 0 && (
+                  <a
+                    href={item.links[0].url}
+                    className="inline-flex items-center justify-center px-5 py-2 bg-[#f8b800] text-black text-[10px] font-pressStart rounded-lg border-2 border-black hover:bg-yellow-400 active:translate-y-1 transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,0.4)] cursor-pointer"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    VISIT SITE
+                  </a>
+                )}
+
+                <p className="text-black/40 text-[7px] font-pressStart mt-4">TAP TO FLIP</p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
