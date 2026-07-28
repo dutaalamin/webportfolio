@@ -171,7 +171,7 @@ export default function ExperiencePage() {
               </div>
 
               {/* Header */}
-              <div className="pr-20 md:pr-32 mb-6">
+              <div className="pr-28 md:pr-32 mb-6">
                 <h2 className="font-pressStart text-[12px] md:text-[15px] text-gray-900 leading-relaxed">
                   {allExperiences[expandedQuest].title}
                 </h2>
