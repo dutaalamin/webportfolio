@@ -162,7 +162,7 @@ export default function ExperiencePage() {
             <div className={`backdrop-blur-2xl rounded-2xl border border-white/60 shadow-[0_8px_32px_rgba(31,38,135,0.25)] bg-gradient-to-br ${pokemonThemes[expandedQuest % pokemonThemes.length].cardBg} p-5 md:p-7 relative overflow-hidden h-[380px] md:h-[460px] flex flex-col mx-2 md:mx-0 transition-colors duration-500`}>
               
               {/* Pokemon Sprite - Floating freely */}
-              <div className="absolute top-2 right-2 md:top-4 md:right-4 w-28 h-28 md:w-36 md:h-36 z-20 flex items-center justify-center">
+              <div className="absolute top-6 right-2 md:top-8 md:right-6 w-28 h-28 md:w-36 md:h-36 z-20 flex items-center justify-center">
                 <img 
                   src={pokemonSprites[expandedQuest % pokemonSprites.length]} 
                   alt="Pokemon Sprite" 
