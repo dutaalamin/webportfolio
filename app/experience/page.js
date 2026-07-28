@@ -203,7 +203,7 @@ export default function ExperiencePage() {
         )}
         </div>
         {/* Navigation Buttons at bottom (Mobile Only) */}
-        <div className="flex md:hidden justify-center gap-4 w-full mt-6 z-20">
+        <div className="flex md:hidden justify-center gap-4 w-full px-4 mt-6 z-20">
           <Link href="/about" className="flex-1">
             <button className="w-full px-2 py-3 bg-white/80 backdrop-blur-sm border-4 border-black text-black text-[10px] font-pressStart hover:bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center rounded-lg">
               ◀ Back
@@ -211,7 +211,7 @@ export default function ExperiencePage() {
           </Link>
           <Link href="/portfolio" className="flex-1">
             <button className="w-full px-2 py-3 bg-[#f8b800]/90 backdrop-blur-sm border-4 border-black text-black text-[10px] font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center rounded-lg">
-              Next ▶
+              Portfolio ▶
             </button>
           </Link>
         </div>
