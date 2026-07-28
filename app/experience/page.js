@@ -158,21 +158,21 @@ export default function ExperiencePage() {
         {expandedQuest !== null && (
           <div key={expandedQuest} className="flex-1 min-w-0 animate-in slide-in-from-right-4 fade-in duration-300">
             
-            {/* Trading Card Frame */}
-            <div className={`backdrop-blur-2xl rounded-2xl border-4 ${pokemonThemes[expandedQuest % pokemonThemes.length].cardBorder} shadow-[0_8px_32px_rgba(31,38,135,0.25)] bg-gradient-to-br ${pokemonThemes[expandedQuest % pokemonThemes.length].cardBg} p-5 md:p-7 relative overflow-hidden h-[380px] md:h-[460px] flex flex-col mx-2 md:mx-0 transition-colors duration-500`}>
+            {/* Holographic Glass Card */}
+            <div className={`backdrop-blur-2xl rounded-2xl border border-white/60 shadow-[0_8px_32px_rgba(31,38,135,0.25)] bg-gradient-to-br ${pokemonThemes[expandedQuest % pokemonThemes.length].cardBg} p-5 md:p-7 relative overflow-hidden h-[380px] md:h-[460px] flex flex-col mx-2 md:mx-0 transition-colors duration-500`}>
               
-              {/* Pokemon Sprite - Picture Frame */}
-              <div className={`absolute top-5 right-5 w-24 h-24 md:w-32 md:h-32 z-20 rounded-xl border-4 ${pokemonThemes[expandedQuest % pokemonThemes.length].cardBorder} bg-gradient-to-br from-white/80 to-white/30 shadow-inner flex items-center justify-center overflow-hidden backdrop-blur-sm transition-colors duration-500`}>
+              {/* Pokemon Sprite - Floating freely */}
+              <div className="absolute top-2 right-2 md:top-4 md:right-4 w-28 h-28 md:w-36 md:h-36 z-20 flex items-center justify-center">
                 <img 
                   src={pokemonSprites[expandedQuest % pokemonSprites.length]} 
                   alt="Pokemon Sprite" 
-                  className="w-4/5 h-4/5 object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)] animate-bounce"
+                  className="w-full h-full object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.4)] animate-bounce"
                   style={{ animationDuration: '3s' }}
                 />
               </div>
 
               {/* Header */}
-              <div className="pr-20 md:pr-32 mb-4">
+              <div className="pr-20 md:pr-32 mb-6">
                 <h2 className="font-pressStart text-[12px] md:text-[15px] text-gray-900 leading-relaxed">
                   {allExperiences[expandedQuest].title}
                 </h2>
@@ -183,9 +183,6 @@ export default function ExperiencePage() {
                   {allExperiences[expandedQuest].date} · {allExperiences[expandedQuest].location}
                 </p>
               </div>
-
-              {/* Divider */}
-              <div className={`w-full h-[2px] bg-gradient-to-r ${pokemonThemes[expandedQuest % pokemonThemes.length].divider} to-transparent mb-4`}></div>
 
               {/* Description Scroll Area */}
               <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-4">
