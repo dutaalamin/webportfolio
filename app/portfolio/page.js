@@ -50,7 +50,7 @@ export default function PortfolioPage() {
       <HamburgerMenu menuItems={menu} />
       
       {/* Back to Home Button (Desktop) */}
-      <Link href="/">
+      <Link href="/experience">
         <button className="hidden md:flex absolute top-6 left-6 z-50 px-4 py-2 bg-white border-4 border-black text-black text-xs font-pressStart hover:bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
           &lt; Back
         </button>
@@ -142,6 +142,20 @@ export default function PortfolioPage() {
               </button>
             </div>
           )}
+        </div>
+
+        {/* Mobile Navigation Buttons at bottom */}
+        <div className="flex md:hidden justify-center gap-4 w-full mt-4 pb-4 px-2 z-20">
+          <Link href="/experience" className="flex-1">
+            <button className="w-full px-2 py-3 bg-white/80 backdrop-blur-sm border-4 border-black text-black text-[10px] font-pressStart hover:bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center rounded-lg">
+              ◀ Back
+            </button>
+          </Link>
+          <Link href="/message" className="flex-1">
+            <button className="w-full px-2 py-3 bg-[#f8b800]/90 backdrop-blur-sm border-4 border-black text-black text-[10px] font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center rounded-lg">
+              Message ▶
+            </button>
+          </Link>
         </div>
       </div>
     </div>
