@@ -218,10 +218,10 @@ export default function ExperiencePage() {
       </div>
 
       {/* Desktop Navigation Button (Next to Portfolio) */}
-      <div className={`hidden md:flex absolute right-8 top-1/2 -translate-y-1/2 z-30 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
+      <div className={`hidden md:flex absolute right-24 md:right-32 top-6 z-50 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10'}`}>
         <Link href="/portfolio">
-          <button className="px-6 py-4 bg-[#f8b800]/90 backdrop-blur-sm border-4 border-black text-black text-xs font-pressStart hover:bg-yellow-400 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer rounded-xl">
-            Next ▶
+          <button className="px-4 py-2 bg-[#f8b800]/90 backdrop-blur-sm border-4 border-black text-black text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
+            Next &gt;
           </button>
         </Link>
       </div>
