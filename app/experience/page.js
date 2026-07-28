@@ -178,8 +178,8 @@ export default function ExperiencePage() {
                 <p className={`font-sans font-bold text-sm md:text-base mt-2 ${pokemonThemes[expandedQuest % pokemonThemes.length].textColor}`}>
                   {allExperiences[expandedQuest].position}
                 </p>
-                <p className="font-pressStart text-[7px] md:text-[8px] text-gray-500 mt-2 tracking-wider">
-                  {allExperiences[expandedQuest].date} · {allExperiences[expandedQuest].location}
+                <p className="font-sans text-xs md:text-sm font-medium text-gray-600 mt-1 flex items-center gap-1.5">
+                  <span className="opacity-80">📅</span> {allExperiences[expandedQuest].date} <span className="opacity-50">|</span> <span className="opacity-80">📍</span> {allExperiences[expandedQuest].location}
                 </p>
               </div>
 
