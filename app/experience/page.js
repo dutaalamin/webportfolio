@@ -90,10 +90,10 @@ export default function ExperiencePage() {
               <button
                 key={idx}
                 onClick={() => setExpandedQuest(idx)}
-                className={`shrink-0 md:shrink text-left px-3 py-3 rounded-xl font-pressStart text-[8px] md:text-[9px] transition-all duration-200 border-2
+                className={`shrink-0 md:shrink text-left px-3 py-3 rounded-md font-pressStart text-[8px] md:text-[9px] transition-all duration-200 border-[4px] border-[#fbcd27] shadow-[0_0_0_2px_#111827,inset_0_0_0_2px_#111827]
                   ${expandedQuest === idx 
-                    ? 'bg-red-600 text-white border-red-800 shadow-lg scale-[1.02]' 
-                    : 'bg-black/50 backdrop-blur-md text-gray-200 border-white/20 shadow-md hover:bg-black/70 hover:scale-[1.02] hover:shadow-lg hover:border-white/40'}`}
+                    ? 'bg-red-600 text-white scale-[1.02] z-10' 
+                    : 'bg-black/70 backdrop-blur-md text-gray-200 hover:bg-black/90 hover:scale-[1.02] z-0'}`}
               >
                 <span className="leading-snug">{exp.title}</span>
               </button>
@@ -106,7 +106,7 @@ export default function ExperiencePage() {
           <div key={expandedQuest} className="flex-1 min-w-0 animate-in slide-in-from-right-4 fade-in duration-300">
             
             {/* Glass Card */}
-            <div className="bg-black/60 backdrop-blur-xl rounded-2xl border-2 border-white/20 shadow-2xl p-5 md:p-7 relative overflow-hidden h-[380px] md:h-[460px] flex flex-col">
+            <div className="bg-black/80 backdrop-blur-xl rounded-xl border-[12px] border-[#fbcd27] shadow-[0_0_0_4px_#111827,inset_0_0_0_4px_#111827] p-5 md:p-7 relative overflow-hidden h-[380px] md:h-[460px] flex flex-col mx-2 md:mx-0">
               
               {/* Pokemon Sprite - Floating in top right */}
               <div className="absolute top-4 right-4 w-20 h-20 md:w-28 md:h-28 z-20">
