@@ -40,7 +40,7 @@ export default function ExperiencePage() {
   ];
 
   return (
-    <div className="relative w-screen h-screen bg-gradient-to-b from-blue-200 to-blue-50 flex items-center justify-center overflow-hidden">
+    <div className="relative w-screen h-screen bg-white flex items-center justify-center overflow-hidden">
       <HamburgerMenu menuItems={menu} />
       
       {/* Back to Home Button (Desktop) */}
@@ -132,7 +132,7 @@ export default function ExperiencePage() {
               </div>
 
               {/* Divider */}
-              <div className="w-full h-[2px] bg-gradient-to-r from-red-500 via-red-300 to-transparent mb-4"></div>
+              <div className="w-full h-[2px] bg-gradient-to-r from-cyan-500 via-blue-400 to-transparent mb-4"></div>
 
               {/* Description Scroll Area */}
               <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-4">
