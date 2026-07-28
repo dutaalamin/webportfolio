@@ -27,6 +27,49 @@ export default function ExperiencePage() {
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/149.gif' // Dragonite
   ];
 
+  const pokemonThemes = [
+    {
+      // Pikachu (Electric)
+      buttonBg: 'bg-gradient-to-r from-yellow-400 to-yellow-500',
+      buttonBorder: 'border-yellow-300',
+      buttonShadow: 'shadow-[0_0_15px_rgba(250,204,21,0.6)]',
+      textColor: 'text-yellow-600',
+      divider: 'from-yellow-500 via-yellow-300'
+    },
+    {
+      // Charizard (Fire)
+      buttonBg: 'bg-gradient-to-r from-red-500 to-orange-500',
+      buttonBorder: 'border-orange-300',
+      buttonShadow: 'shadow-[0_0_15px_rgba(239,68,68,0.6)]',
+      textColor: 'text-red-600',
+      divider: 'from-red-500 via-orange-400'
+    },
+    {
+      // Blastoise (Water)
+      buttonBg: 'bg-gradient-to-r from-blue-500 to-cyan-500',
+      buttonBorder: 'border-cyan-300',
+      buttonShadow: 'shadow-[0_0_15px_rgba(59,130,246,0.6)]',
+      textColor: 'text-blue-600',
+      divider: 'from-blue-500 via-cyan-400'
+    },
+    {
+      // Venusaur (Grass)
+      buttonBg: 'bg-gradient-to-r from-green-500 to-emerald-500',
+      buttonBorder: 'border-emerald-300',
+      buttonShadow: 'shadow-[0_0_15px_rgba(34,197,94,0.6)]',
+      textColor: 'text-green-600',
+      divider: 'from-green-500 via-emerald-400'
+    },
+    {
+      // Dragonite (Dragon/Flying)
+      buttonBg: 'bg-gradient-to-r from-amber-500 to-orange-400',
+      buttonBorder: 'border-amber-300',
+      buttonShadow: 'shadow-[0_0_15px_rgba(245,158,11,0.6)]',
+      textColor: 'text-amber-600',
+      divider: 'from-amber-500 via-orange-300'
+    }
+  ];
+
   useEffect(() => {
     const timeout = setTimeout(() => setIsVisible(true), 2500);
     return () => clearTimeout(timeout);
@@ -92,7 +135,7 @@ export default function ExperiencePage() {
                 onClick={() => setExpandedQuest(idx)}
                 className={`relative overflow-hidden shrink-0 md:shrink text-left px-4 py-3 rounded-xl font-pressStart text-[8px] md:text-[9px] transition-all duration-300 border
                   ${expandedQuest === idx 
-                    ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white border-cyan-300 shadow-[0_0_15px_rgba(6,182,212,0.5)] scale-[1.02] z-10' 
+                    ? `${pokemonThemes[idx % pokemonThemes.length].buttonBg} text-white ${pokemonThemes[idx % pokemonThemes.length].buttonBorder} ${pokemonThemes[idx % pokemonThemes.length].buttonShadow} scale-[1.02] z-10` 
                     : 'bg-white/40 backdrop-blur-md text-gray-800 border-white/60 hover:bg-white/60 hover:scale-[1.02] hover:shadow-lg z-0'}`}
               >
                 <span className="leading-snug">{exp.title}</span>
@@ -123,7 +166,7 @@ export default function ExperiencePage() {
                 <h2 className="font-pressStart text-[12px] md:text-[15px] text-gray-900 leading-relaxed">
                   {allExperiences[expandedQuest].title}
                 </h2>
-                <p className="font-sans font-bold text-sm md:text-base text-cyan-700 mt-2">
+                <p className={`font-sans font-bold text-sm md:text-base mt-2 ${pokemonThemes[expandedQuest % pokemonThemes.length].textColor}`}>
                   {allExperiences[expandedQuest].position}
                 </p>
                 <p className="font-pressStart text-[7px] md:text-[8px] text-gray-500 mt-2 tracking-wider">
@@ -132,7 +175,7 @@ export default function ExperiencePage() {
               </div>
 
               {/* Divider */}
-              <div className="w-full h-[2px] bg-gradient-to-r from-cyan-500 via-blue-400 to-transparent mb-4"></div>
+              <div className={`w-full h-[2px] bg-gradient-to-r ${pokemonThemes[expandedQuest % pokemonThemes.length].divider} to-transparent mb-4`}></div>
 
               {/* Description Scroll Area */}
               <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-4">
