@@ -14,7 +14,22 @@ export default function ExperiencePage() {
   const [isVisible, setIsVisible] = useState(false);
   const [expandedQuest, setExpandedQuest] = useState(null);
 
-  const current = experienceData[page];
+  // Flatten all experiences into a single array for the Gym Badges
+  const allExperiences = experienceData.flatMap(year => 
+    Object.values(year.sections).flat()
+  );
+
+  // Badge configurations
+  const badgeColors = [
+    'bg-gray-300',      // Boulder Badge
+    'bg-blue-400',      // Cascade Badge
+    'bg-yellow-400',    // Thunder Badge
+    'bg-green-400',     // Rainbow Badge
+    'bg-purple-400',    // Soul Badge
+    'bg-red-400'        // Volcano Badge
+  ];
+
+  const badgeIcons = ['🗿', '💧', '⚡', '🌈', '🔮', '🌋'];
 
   useEffect(() => {
     const timeout = setTimeout(() => setIsVisible(true), 2500);
@@ -76,218 +91,130 @@ export default function ExperiencePage() {
 
       <FarmAnimals className={`transition-all duration-700 ease-out ${isVisible ? 'opacity-100' : 'opacity-0'}`} />
 
-      <div className={`relative z-20 w-[95%] max-w-screen-md flex flex-col items-stretch overflow-hidden transition-all duration-700 ease-out transform
-      ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
-      >
-        {/* Chapter Select Header */}
-        <div className={`flex flex-wrap md:flex-row items-start md:items-center justify-between px-2 md:px-4 pt-4 md:pt-2 pb-2 gap-3 transition-all duration-700 ease-out
-          ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+        {/* Pokédex Container */}
+        <div className={`relative w-full max-w-4xl mx-auto rounded-[24px] border-[8px] border-[#8b0000] p-4 md:p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] transition-all duration-700 ease-out transform flex flex-col md:flex-row gap-4 md:gap-6
+          ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-95'}`}
+          style={{ background: '#dc2626' }}
         >
-          <div className="flex flex-wrap gap-2 md:gap-5 w-full md:w-auto justify-center md:justify-start">
-            {experienceData.map((item, index) => (
-              <button
-                key={index}
-                onClick={() => setPage(index)}
-                className={`py-2 px-3 text-[10px] md:text-xs font-pressStart cursor-pointer transition-all border-2
-                  ${index === page 
-                    ? 'bg-[#f8b800] text-black border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]' 
-                    : 'bg-white/80 text-gray-400 border-gray-300 hover:text-black hover:border-black'}`}
-              >
-                CH.{item.year}
-              </button>
-            ))}
+          {/* Decorative Camera/Lights on Top Left (Pokédex style) */}
+          <div className="absolute top-2 left-4 flex gap-2 items-center hidden md:flex">
+             <div className="w-8 h-8 rounded-full bg-blue-400 border-[3px] border-white shadow-[0_0_8px_rgba(96,165,250,0.8)] animate-pulse"></div>
+             <div className="w-3 h-3 rounded-full bg-red-500 border border-black"></div>
+             <div className="w-3 h-3 rounded-full bg-yellow-400 border border-black"></div>
+             <div className="w-3 h-3 rounded-full bg-green-500 border border-black"></div>
           </div>
 
-          {/* Desktop Next Button */}
-          <Link href="/portfolio" className="hidden md:block">
-            <button className="px-3 py-2 bg-[#f8b800] border-4 border-black text-black text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
-              Portfolio ▶
-            </button>
-          </Link>
-        </div>
+          {/* Left Panel: Navigation List */}
+          <div className="w-full md:w-1/3 bg-[#f8fafc] border-[4px] border-black rounded-lg flex flex-col h-[200px] md:h-[450px] shadow-inner mt-0 md:mt-10 overflow-hidden">
+             <div className="bg-[#cbd5e1] border-b-[4px] border-black p-3 text-center">
+                 <h2 className="font-pressStart text-[10px] md:text-[11px] text-black tracking-wider">DATABASE</h2>
+             </div>
+             <div className="flex-1 overflow-y-auto p-2 custom-scrollbar space-y-2 bg-[#f1f5f9]">
+                 {allExperiences.map((exp, idx) => (
+                    <button
+                       key={idx}
+                       onClick={() => setExpandedQuest(idx)}
+                       className={`w-full text-left px-3 py-3 border-[3px] border-black rounded font-pressStart text-[8px] md:text-[9px] transition-all hover:bg-gray-200 active:translate-y-1 active:shadow-none
+                          ${expandedQuest === idx 
+                              ? 'bg-[#3b82f6] text-white shadow-[inset_0_-3px_0_rgba(0,0,0,0.3)] border-black' 
+                              : 'bg-white text-black shadow-[2px_2px_0px_rgba(0,0,0,1)]'}`}
+                    >
+                       <span className="opacity-50 mr-2">No.{String(idx + 1).padStart(2, '0')}</span>
+                       <span className="leading-snug block mt-1 md:inline md:mt-0">{exp.title}</span>
+                    </button>
+                 ))}
+             </div>
+          </div>
 
-        {/* Quest Log Scroll Panel */}
-        <div className={`relative h-[460px] md:h-[500px] overflow-y-auto transition-all duration-700 ease-out
-        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
-        >
-          {/* Quest Log Container - Parchment Style */}
-          <div className="mx-1 md:mx-2 rounded-lg border-4 border-[#8b7332] overflow-hidden shadow-[6px_6px_0px_0px_rgba(0,0,0,0.3)]"
-            style={{ background: 'linear-gradient(180deg, #f5edd6 0%, #e8d9b8 50%, #dcc9a0 100%)' }}
-          >
-            {/* Quest Log Title Bar */}
-            <div className="px-4 py-3 border-b-3 border-[#8b7332] flex items-center gap-3"
-              style={{ background: 'linear-gradient(90deg, #c9a23a, #d4a843, #e8c95a, #d4a843, #c9a23a)' }}
-            >
-              <span className="text-lg">📜</span>
-              <h1 className="font-pressStart text-[10px] md:text-xs text-black drop-shadow-sm">QUEST LOG — CHAPTER {current.year}</h1>
-            </div>
-
-            {/* Quest Entries */}
-            <div className="p-3 md:p-4 space-y-4">
-              {Object.entries(current.sections).map(([sectionTitle, items], sIdx) => (
-                <div key={sIdx}>
-                  {/* Section Header */}
-                  <div className="flex items-center gap-2 mb-3 pb-2 border-b-2 border-[#8b7332]/40">
-                    <span className="text-sm">{sectionTitle.includes('Other') ? '⚔️' : '🗡️'}</span>
-                    <h2 className="font-pressStart text-[8px] md:text-[10px] text-[#6b5a28] uppercase">{sectionTitle}</h2>
-                  </div>
-
-                  {/* Quest Cards */}
-                  <div className="space-y-3">
-                    {items.map((item, index) => {
-                      const questKey = `${sIdx}-${index}`;
-                      const isExpanded = expandedQuest === questKey;
-                      const status = getQuestStatus(item.date);
-                      const rank = getQuestRank(item.skills);
-
-                      return (
-                        <div key={questKey} 
-                          className="rounded-lg border-3 border-[#8b7332] overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-[4px_4px_0px_0px_rgba(139,115,50,0.5)]"
-                          style={{ background: 'linear-gradient(180deg, #faf4e4 0%, #f0e4c8 100%)' }}
-                          onClick={() => setExpandedQuest(isExpanded ? null : questKey)}
-                        >
-                          {/* Quest Header */}
-                          <div className="p-3 md:p-4">
-                            <div className="flex items-start justify-between gap-2">
-                              <div className="flex-1 min-w-0">
-                                {/* Quest Title */}
-                                <div className="flex items-center gap-2 mb-1">
-                                  <span className="text-[10px] md:text-xs">{status.icon}</span>
-                                  <h3 className="font-pressStart text-[11px] md:text-xs text-[#8b7332] leading-tight truncate">{item.title}</h3>
-                                </div>
-                                {/* Position & Date */}
-                                <p className="font-pressStart text-[9px] md:text-[11px] text-black/70 mt-2">{item.position}</p>
-                                <p className="font-sans text-xs md:text-sm text-black/60 font-medium mt-1">{item.date} • {item.location}</p>
-                              </div>
-                              
-                              {/* Quest Rank Badge */}
-                              <div className="flex flex-col items-center gap-1 flex-shrink-0">
-                                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full border-3 border-black/30 flex items-center justify-center font-pressStart text-white text-sm md:text-base font-bold shadow-inner"
-                                  style={{ background: rank.bg }}
-                                >
-                                  {rank.rank}
-                                </div>
-                                <span className="font-pressStart text-[6px] text-black/40"
-                                  style={{ color: status.color }}
-                                >
-                                  {status.label}
-                                </span>
-                              </div>
-                            </div>
-
-                            {/* Expand indicator */}
-                            <div className="flex justify-center mt-2">
-                              <span className="font-pressStart text-[8px] text-[#8b7332]/60">{isExpanded ? '▲ CLOSE' : '▼ VIEW QUEST'}</span>
-                            </div>
-                          </div>
-
-                          {/* Expanded Quest Details */}
-                          {isExpanded && (
-                            <div className="border-t-2 border-[#8b7332]/30 p-3 md:p-4 space-y-4"
-                              style={{ background: 'linear-gradient(180deg, #f0e4c8 0%, #e6d6ac 100%)' }}
-                            >
-                              {/* Quest Objectives */}
-                              <div>
-                                <h4 className="font-pressStart text-[8px] text-[#6b5a28] mb-2 flex items-center gap-1">
-                                  <span>📋</span> QUEST OBJECTIVES
-                                </h4>
-                                <div className="space-y-3 ml-1">
-                                  {item.description.map((desc, i) => (
-                                    <div key={i} className="flex gap-2">
-                                      <span className="text-[#22c55e] text-xs mt-0.5 flex-shrink-0">✓</span>
-                                      <div>
-                                        <p className="font-pressStart text-[7px] md:text-[8px] text-black/80 mb-1">{desc.subtitle}</p>
-                                        <p className="font-sans text-[10px] md:text-[11px] text-black/60 leading-relaxed font-medium">{desc.subdesc}</p>
-                                      </div>
-                                    </div>
-                                  ))}
-                                </div>
-                              </div>
-
-                              {/* Quest Rewards: Skills */}
-                              {item.skills && (
-                                <div className="border-2 border-[#8b7332]/40 rounded-md p-3"
-                                  style={{ background: 'linear-gradient(180deg, #faf4e4, #f5edd6)' }}
-                                >
-                                  <h4 className="font-pressStart text-[8px] text-[#6b5a28] mb-2 flex items-center gap-1">
-                                    <span>🏆</span> REWARDS — SKILLS ACQUIRED
-                                  </h4>
-                                  <div className="flex flex-wrap gap-2">
-                                    {item.skills.map((skill, i) => (
-                                      <span key={i} className="px-2 py-1 bg-[#f8b800]/20 border-2 border-[#8b7332]/50 text-black text-[7px] md:text-[8px] font-pressStart rounded">
-                                        {skill}
-                                      </span>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
-
-                              {/* Quest Rewards: Tools */}
-                              {item.tools && (
-                                <div className="border-2 border-[#8b7332]/40 rounded-md p-3"
-                                  style={{ background: 'linear-gradient(180deg, #faf4e4, #f5edd6)' }}
-                                >
-                                  <h4 className="font-pressStart text-[8px] text-[#6b5a28] mb-2 flex items-center gap-1">
-                                    <span>⚒️</span> ITEMS COLLECTED — TOOLS
-                                  </h4>
-                                  <div className="flex flex-wrap gap-2">
-                                    {item.tools.map((tool, i) => (
-                                      <span key={i} className="px-2 py-1 bg-[#3b82f6]/10 border-2 border-[#3b82f6]/30 text-black text-[7px] md:text-[8px] font-pressStart rounded">
-                                        {tool}
-                                      </span>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
-
-                              {/* XP Bar */}
-                              <div className="flex items-center gap-2">
-                                <span className="font-pressStart text-[7px] text-[#6b5a28]">EXP</span>
-                                <div className="flex-1 h-3 bg-[#8b7332]/20 rounded-full overflow-hidden border border-[#8b7332]/40">
-                                  <div className="h-full rounded-full transition-all duration-1000"
-                                    style={{ 
-                                      width: '100%',
-                                      background: 'linear-gradient(90deg, #f8b800, #fcd34d, #f8b800)'
-                                    }}
-                                  />
-                                </div>
-                                <span className="font-pressStart text-[7px] text-[#22c55e]">MAX</span>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
+          {/* Right Panel: Gameboy/LCD Monitor */}
+          <div className="w-full md:w-2/3 bg-[#8b9bb4] border-[4px] md:border-[8px] border-[#334155] rounded-xl p-3 md:p-5 relative flex flex-col h-[350px] md:h-[450px] shadow-[inset_0_0_15px_rgba(0,0,0,0.5)] md:mt-10">
+             
+             {/* LCD Screen Inner */}
+             <div className="flex-1 bg-[#8bac0f] border-[4px] border-[#0f380f] rounded-lg relative overflow-hidden flex flex-col shadow-[inset_0_0_10px_rgba(0,0,0,0.3)]">
+                
+                {/* CSS Scanlines & Flicker Overlay */}
+                <div className="absolute inset-0 pointer-events-none z-20 mix-blend-overlay opacity-20"
+                     style={{ background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, #000 2px, #000 4px)' }}>
                 </div>
-              ))}
-            </div>
+                
+                {expandedQuest !== null ? (
+                   <div className="relative z-10 p-4 md:p-6 flex flex-col h-full animate-in fade-in zoom-in-95 duration-300">
+                      
+                      {/* Company & Role */}
+                      <div className="border-b-[3px] border-[#306230] pb-3 mb-4">
+                         <h2 className="font-pressStart text-[11px] md:text-sm text-[#0f380f] leading-relaxed tracking-wide">
+                            {allExperiences[expandedQuest].title}
+                         </h2>
+                         <p className="font-sans font-bold text-xs md:text-sm text-[#306230] mt-2">
+                            ▶ {allExperiences[expandedQuest].position}
+                         </p>
+                      </div>
 
-            {/* Footer */}
-            <div className="px-4 py-2 border-t-2 border-[#8b7332]/30 text-center"
-              style={{ background: 'linear-gradient(90deg, #c9a23a, #d4a843, #e8c95a, #d4a843, #c9a23a)' }}
-            >
-              <p className="font-pressStart text-[7px] text-black/50">
-                {Object.values(current.sections).flat().length} QUEST{Object.values(current.sections).flat().length > 1 ? 'S' : ''} IN CHAPTER {current.year}
-              </p>
-            </div>
+                      {/* Date & Location */}
+                      <p className="font-pressStart text-[7px] md:text-[8px] text-[#0f380f]/80 mb-4 tracking-widest">
+                         [ {allExperiences[expandedQuest].date} | {allExperiences[expandedQuest].location} ]
+                      </p>
+
+                      {/* Description Scroll Area */}
+                      <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-4">
+                         {allExperiences[expandedQuest].description.map((desc, i) => (
+                            <div key={i} className="mb-3">
+                               <p className="font-pressStart text-[8px] md:text-[9px] text-[#0f380f] mb-2 leading-loose">
+                                  {desc.subtitle}
+                               </p>
+                               <p className="font-sans text-[11px] md:text-[13px] text-[#306230] font-bold leading-relaxed border-l-[3px] border-[#306230]/40 pl-3">
+                                  {desc.subdesc}
+                               </p>
+                            </div>
+                         ))}
+                         
+                         {/* Skills */}
+                         {allExperiences[expandedQuest].skills && (
+                            <div className="mt-5 pt-3 border-t-[3px] border-[#306230]/30">
+                               <p className="font-pressStart text-[8px] text-[#0f380f] mb-3">SKILLS AQUIRED:</p>
+                               <div className="flex flex-wrap gap-2">
+                                  {allExperiences[expandedQuest].skills.map((skill, i) => (
+                                     <span key={i} className="px-2 py-1 bg-[#306230] text-[#8bac0f] border-2 border-[#0f380f] rounded text-[8px] font-pressStart shadow-[2px_2px_0px_#0f380f]">
+                                        {skill}
+                                     </span>
+                                  ))}
+                               </div>
+                            </div>
+                         )}
+                      </div>
+                   </div>
+                ) : (
+                   /* Empty State */
+                   <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center p-6">
+                      <div className="w-12 h-12 md:w-16 md:h-16 rounded-full border-[4px] border-[#306230] border-t-transparent animate-spin mb-4"></div>
+                      <p className="font-pressStart text-[10px] text-[#0f380f] animate-pulse">AWAITING INPUT...</p>
+                      <p className="font-pressStart text-[7px] text-[#306230] mt-4">SELECT ENTRY FROM DATABASE</p>
+                   </div>
+                )}
+             </div>
+             
+             {/* Decorative Speaker Grills */}
+             <div className="absolute bottom-3 right-4 flex gap-1 md:gap-2">
+                 <div className="w-6 md:w-8 h-1 md:h-2 bg-[#334155] rounded-full rotate-[-45deg]"></div>
+                 <div className="w-6 md:w-8 h-1 md:h-2 bg-[#334155] rounded-full rotate-[-45deg]"></div>
+                 <div className="w-6 md:w-8 h-1 md:h-2 bg-[#334155] rounded-full rotate-[-45deg]"></div>
+             </div>
           </div>
         </div>
 
         {/* Navigation Buttons at bottom (Mobile Only) */}
-        <div className={`flex md:hidden justify-center gap-4 mt-4 w-[90%] mx-auto transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        <div className={`flex md:hidden justify-center gap-4 mt-6 w-[90%] mx-auto transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <Link href="/about" className="flex-1">
-            <button className="w-full px-2 py-3 bg-white border-4 border-black text-black text-[10px] font-pressStart hover:bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center">
+            <button className="w-full px-2 py-3 bg-white border-4 border-black text-black text-[10px] font-pressStart hover:bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center rounded-lg">
               ◀ Back
             </button>
           </Link>
           <Link href="/portfolio" className="flex-1">
-            <button className="w-full px-2 py-3 bg-[#f8b800] border-4 border-black text-black text-[10px] font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center">
+            <button className="w-full px-2 py-3 bg-[#f8b800] border-4 border-black text-black text-[10px] font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center rounded-lg">
               Next ▶
             </button>
           </Link>
         </div>
-      </div>
     </div>
   );
 }
