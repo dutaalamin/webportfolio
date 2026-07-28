@@ -179,7 +179,7 @@ export default function ExperiencePage() {
                   {allExperiences[expandedQuest].position}
                 </p>
                 <p className="font-sans text-xs md:text-sm font-medium text-gray-600 mt-1 flex items-center gap-1.5">
-                  <span className="opacity-80">📅</span> {allExperiences[expandedQuest].date} <span className="opacity-50">|</span> <span className="opacity-80">📍</span> {allExperiences[expandedQuest].location}
+                  {allExperiences[expandedQuest].date} <span className="opacity-50">·</span> {allExperiences[expandedQuest].location}
                 </p>
               </div>
 
