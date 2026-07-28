@@ -34,7 +34,9 @@ export default function ExperiencePage() {
       buttonBorder: 'border-yellow-300',
       buttonShadow: 'shadow-[0_0_15px_rgba(250,204,21,0.6)]',
       textColor: 'text-yellow-600',
-      divider: 'from-yellow-500 via-yellow-300'
+      divider: 'from-yellow-500 via-yellow-300',
+      cardBg: 'from-yellow-100/90 to-white/60',
+      cardBorder: 'border-yellow-400'
     },
     {
       // Charizard (Fire)
@@ -42,7 +44,9 @@ export default function ExperiencePage() {
       buttonBorder: 'border-orange-300',
       buttonShadow: 'shadow-[0_0_15px_rgba(239,68,68,0.6)]',
       textColor: 'text-red-600',
-      divider: 'from-red-500 via-orange-400'
+      divider: 'from-red-500 via-orange-400',
+      cardBg: 'from-red-100/90 to-white/60',
+      cardBorder: 'border-red-400'
     },
     {
       // Blastoise (Water)
@@ -50,7 +54,9 @@ export default function ExperiencePage() {
       buttonBorder: 'border-cyan-300',
       buttonShadow: 'shadow-[0_0_15px_rgba(59,130,246,0.6)]',
       textColor: 'text-blue-600',
-      divider: 'from-blue-500 via-cyan-400'
+      divider: 'from-blue-500 via-cyan-400',
+      cardBg: 'from-blue-100/90 to-cyan-50/60',
+      cardBorder: 'border-blue-400'
     },
     {
       // Venusaur (Grass)
@@ -58,7 +64,9 @@ export default function ExperiencePage() {
       buttonBorder: 'border-emerald-300',
       buttonShadow: 'shadow-[0_0_15px_rgba(34,197,94,0.6)]',
       textColor: 'text-green-600',
-      divider: 'from-green-500 via-emerald-400'
+      divider: 'from-green-500 via-emerald-400',
+      cardBg: 'from-green-100/90 to-white/60',
+      cardBorder: 'border-green-400'
     },
     {
       // Dragonite (Dragon/Flying)
@@ -66,7 +74,9 @@ export default function ExperiencePage() {
       buttonBorder: 'border-amber-300',
       buttonShadow: 'shadow-[0_0_15px_rgba(245,158,11,0.6)]',
       textColor: 'text-amber-600',
-      divider: 'from-amber-500 via-orange-300'
+      divider: 'from-amber-500 via-orange-300',
+      cardBg: 'from-amber-100/90 to-orange-50/60',
+      cardBorder: 'border-amber-400'
     }
   ];
 
@@ -148,15 +158,15 @@ export default function ExperiencePage() {
         {expandedQuest !== null && (
           <div key={expandedQuest} className="flex-1 min-w-0 animate-in slide-in-from-right-4 fade-in duration-300">
             
-            {/* Glass Card */}
-            <div className="bg-white/50 backdrop-blur-2xl rounded-2xl border border-white shadow-[0_8px_32px_rgba(31,38,135,0.15)] p-5 md:p-7 relative overflow-hidden h-[380px] md:h-[460px] flex flex-col mx-2 md:mx-0">
+            {/* Trading Card Frame */}
+            <div className={`backdrop-blur-2xl rounded-2xl border-4 ${pokemonThemes[expandedQuest % pokemonThemes.length].cardBorder} shadow-[0_8px_32px_rgba(31,38,135,0.25)] bg-gradient-to-br ${pokemonThemes[expandedQuest % pokemonThemes.length].cardBg} p-5 md:p-7 relative overflow-hidden h-[380px] md:h-[460px] flex flex-col mx-2 md:mx-0 transition-colors duration-500`}>
               
-              {/* Pokemon Sprite - Floating in top right */}
-              <div className="absolute top-4 right-4 w-20 h-20 md:w-28 md:h-28 z-20">
+              {/* Pokemon Sprite - Picture Frame */}
+              <div className={`absolute top-5 right-5 w-24 h-24 md:w-32 md:h-32 z-20 rounded-xl border-4 ${pokemonThemes[expandedQuest % pokemonThemes.length].cardBorder} bg-gradient-to-br from-white/80 to-white/30 shadow-inner flex items-center justify-center overflow-hidden backdrop-blur-sm transition-colors duration-500`}>
                 <img 
                   src={pokemonSprites[expandedQuest % pokemonSprites.length]} 
                   alt="Pokemon Sprite" 
-                  className="w-full h-full object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)] animate-bounce"
+                  className="w-4/5 h-4/5 object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)] animate-bounce"
                   style={{ animationDuration: '3s' }}
                 />
               </div>
