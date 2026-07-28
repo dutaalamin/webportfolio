@@ -45,7 +45,7 @@ export default function ExperiencePage() {
       
       {/* Back to Home Button (Desktop) */}
       <Link href="/">
-        <button className="hidden md:flex absolute top-6 left-6 z-50 px-4 py-2 bg-white border-4 border-black text-black text-xs font-pressStart hover:bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
+        <button className="hidden md:flex absolute top-6 left-6 z-50 px-4 py-2 bg-white/80 backdrop-blur-sm border-4 border-black text-black text-xs font-pressStart hover:bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
           &lt; Back
         </button>
       </Link>
@@ -70,126 +70,109 @@ export default function ExperiencePage() {
 
       <FarmAnimals className={`transition-all duration-700 ease-out ${isVisible ? 'opacity-100' : 'opacity-0'}`} />
 
-        {/* Pokédex Container */}
-        <div className={`relative w-full max-w-4xl mx-auto rounded-[24px] border-[8px] border-[#8b0000] p-4 md:p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] transition-all duration-700 ease-out transform flex flex-col md:flex-row gap-4 md:gap-6
-          ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-95'}`}
-          style={{ background: '#dc2626' }}
-        >
-          {/* Decorative Camera/Lights on Top Left (Pokédex style) */}
-          <div className="absolute top-2 left-4 flex gap-2 items-center hidden md:flex">
-             <div className="w-8 h-8 rounded-full bg-blue-400 border-[3px] border-white shadow-[0_0_8px_rgba(96,165,250,0.8)] animate-pulse"></div>
-             <div className="w-3 h-3 rounded-full bg-red-500 border border-black"></div>
-             <div className="w-3 h-3 rounded-full bg-yellow-400 border border-black"></div>
-             <div className="w-3 h-3 rounded-full bg-green-500 border border-black"></div>
+      {/* Main Content - Floating over background */}
+      <div className={`relative z-10 w-full max-w-5xl mx-auto px-4 md:px-8 flex flex-col md:flex-row gap-4 md:gap-6 items-start transition-all duration-700 ease-out transform
+        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        style={{ marginTop: '-20px' }}
+      >
+        
+        {/* Left Panel: Company List */}
+        <div className="w-full md:w-[280px] shrink-0">
+          <h2 className="font-pressStart text-[10px] md:text-[11px] text-black mb-3 px-1 drop-shadow-[0_2px_2px_rgba(255,255,255,0.8)]">WORK EXPERIENCE</h2>
+          <div className="flex flex-row md:flex-col gap-2 overflow-x-auto md:overflow-y-auto md:max-h-[420px] pb-2 md:pb-0 custom-scrollbar">
+            {allExperiences.map((exp, idx) => (
+              <button
+                key={idx}
+                onClick={() => setExpandedQuest(idx)}
+                className={`shrink-0 md:shrink text-left px-3 py-3 rounded-xl font-pressStart text-[8px] md:text-[9px] transition-all duration-200 border-2
+                  ${expandedQuest === idx 
+                    ? 'bg-red-600 text-white border-red-800 shadow-lg scale-[1.02]' 
+                    : 'bg-white/70 backdrop-blur-md text-black border-white/50 shadow-md hover:bg-white/90 hover:scale-[1.02] hover:shadow-lg'}`}
+              >
+                <span className="leading-snug">{exp.title}</span>
+              </button>
+            ))}
           </div>
+        </div>
 
-          {/* Left Panel: Navigation List */}
-          <div className="w-full md:w-1/3 bg-[#f8fafc] border-[4px] border-black rounded-lg flex flex-col h-[200px] md:h-[450px] shadow-inner mt-0 md:mt-10 overflow-hidden">
-             <div className="bg-[#cbd5e1] border-b-[4px] border-black p-3 text-center">
-                 <h2 className="font-pressStart text-[10px] md:text-[11px] text-black tracking-wider">WORK EXPERIENCE</h2>
-             </div>
-             <div className="flex-1 overflow-y-auto p-2 custom-scrollbar space-y-2 bg-[#f1f5f9]">
-                 {allExperiences.map((exp, idx) => (
-                    <button
-                       key={idx}
-                       onClick={() => setExpandedQuest(idx)}
-                       className={`w-full text-left px-3 py-3 border-[3px] border-black rounded font-pressStart text-[8px] md:text-[9px] transition-all hover:bg-gray-200 active:translate-y-1 active:shadow-none flex items-center
-                          ${expandedQuest === idx 
-                              ? 'bg-[#3b82f6] text-white shadow-[inset_0_-3px_0_rgba(0,0,0,0.3)] border-black' 
-                              : 'bg-white text-black shadow-[2px_2px_0px_rgba(0,0,0,1)]'}`}
-                    >
-                       <span className="leading-snug">{exp.title}</span>
-                    </button>
-                 ))}
-             </div>
-          </div>
+        {/* Right Panel: Experience Detail Card */}
+        {expandedQuest !== null && (
+          <div key={expandedQuest} className="flex-1 min-w-0 animate-in slide-in-from-right-4 fade-in duration-300">
+            
+            {/* Glass Card */}
+            <div className="bg-white/75 backdrop-blur-xl rounded-2xl border-2 border-white/60 shadow-xl p-5 md:p-7 relative overflow-hidden h-[380px] md:h-[460px] flex flex-col">
+              
+              {/* Pokemon Sprite - Floating in top right */}
+              <div className="absolute top-4 right-4 w-20 h-20 md:w-28 md:h-28 z-20">
+                <img 
+                  src={pokemonSprites[expandedQuest % pokemonSprites.length]} 
+                  alt="Pokemon Sprite" 
+                  className="w-full h-full object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)] animate-bounce"
+                  style={{ animationDuration: '3s' }}
+                />
+              </div>
 
-          {/* Right Panel: Clean Pokédex Monitor */}
-          <div className="w-full md:w-2/3 bg-[#cbd5e1] border-[4px] md:border-[8px] border-[#334155] rounded-xl p-3 md:p-5 relative flex flex-col h-[350px] md:h-[450px] shadow-inner md:mt-10">
-             
-             {/* Screen Inner */}
-             <div className="flex-1 bg-[#e0f2fe] border-[4px] border-black rounded-lg relative flex flex-col shadow-[inset_0_0_10px_rgba(0,0,0,0.1)] overflow-hidden">
+              {/* Header */}
+              <div className="pr-20 md:pr-32 mb-4">
+                <h2 className="font-pressStart text-[12px] md:text-[15px] text-gray-900 leading-relaxed">
+                  {allExperiences[expandedQuest].title}
+                </h2>
+                <p className="font-sans font-bold text-sm md:text-base text-red-600 mt-2">
+                  {allExperiences[expandedQuest].position}
+                </p>
+                <p className="font-pressStart text-[7px] md:text-[8px] text-gray-400 mt-2 tracking-wider">
+                  {allExperiences[expandedQuest].date} · {allExperiences[expandedQuest].location}
+                </p>
+              </div>
+
+              {/* Divider */}
+              <div className="w-full h-[2px] bg-gradient-to-r from-red-500 via-red-300 to-transparent mb-4"></div>
+
+              {/* Description Scroll Area */}
+              <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-4">
+                {allExperiences[expandedQuest].description.map((desc, i) => (
+                  <div key={i} className="mb-2">
+                    <p className="font-pressStart text-[8px] md:text-[9px] text-gray-800 mb-2 leading-loose">
+                      {desc.subtitle}
+                    </p>
+                    <p className="font-sans text-[12px] md:text-[14px] text-gray-600 leading-relaxed border-l-[3px] border-red-400 pl-3">
+                      {desc.subdesc}
+                    </p>
+                  </div>
+                ))}
                 
-                {expandedQuest !== null ? (
-                   <div key={expandedQuest} className="relative z-10 p-4 md:p-6 flex flex-col h-full animate-in slide-in-from-right-4 fade-in duration-300">
-                      
-                      {/* Header with Pokemon Sprite */}
-                      <div className="border-b-[3px] border-gray-200 pb-3 mb-4 flex justify-between items-start">
-                         <div className="pr-2">
-                             <h2 className="font-pressStart text-[11px] md:text-sm text-black leading-relaxed tracking-wide">
-                                {allExperiences[expandedQuest].title}
-                             </h2>
-                             <p className="font-sans font-bold text-xs md:text-sm text-red-600 mt-2">
-                                ▶ {allExperiences[expandedQuest].position}
-                             </p>
-                         </div>
-                         <div className="w-16 h-16 shrink-0 bg-blue-50 border-2 border-black rounded-lg flex items-center justify-center p-2 shadow-inner">
-                             <img 
-                                src={pokemonSprites[expandedQuest % pokemonSprites.length]} 
-                                alt="Pokemon Sprite" 
-                                className="w-full h-full object-contain"
-                             />
-                         </div>
-                      </div>
-
-                      {/* Date & Location */}
-                      <p className="font-pressStart text-[7px] md:text-[8px] text-gray-500 mb-4 tracking-widest">
-                         [ {allExperiences[expandedQuest].date} | {allExperiences[expandedQuest].location} ]
-                      </p>
-
-                      {/* Description Scroll Area */}
-                      <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-4">
-                         {allExperiences[expandedQuest].description.map((desc, i) => (
-                            <div key={i} className="mb-3">
-                               <p className="font-pressStart text-[8px] md:text-[9px] text-black mb-2 leading-loose">
-                                  {desc.subtitle}
-                               </p>
-                               <p className="font-sans text-[11px] md:text-[13px] text-gray-700 font-bold leading-relaxed border-l-[3px] border-red-500 pl-3">
-                                  {desc.subdesc}
-                               </p>
-                            </div>
-                         ))}
-                         
-                         {/* Skills */}
-                         {allExperiences[expandedQuest].skills && (
-                            <div className="mt-5 pt-3 border-t-[3px] border-gray-200">
-                               <p className="font-pressStart text-[8px] text-gray-500 mb-3">SKILLS AQUIRED:</p>
-                               <div className="flex flex-wrap gap-2">
-                                  {allExperiences[expandedQuest].skills.map((skill, i) => (
-                                     <span key={i} className="px-2 py-1 bg-black text-white border border-black rounded text-[8px] font-pressStart">
-                                        {skill}
-                                     </span>
-                                  ))}
-                               </div>
-                            </div>
-                         )}
-                      </div>
-                   </div>
-                ) : null}
-             </div>
-             
-             {/* Decorative Speaker Grills */}
-             <div className="absolute bottom-3 right-4 flex gap-1 md:gap-2">
-                 <div className="w-6 md:w-8 h-1 md:h-2 bg-[#020617] rounded-full rotate-[-45deg] shadow-[0_0_5px_rgba(34,211,238,0.5)]"></div>
-                 <div className="w-6 md:w-8 h-1 md:h-2 bg-[#020617] rounded-full rotate-[-45deg] shadow-[0_0_5px_rgba(34,211,238,0.5)]"></div>
-                 <div className="w-6 md:w-8 h-1 md:h-2 bg-[#020617] rounded-full rotate-[-45deg] shadow-[0_0_5px_rgba(34,211,238,0.5)]"></div>
-             </div>
+                {/* Skills */}
+                {allExperiences[expandedQuest].skills && (
+                  <div className="mt-4 pt-3 border-t border-gray-200">
+                    <p className="font-pressStart text-[7px] text-gray-400 mb-3">SKILLS:</p>
+                    <div className="flex flex-wrap gap-2">
+                      {allExperiences[expandedQuest].skills.map((skill, i) => (
+                        <span key={i} className="px-3 py-1.5 bg-gray-900 text-white rounded-full text-[8px] font-pressStart shadow-sm">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
+        )}
+      </div>
 
-        {/* Navigation Buttons at bottom (Mobile Only) */}
-        <div className={`flex md:hidden justify-center gap-4 mt-6 w-[90%] mx-auto transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-          <Link href="/about" className="flex-1">
-            <button className="w-full px-2 py-3 bg-white border-4 border-black text-black text-[10px] font-pressStart hover:bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center rounded-lg">
-              ◀ Back
-            </button>
-          </Link>
-          <Link href="/portfolio" className="flex-1">
-            <button className="w-full px-2 py-3 bg-[#f8b800] border-4 border-black text-black text-[10px] font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center rounded-lg">
-              Next ▶
-            </button>
-          </Link>
-        </div>
+      {/* Navigation Buttons at bottom (Mobile Only) */}
+      <div className={`absolute bottom-16 left-0 right-0 flex md:hidden justify-center gap-4 w-[90%] mx-auto z-20 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        <Link href="/about" className="flex-1">
+          <button className="w-full px-2 py-3 bg-white/80 backdrop-blur-sm border-4 border-black text-black text-[10px] font-pressStart hover:bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center rounded-lg">
+            ◀ Back
+          </button>
+        </Link>
+        <Link href="/portfolio" className="flex-1">
+          <button className="w-full px-2 py-3 bg-[#f8b800]/90 backdrop-blur-sm border-4 border-black text-black text-[10px] font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center rounded-lg">
+            Next ▶
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
