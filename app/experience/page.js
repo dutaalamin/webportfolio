@@ -10,35 +10,18 @@ import BackgroundAudio from '../components/Audio';
 import FarmAnimals from '../components/FarmAnimals';
 
 export default function ExperiencePage() {
-  const [page, setPage] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-  const [expandedQuest, setExpandedQuest] = useState(null);
+  const [expandedQuest, setExpandedQuest] = useState(0);
 
   // Flatten all experiences into a single array for the Gym Badges
   const allExperiences = experienceData.flatMap(year => 
     Object.values(year.sections).flat()
   );
 
-  // Badge configurations
-  const badgeColors = [
-    'bg-gray-300',      // Boulder Badge
-    'bg-blue-400',      // Cascade Badge
-    'bg-yellow-400',    // Thunder Badge
-    'bg-green-400',     // Rainbow Badge
-    'bg-purple-400',    // Soul Badge
-    'bg-red-400'        // Volcano Badge
-  ];
-
-  const badgeIcons = ['🗿', '💧', '⚡', '🌈', '🔮', '🌋'];
-
   useEffect(() => {
     const timeout = setTimeout(() => setIsVisible(true), 2500);
     return () => clearTimeout(timeout);
   }, []);
-
-  useEffect(() => {
-    setExpandedQuest(null);
-  }, [page]);
 
   const menu = [
     { label: 'Home', href: '/' },
@@ -46,19 +29,6 @@ export default function ExperiencePage() {
     { label: 'Experience', href: '/experience' },
     { label: 'Portfolio', href: '/portfolio' }
   ];
-
-  const getQuestStatus = (date) => {
-    if (date?.toLowerCase().includes('present')) return { label: 'IN PROGRESS', color: '#22c55e', icon: '🔄' };
-    return { label: 'COMPLETED', color: '#f8b800', icon: '✅' };
-  };
-
-  const getQuestRank = (skills) => {
-    const count = skills?.length || 0;
-    if (count >= 5) return { rank: 'S', color: '#f8b800', bg: '#f8b800' };
-    if (count >= 4) return { rank: 'A', color: '#ef4444', bg: '#ef4444' };
-    if (count >= 3) return { rank: 'B', color: '#3b82f6', bg: '#3b82f6' };
-    return { rank: 'C', color: '#22c55e', bg: '#22c55e' };
-  };
 
   return (
     <div className="relative w-screen h-screen bg-white flex items-center justify-center overflow-hidden">
