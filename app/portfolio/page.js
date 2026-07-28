@@ -128,17 +128,16 @@ export default function PortfolioPage() {
           <p className="text-gray-500 font-sans text-[10px] md:text-xs mt-1">{allProjects.length} cards • tap to flip</p>
         </div>
 
-        <div className={`relative h-[450px] md:h-[600px] md:w-[100vw] md:-ml-[calc(50vw-50%)] px-2 md:px-12 py-2 overflow-y-auto md:overflow-y-hidden md:overflow-x-auto transition-all duration-700 ease-out
+        <div className={`relative h-[450px] md:h-auto md:max-h-[65vh] px-2 md:px-6 py-2 overflow-y-auto transition-all duration-700 ease-out hide-scroll
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {/* Untuk menyembunyikan scrollbar webkit kita bisa menambahkan class khusus, atau karena sudah di-inline scrollbarWidth, kita bisa biarkan */}
           <style dangerouslySetInnerHTML={{__html: `
             .hide-scroll::-webkit-scrollbar { display: none; }
           `}} />
-          <div className="grid grid-cols-2 gap-4 mb-8 justify-items-center md:flex md:flex-row md:flex-nowrap md:gap-10 md:items-center md:h-full hide-scroll">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8 justify-items-center">
             {visibleProjects.map((project, index) => (
-              <div key={index} className="w-full flex justify-center md:flex-none md:w-[380px] md:h-auto">
+              <div key={index} className="w-full flex justify-center">
                 {cardTheme === 'yugioh' ? (
                   <TradingCard item={project} index={index} isVisible={isVisible} />
                 ) : (

@@ -96,7 +96,7 @@ export default function TradingCard({ item, index, isVisible = true }) {
   return (
     <div
       ref={cardRef}
-      className={`yugioh-card-wrapper cursor-pointer relative md:max-w-none md:w-full ${isSummoning ? 'animate-ygo-summon' : (isFaceDown && index % 2 === 0 ? 'animate-float' : (isFaceDown ? 'animate-float-delay' : ''))}`}
+      className={`yugioh-card-wrapper cursor-pointer relative ${isSummoning ? 'animate-ygo-summon' : (isFaceDown && index % 2 === 0 ? 'animate-float' : (isFaceDown ? 'animate-float-delay' : ''))}`}
       style={{ perspective: '1200px' }}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
