@@ -113,10 +113,14 @@ export default function PortfolioPage() {
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
         >
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-8 justify-items-center">
-            {visibleProjects.map((item, index) => (
-              cardTheme === 'yugioh' 
-                ? <TradingCard key={`ygo-${index}`} item={item} index={index} />
-                : <PokeCard key={`poke-${index}`} item={item} index={index} />
+            {visibleProjects.map((project, index) => (
+              <div key={index} className="w-full flex justify-center">
+                {cardTheme === 'yugioh' ? (
+                  <TradingCard item={project} index={index} isVisible={isVisible} />
+                ) : (
+                  <PokeCard item={project} index={index} isVisible={isVisible} />
+                )}
+              </div>
             ))}
           </div>
 

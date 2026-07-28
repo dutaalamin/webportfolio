@@ -107,7 +107,7 @@ const mapToElement = (title) => {
   return 'normal';
 };
 
-export default function PokeCard({ item, index }) {
+export default function PokeCard({ item, index, isVisible = true }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isUnboxed, setIsUnboxed] = useState(false);
   const [isShaking, setIsShaking] = useState(false);
@@ -123,6 +123,8 @@ export default function PokeCard({ item, index }) {
   const imageSrc = `/images/projects/${item.title.toLowerCase()}.png`;
 
   useEffect(() => {
+    if (!isVisible) return;
+
     // Jalankan otomatis dengan delay bertahap berdasarkan urutan kartu (index)
     // agar terlihat seperti dilempar berurutan
     const initialDelay = 300 + (index * 150);
@@ -150,7 +152,7 @@ export default function PokeCard({ item, index }) {
     }, initialDelay);
 
     return () => clearTimeout(timer);
-  }, [index]);
+  }, [index, isVisible]);
 
   if (!isUnboxed) {
     return (

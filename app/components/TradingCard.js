@@ -15,7 +15,7 @@ const CARD_ATTRS = [
   { attr: '🏆', attrName: 'LEGEND', color: '#b45309' },
 ];
 
-export default function TradingCard({ item, index }) {
+export default function TradingCard({ item, index, isVisible = true }) {
   const cardRef = useRef(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
@@ -32,6 +32,8 @@ export default function TradingCard({ item, index }) {
   const defVal = (item.tools?.length || 1) * 500;
 
   useEffect(() => {
+    if (!isVisible) return; // Tunggu sampai container terlihat
+
     // Delay bertahap berurutan
     const initialDelay = 300 + (index * 150);
     
@@ -58,7 +60,7 @@ export default function TradingCard({ item, index }) {
     }, initialDelay);
 
     return () => clearTimeout(timer);
-  }, [index]);
+  }, [index, isVisible]);
 
   const handleMouseMove = (e) => {
     if (!cardRef.current || isFaceDown) return;
