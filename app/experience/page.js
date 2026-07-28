@@ -97,7 +97,7 @@ export default function ExperiencePage() {
       <HamburgerMenu menuItems={menu} />
       
       {/* Back to Home Button (Desktop) */}
-      <Link href="/">
+      <Link href="/about">
         <button className="hidden md:flex absolute top-6 left-6 z-50 px-4 py-2 bg-white/80 backdrop-blur-sm border-4 border-black text-black text-xs font-pressStart hover:bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
           &lt; Back
         </button>
@@ -218,10 +218,10 @@ export default function ExperiencePage() {
       </div>
 
       {/* Desktop Navigation Button (Next to Portfolio) */}
-      <div className={`hidden md:flex absolute right-24 md:right-32 top-6 z-50 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10'}`}>
+      <div className={`hidden md:flex absolute right-16 md:right-20 top-6 z-50 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10'}`}>
         <Link href="/portfolio">
           <button className="px-4 py-2 bg-[#f8b800]/90 backdrop-blur-sm border-4 border-black text-black text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
-            Next &gt;
+            Portfolio &gt;
           </button>
         </Link>
       </div>
