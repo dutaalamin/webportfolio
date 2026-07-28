@@ -201,6 +201,7 @@ export default function ExperiencePage() {
             </div>
           </div>
         )}
+        </div>
         {/* Navigation Buttons at bottom */}
         <div className="flex justify-center gap-4 w-full md:w-[400px] md:mx-auto mt-6 z-20">
           <Link href="/about" className="flex-1">
@@ -216,6 +217,5 @@ export default function ExperiencePage() {
         </div>
       </div>
     </div>
-  </div>
   );
 }
