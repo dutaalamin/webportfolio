@@ -40,7 +40,7 @@ export default function ExperiencePage() {
   ];
 
   return (
-    <div className="relative w-screen h-screen bg-white flex items-center justify-center overflow-hidden">
+    <div className="relative w-screen h-screen bg-gradient-to-b from-blue-200 to-blue-50 flex items-center justify-center overflow-hidden">
       <HamburgerMenu menuItems={menu} />
       
       {/* Back to Home Button (Desktop) */}
@@ -70,6 +70,13 @@ export default function ExperiencePage() {
 
       <FarmAnimals className={`transition-all duration-700 ease-out ${isVisible ? 'opacity-100' : 'opacity-0'}`} />
 
+      {/* Page Title */}
+      <div className={`absolute top-20 md:top-16 left-0 w-full text-center z-20 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-5'}`}>
+        <h1 className="font-pressStart text-lg md:text-2xl text-gray-900 drop-shadow-[2px_2px_0px_rgba(255,255,255,0.8)] tracking-wider">
+          WORK EXPERIENCE
+        </h1>
+      </div>
+
       {/* Main Content - Floating over background */}
       <div className={`relative z-10 w-full max-w-5xl mx-auto px-4 md:px-8 flex flex-col md:flex-row gap-4 md:gap-6 items-start transition-all duration-700 ease-out transform
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
@@ -77,8 +84,7 @@ export default function ExperiencePage() {
       >
         
         {/* Left Panel: Company List */}
-        <div className="w-full md:w-[280px] shrink-0">
-          <h2 className="font-pressStart text-[10px] md:text-[11px] text-black mb-3 px-1 drop-shadow-[0_2px_2px_rgba(255,255,255,0.8)]">WORK EXPERIENCE</h2>
+        <div className="w-full md:w-[280px] shrink-0 mt-4 md:mt-0">
           <div className="flex flex-row md:flex-col gap-2 overflow-x-auto md:overflow-y-auto md:max-h-[420px] pb-2 md:pb-0 custom-scrollbar">
             {allExperiences.map((exp, idx) => (
               <button
