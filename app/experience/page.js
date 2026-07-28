@@ -93,7 +93,7 @@ export default function ExperiencePage() {
                 className={`shrink-0 md:shrink text-left px-3 py-3 rounded-xl font-pressStart text-[8px] md:text-[9px] transition-all duration-200 border-2
                   ${expandedQuest === idx 
                     ? 'bg-red-600 text-white border-red-800 shadow-lg scale-[1.02]' 
-                    : 'bg-white/70 backdrop-blur-md text-black border-white/50 shadow-md hover:bg-white/90 hover:scale-[1.02] hover:shadow-lg'}`}
+                    : 'bg-black/50 backdrop-blur-md text-gray-200 border-white/20 shadow-md hover:bg-black/70 hover:scale-[1.02] hover:shadow-lg hover:border-white/40'}`}
               >
                 <span className="leading-snug">{exp.title}</span>
               </button>
@@ -106,7 +106,7 @@ export default function ExperiencePage() {
           <div key={expandedQuest} className="flex-1 min-w-0 animate-in slide-in-from-right-4 fade-in duration-300">
             
             {/* Glass Card */}
-            <div className="bg-white/75 backdrop-blur-xl rounded-2xl border-2 border-white/60 shadow-xl p-5 md:p-7 relative overflow-hidden h-[380px] md:h-[460px] flex flex-col">
+            <div className="bg-black/60 backdrop-blur-xl rounded-2xl border-2 border-white/20 shadow-2xl p-5 md:p-7 relative overflow-hidden h-[380px] md:h-[460px] flex flex-col">
               
               {/* Pokemon Sprite - Floating in top right */}
               <div className="absolute top-4 right-4 w-20 h-20 md:w-28 md:h-28 z-20">
@@ -120,13 +120,13 @@ export default function ExperiencePage() {
 
               {/* Header */}
               <div className="pr-20 md:pr-32 mb-4">
-                <h2 className="font-pressStart text-[12px] md:text-[15px] text-gray-900 leading-relaxed">
+                <h2 className="font-pressStart text-[12px] md:text-[15px] text-white leading-relaxed">
                   {allExperiences[expandedQuest].title}
                 </h2>
-                <p className="font-sans font-bold text-sm md:text-base text-red-600 mt-2">
+                <p className="font-sans font-bold text-sm md:text-base text-red-400 mt-2">
                   {allExperiences[expandedQuest].position}
                 </p>
-                <p className="font-pressStart text-[7px] md:text-[8px] text-gray-400 mt-2 tracking-wider">
+                <p className="font-pressStart text-[7px] md:text-[8px] text-gray-300 mt-2 tracking-wider">
                   {allExperiences[expandedQuest].date} · {allExperiences[expandedQuest].location}
                 </p>
               </div>
@@ -138,10 +138,10 @@ export default function ExperiencePage() {
               <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-4">
                 {allExperiences[expandedQuest].description.map((desc, i) => (
                   <div key={i} className="mb-2">
-                    <p className="font-pressStart text-[8px] md:text-[9px] text-gray-800 mb-2 leading-loose">
+                    <p className="font-pressStart text-[8px] md:text-[9px] text-gray-200 mb-2 leading-loose">
                       {desc.subtitle}
                     </p>
-                    <p className="font-sans text-[12px] md:text-[14px] text-gray-600 leading-relaxed">
+                    <p className="font-sans text-[12px] md:text-[14px] text-gray-300 leading-relaxed">
                       {desc.subdesc}
                     </p>
                   </div>

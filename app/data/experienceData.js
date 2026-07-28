@@ -5,7 +5,7 @@ export const experienceData = [
       'Work Experiences': [
         {
           title: 'PT POSCO DX INDONESIA',
-          position: 'Automation Engineer (Contract)',
+          position: 'Automation Engineer',
           location: 'Cilegon, Indonesia',
           date: 'Jan 2026 - Present',
           description: [
@@ -34,7 +34,7 @@ export const experienceData = [
       'Work Experiences': [
         {
           title: 'PT KARUNIA BERCA INDONESIA',
-          position: 'Software Engineer (Contract)',
+          position: 'Software Engineer',
           location: 'Jakarta, Indonesia',
           date: 'Jan 2025 - Oct 2025',
           description: [
@@ -63,7 +63,7 @@ export const experienceData = [
       'Work Experiences': [
         {
           title: 'Appen',
-          position: 'AI Engineer (Freelance)',
+          position: 'AI Engineer',
           location: 'Remote',
           date: 'Sep 2024 - Dec 2024',
           description: [
@@ -83,7 +83,7 @@ export const experienceData = [
       'Other Experiences': [
         {
           title: 'BPPTKG Geologi',
-          position: 'Bachelor Thesis Researcher (Hybrid)',
+          position: 'Bachelor Thesis Researcher',
           location: 'Yogyakarta, Indonesia',
           date: 'Oct 2023 - Mar 2024',
           description: [
