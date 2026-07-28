@@ -135,7 +135,7 @@ export default function ExperiencePage() {
                     <p className="font-pressStart text-[8px] md:text-[9px] text-gray-800 mb-2 leading-loose">
                       {desc.subtitle}
                     </p>
-                    <p className="font-sans text-[12px] md:text-[14px] text-gray-600 leading-relaxed border-l-[3px] border-red-400 pl-3">
+                    <p className="font-sans text-[12px] md:text-[14px] text-gray-600 leading-relaxed">
                       {desc.subdesc}
                     </p>
                   </div>
