@@ -141,19 +141,7 @@ export default function ExperiencePage() {
                   </div>
                 ))}
                 
-                {/* Skills */}
-                {allExperiences[expandedQuest].skills && (
-                  <div className="mt-4 pt-3 border-t border-gray-200">
-                    <p className="font-pressStart text-[7px] text-gray-400 mb-3">SKILLS:</p>
-                    <div className="flex flex-wrap gap-2">
-                      {allExperiences[expandedQuest].skills.map((skill, i) => (
-                        <span key={i} className="px-3 py-1.5 bg-gray-900 text-white rounded-full text-[8px] font-pressStart shadow-sm">
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                {/* Skills section removed per user request */}
               </div>
             </div>
           </div>
