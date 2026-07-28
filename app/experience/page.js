@@ -108,12 +108,7 @@ export default function ExperiencePage() {
           <div className="w-full md:w-2/3 bg-[#cbd5e1] border-[4px] md:border-[8px] border-[#334155] rounded-xl p-3 md:p-5 relative flex flex-col h-[350px] md:h-[450px] shadow-inner md:mt-10">
              
              {/* Screen Inner */}
-             <div className="flex-1 bg-white border-[4px] border-black rounded-lg relative flex flex-col shadow-[inset_0_0_10px_rgba(0,0,0,0.1)] overflow-hidden">
-                
-                {/* CSS Grid Background Overlay */}
-                <div className="absolute inset-0 pointer-events-none z-0 opacity-10"
-                     style={{ background: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '15px 15px' }}>
-                </div>
+             <div className="flex-1 bg-[#e0f2fe] border-[4px] border-black rounded-lg relative flex flex-col shadow-[inset_0_0_10px_rgba(0,0,0,0.1)] overflow-hidden">
                 
                 {expandedQuest !== null ? (
                    <div key={expandedQuest} className="relative z-10 p-4 md:p-6 flex flex-col h-full animate-in slide-in-from-right-4 fade-in duration-300">
