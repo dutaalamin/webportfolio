@@ -77,7 +77,7 @@ export default function ExperiencePage() {
           {/* Left Panel: Navigation List */}
           <div className="w-full md:w-1/3 bg-[#f8fafc] border-[4px] border-black rounded-lg flex flex-col h-[200px] md:h-[450px] shadow-inner mt-0 md:mt-10 overflow-hidden">
              <div className="bg-[#cbd5e1] border-b-[4px] border-black p-3 text-center">
-                 <h2 className="font-pressStart text-[10px] md:text-[11px] text-black tracking-wider">DATABASE</h2>
+                 <h2 className="font-pressStart text-[10px] md:text-[11px] text-black tracking-wider">WORK EXPERIENCE</h2>
              </div>
              <div className="flex-1 overflow-y-auto p-2 custom-scrollbar space-y-2 bg-[#f1f5f9]">
                  {allExperiences.map((exp, idx) => (
@@ -96,32 +96,33 @@ export default function ExperiencePage() {
              </div>
           </div>
 
-          {/* Right Panel: Gameboy/LCD Monitor */}
-          <div className="w-full md:w-2/3 bg-[#8b9bb4] border-[4px] md:border-[8px] border-[#334155] rounded-xl p-3 md:p-5 relative flex flex-col h-[350px] md:h-[450px] shadow-[inset_0_0_15px_rgba(0,0,0,0.5)] md:mt-10">
+          {/* Right Panel: Hologram Monitor */}
+          <div className="w-full md:w-2/3 cyber-panel-bg border-[4px] md:border-[8px] border-[#0f172a] rounded-xl p-3 md:p-5 relative flex flex-col h-[350px] md:h-[450px] md:mt-10">
              
              {/* LCD Screen Inner */}
-             <div className="flex-1 bg-[#8bac0f] border-[4px] border-[#0f380f] rounded-lg relative overflow-hidden flex flex-col shadow-[inset_0_0_10px_rgba(0,0,0,0.3)]">
+             <div className="flex-1 hologram-screen border-[4px] border-[#020617] rounded-lg relative flex flex-col shadow-[inset_0_0_25px_rgba(34,211,238,0.2)]">
                 
-                {/* CSS Scanlines & Flicker Overlay */}
-                <div className="absolute inset-0 pointer-events-none z-20 mix-blend-overlay opacity-20"
-                     style={{ background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, #000 2px, #000 4px)' }}>
+                {/* CSS Scanlines Overlay */}
+                <div className="absolute inset-0 pointer-events-none z-20 mix-blend-overlay opacity-30"
+                     style={{ background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.5) 2px, rgba(0,0,0,0.5) 4px)' }}>
                 </div>
+                <div className="hologram-scanline"></div>
                 
                 {expandedQuest !== null ? (
-                   <div className="relative z-10 p-4 md:p-6 flex flex-col h-full animate-in fade-in zoom-in-95 duration-300">
+                   <div key={expandedQuest} className="relative z-10 p-4 md:p-6 flex flex-col h-full animate-in fade-in zoom-in-95 duration-500">
                       
                       {/* Company & Role */}
-                      <div className="border-b-[3px] border-[#306230] pb-3 mb-4">
-                         <h2 className="font-pressStart text-[11px] md:text-sm text-[#0f380f] leading-relaxed tracking-wide">
+                      <div className="border-b-[3px] border-[#0891b2] pb-3 mb-4">
+                         <h2 className="font-pressStart text-[11px] md:text-sm text-[#22d3ee] leading-relaxed tracking-wide hologram-text">
                             {allExperiences[expandedQuest].title}
                          </h2>
-                         <p className="font-sans font-bold text-xs md:text-sm text-[#306230] mt-2">
+                         <p className="font-sans font-bold text-xs md:text-sm text-[#06b6d4] mt-2 animate-pulse">
                             ▶ {allExperiences[expandedQuest].position}
                          </p>
                       </div>
 
                       {/* Date & Location */}
-                      <p className="font-pressStart text-[7px] md:text-[8px] text-[#0f380f]/80 mb-4 tracking-widest">
+                      <p className="font-pressStart text-[7px] md:text-[8px] text-[#67e8f9] mb-4 tracking-widest opacity-80">
                          [ {allExperiences[expandedQuest].date} | {allExperiences[expandedQuest].location} ]
                       </p>
 
@@ -129,10 +130,10 @@ export default function ExperiencePage() {
                       <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-4">
                          {allExperiences[expandedQuest].description.map((desc, i) => (
                             <div key={i} className="mb-3">
-                               <p className="font-pressStart text-[8px] md:text-[9px] text-[#0f380f] mb-2 leading-loose">
+                               <p className="font-pressStart text-[8px] md:text-[9px] text-[#22d3ee] mb-2 leading-loose">
                                   {desc.subtitle}
                                </p>
-                               <p className="font-sans text-[11px] md:text-[13px] text-[#306230] font-bold leading-relaxed border-l-[3px] border-[#306230]/40 pl-3">
+                               <p className="font-sans text-[11px] md:text-[13px] text-[#a5f3fc] font-bold leading-relaxed border-l-[3px] border-[#0891b2] pl-3">
                                   {desc.subdesc}
                                </p>
                             </div>
@@ -140,11 +141,11 @@ export default function ExperiencePage() {
                          
                          {/* Skills */}
                          {allExperiences[expandedQuest].skills && (
-                            <div className="mt-5 pt-3 border-t-[3px] border-[#306230]/30">
-                               <p className="font-pressStart text-[8px] text-[#0f380f] mb-3">SKILLS AQUIRED:</p>
+                            <div className="mt-5 pt-3 border-t-[3px] border-[#0891b2]/50">
+                               <p className="font-pressStart text-[8px] text-[#67e8f9] mb-3">SKILLS AQUIRED:</p>
                                <div className="flex flex-wrap gap-2">
                                   {allExperiences[expandedQuest].skills.map((skill, i) => (
-                                     <span key={i} className="px-2 py-1 bg-[#306230] text-[#8bac0f] border-2 border-[#0f380f] rounded text-[8px] font-pressStart shadow-[2px_2px_0px_#0f380f]">
+                                     <span key={i} className="px-2 py-1 bg-[#0891b2]/30 text-[#67e8f9] border border-[#22d3ee] rounded text-[8px] font-pressStart shadow-[0_0_8px_rgba(34,211,238,0.4)]">
                                         {skill}
                                      </span>
                                   ))}
@@ -153,21 +154,14 @@ export default function ExperiencePage() {
                          )}
                       </div>
                    </div>
-                ) : (
-                   /* Empty State */
-                   <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center p-6">
-                      <div className="w-12 h-12 md:w-16 md:h-16 rounded-full border-[4px] border-[#306230] border-t-transparent animate-spin mb-4"></div>
-                      <p className="font-pressStart text-[10px] text-[#0f380f] animate-pulse">AWAITING INPUT...</p>
-                      <p className="font-pressStart text-[7px] text-[#306230] mt-4">SELECT ENTRY FROM DATABASE</p>
-                   </div>
-                )}
+                ) : null}
              </div>
              
              {/* Decorative Speaker Grills */}
              <div className="absolute bottom-3 right-4 flex gap-1 md:gap-2">
-                 <div className="w-6 md:w-8 h-1 md:h-2 bg-[#334155] rounded-full rotate-[-45deg]"></div>
-                 <div className="w-6 md:w-8 h-1 md:h-2 bg-[#334155] rounded-full rotate-[-45deg]"></div>
-                 <div className="w-6 md:w-8 h-1 md:h-2 bg-[#334155] rounded-full rotate-[-45deg]"></div>
+                 <div className="w-6 md:w-8 h-1 md:h-2 bg-[#020617] rounded-full rotate-[-45deg] shadow-[0_0_5px_rgba(34,211,238,0.5)]"></div>
+                 <div className="w-6 md:w-8 h-1 md:h-2 bg-[#020617] rounded-full rotate-[-45deg] shadow-[0_0_5px_rgba(34,211,238,0.5)]"></div>
+                 <div className="w-6 md:w-8 h-1 md:h-2 bg-[#020617] rounded-full rotate-[-45deg] shadow-[0_0_5px_rgba(34,211,238,0.5)]"></div>
              </div>
           </div>
         </div>
