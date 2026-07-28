@@ -9,10 +9,12 @@ import Cloud from '../components/Cloud';
 import BackgroundAudio from '../components/Audio';
 import FarmAnimals from '../components/FarmAnimals';
 import TradingCard from '../components/TradingCard';
+import PokeCard from '../components/PokeCard';
 
 export default function PortfolioPage() {
   const [visibleCount, setVisibleCount] = useState(4);
   const [isVisible, setIsVisible] = useState(false);
+  const [cardTheme, setCardTheme] = useState('yugioh');
 
   const allProjects = portoData.reduce((acc, currentYear) => {
     Object.values(currentYear.sections).forEach(items => {
@@ -25,6 +27,10 @@ export default function PortfolioPage() {
 
   const handleViewMore = () => {
     setVisibleCount(allProjects.length);
+  };
+
+  const toggleTheme = () => {
+    setCardTheme(prev => prev === 'yugioh' ? 'pokemon' : 'yugioh');
   };
 
   useEffect(() => {
@@ -49,6 +55,7 @@ export default function PortfolioPage() {
           &lt; Back
         </button>
       </Link>
+
       {/* Message Button (Top Right) */}
       <Link href="/message">
         <button className="hidden md:flex absolute top-6 right-20 z-50 px-4 py-2 bg-[#f8b800] border-4 border-black text-black text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
@@ -82,6 +89,22 @@ export default function PortfolioPage() {
       >
         {/* Header */}
         <div className={`text-center pt-2 pb-4 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+          <div className="flex justify-center mb-4 relative z-50">
+            <div className="flex bg-gray-200 border-2 border-black rounded-lg p-1">
+              <button 
+                onClick={() => setCardTheme('yugioh')}
+                className={`px-3 py-1.5 md:px-4 md:py-2 text-[7px] md:text-[9px] font-pressStart rounded transition-all ${cardTheme === 'yugioh' ? 'bg-[#f8b800] border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-black' : 'text-gray-500 hover:text-black border-2 border-transparent'}`}
+              >
+                YU-GI-OH!
+              </button>
+              <button 
+                onClick={() => setCardTheme('pokemon')}
+                className={`px-3 py-1.5 md:px-4 md:py-2 text-[7px] md:text-[9px] font-pressStart rounded transition-all ml-1 ${cardTheme === 'pokemon' ? 'bg-blue-500 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-white' : 'text-gray-500 hover:text-black border-2 border-transparent'}`}
+              >
+                POKÉMON
+              </button>
+            </div>
+          </div>
           <h1 className="font-pressStart text-black text-base md:text-lg drop-shadow-sm">MY COLLECTION</h1>
           <p className="text-gray-500 font-sans text-[10px] md:text-xs mt-1">{allProjects.length} cards • tap to flip</p>
         </div>
@@ -91,7 +114,9 @@ export default function PortfolioPage() {
         >
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-8 justify-items-center">
             {visibleProjects.map((item, index) => (
-              <TradingCard key={index} item={item} index={index} />
+              cardTheme === 'yugioh' 
+                ? <TradingCard key={`ygo-${index}`} item={item} index={index} />
+                : <PokeCard key={`poke-${index}`} item={item} index={index} />
             ))}
           </div>
 
