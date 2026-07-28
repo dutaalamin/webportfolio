@@ -186,7 +186,7 @@ export default function ExperiencePage() {
               {/* Description Scroll Area */}
               <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-4">
                 {allExperiences[expandedQuest].description.map((desc, i) => (
-                  <div key={i} className="mb-2">
+                  <div key={i} className={`mb-2 ${i === 0 ? 'md:pr-36' : ''}`}>
                     <p className="font-pressStart text-[8px] md:text-[9px] text-gray-800 mb-2 leading-loose">
                       {desc.subtitle}
                     </p>
@@ -201,8 +201,8 @@ export default function ExperiencePage() {
             </div>
           </div>
         )}
-        {/* Navigation Buttons at bottom (Mobile Only) */}
-        <div className="flex md:hidden justify-center gap-4 w-full mt-6 z-20">
+        {/* Navigation Buttons at bottom */}
+        <div className="flex justify-center gap-4 w-full md:w-[400px] md:mx-auto mt-6 z-20">
           <Link href="/about" className="flex-1">
             <button className="w-full px-2 py-3 bg-white/80 backdrop-blur-sm border-4 border-black text-black text-[10px] font-pressStart hover:bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center rounded-lg">
               ◀ Back
