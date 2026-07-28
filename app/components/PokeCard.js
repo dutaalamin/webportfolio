@@ -157,7 +157,7 @@ export default function PokeCard({ item, index, isVisible = true }) {
   if (!isUnboxed) {
     return (
       <div 
-        className="relative cursor-pointer w-full max-w-[240px] flex items-center justify-center group"
+        className="relative cursor-pointer w-full max-w-[240px] md:max-w-none md:w-full flex items-center justify-center group"
         style={{ aspectRatio: '59/86' }}
       >
         <div className={`transition-transform duration-300 ${isShaking ? 'animate-pokeball-shake' : (index % 2 === 0 ? 'animate-float' : 'animate-float-delay')}`}>
@@ -174,7 +174,7 @@ export default function PokeCard({ item, index, isVisible = true }) {
 
   return (
     <div 
-      className="relative cursor-pointer group perspective-1000 w-full max-w-[240px]"
+      className="relative cursor-pointer group perspective-1000 w-full max-w-[240px] md:max-w-none md:w-full"
       style={{ aspectRatio: '59/86' }}
       onClick={() => setIsFlipped(!isFlipped)}
     >
