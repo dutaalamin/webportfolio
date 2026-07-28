@@ -34,8 +34,27 @@ export default function PortfolioPage() {
   };
 
   useEffect(() => {
-    const timeout = setTimeout(() => setIsVisible(true), 2500);
-    return () => clearTimeout(timeout);
+    let timeout;
+    
+    const showPage = () => {
+      timeout = setTimeout(() => setIsVisible(true), 500);
+    };
+
+    if (typeof window !== 'undefined') {
+      if (!window.hasStarted) {
+        window.addEventListener('audioPreferenceSet', showPage);
+        return () => {
+          window.removeEventListener('audioPreferenceSet', showPage);
+          if (timeout) clearTimeout(timeout);
+        };
+      } else {
+        timeout = setTimeout(() => setIsVisible(true), 2500);
+      }
+    }
+
+    return () => {
+      if (timeout) clearTimeout(timeout);
+    };
   }, []);
 
   const menu = [
