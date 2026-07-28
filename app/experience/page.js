@@ -202,8 +202,8 @@ export default function ExperiencePage() {
           </div>
         )}
         </div>
-        {/* Navigation Buttons at bottom */}
-        <div className="flex justify-center gap-4 w-full md:w-[400px] md:mx-auto mt-6 z-20">
+        {/* Navigation Buttons at bottom (Mobile Only) */}
+        <div className="flex md:hidden justify-center gap-4 w-full mt-6 z-20">
           <Link href="/about" className="flex-1">
             <button className="w-full px-2 py-3 bg-white/80 backdrop-blur-sm border-4 border-black text-black text-[10px] font-pressStart hover:bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center rounded-lg">
               ◀ Back
@@ -215,6 +215,15 @@ export default function ExperiencePage() {
             </button>
           </Link>
         </div>
+      </div>
+
+      {/* Desktop Navigation Button (Next to Portfolio) */}
+      <div className={`hidden md:flex absolute right-8 top-1/2 -translate-y-1/2 z-30 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
+        <Link href="/portfolio">
+          <button className="px-6 py-4 bg-[#f8b800]/90 backdrop-blur-sm border-4 border-black text-black text-xs font-pressStart hover:bg-yellow-400 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer rounded-xl">
+            Next ▶
+          </button>
+        </Link>
       </div>
     </div>
   );
