@@ -74,7 +74,7 @@ export default function ExperiencePage() {
       <div className={`relative z-10 w-full max-w-5xl mx-auto flex flex-col transition-all duration-700 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         
         {/* Page Title */}
-        <div className="w-full text-center mb-6 md:mb-8">
+        <div className="w-full text-center mb-10 md:mb-14">
           <h1 className="font-pressStart text-lg md:text-2xl text-gray-900 drop-shadow-[2px_2px_0px_rgba(255,255,255,0.8)] tracking-wider">
             WORK EXPERIENCE
           </h1>
