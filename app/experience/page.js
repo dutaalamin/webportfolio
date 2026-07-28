@@ -216,5 +216,6 @@ export default function ExperiencePage() {
         </div>
       </div>
     </div>
+  </div>
   );
 }
