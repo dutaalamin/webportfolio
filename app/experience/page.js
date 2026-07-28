@@ -201,20 +201,18 @@ export default function ExperiencePage() {
             </div>
           </div>
         )}
-      </div>
-
-      {/* Navigation Buttons at bottom (Mobile Only) */}
-      <div className={`absolute bottom-16 left-0 right-0 flex md:hidden justify-center gap-4 w-[90%] mx-auto z-20 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-        <Link href="/about" className="flex-1">
-          <button className="w-full px-2 py-3 bg-white/80 backdrop-blur-sm border-4 border-black text-black text-[10px] font-pressStart hover:bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center rounded-lg">
-            ◀ Back
-          </button>
-        </Link>
-        <Link href="/portfolio" className="flex-1">
-          <button className="w-full px-2 py-3 bg-[#f8b800]/90 backdrop-blur-sm border-4 border-black text-black text-[10px] font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center rounded-lg">
-            Next ▶
-          </button>
-        </Link>
+        {/* Navigation Buttons at bottom (Mobile Only) */}
+        <div className="flex md:hidden justify-center gap-4 w-full mt-6 z-20">
+          <Link href="/about" className="flex-1">
+            <button className="w-full px-2 py-3 bg-white/80 backdrop-blur-sm border-4 border-black text-black text-[10px] font-pressStart hover:bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center rounded-lg">
+              ◀ Back
+            </button>
+          </Link>
+          <Link href="/portfolio" className="flex-1">
+            <button className="w-full px-2 py-3 bg-[#f8b800]/90 backdrop-blur-sm border-4 border-black text-black text-[10px] font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer text-center rounded-lg">
+              Next ▶
+            </button>
+          </Link>
         </div>
       </div>
     </div>
