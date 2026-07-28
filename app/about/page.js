@@ -41,6 +41,18 @@ export default function AboutPage() {
           &lt; Back
         </button>
       </Link>
+
+      {/* Experience Button (Desktop) */}
+      {isLastPage && (
+        <div className={`hidden md:flex absolute right-16 md:right-20 top-6 z-50 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10'}`}>
+          <Link href="/experience">
+            <button className="px-4 py-2 bg-[#f8b800]/90 backdrop-blur-sm border-4 border-black text-black text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
+              Experience &gt;
+            </button>
+          </Link>
+        </div>
+      )}
+
       <BackgroundAudio src="/audio/experience.mp3" volume={0.15} delay={2500} className='fixed top-4 right-10 mr-4'/>
       
       <Cloud top={10} direction="left" speed={150} opacity={0.2} delay={2725}/>
@@ -95,11 +107,11 @@ export default function AboutPage() {
           </button>
         </div>
 
-        {/* Next Stage Button */}
+        {/* Next Stage Button (Mobile Only) */}
         {isLastPage && (
-          <div className="absolute top-4 right-4">
+          <div className="absolute top-4 right-4 md:hidden">
             <Link href="/experience">
-              <button className="px-3 py-2 bg-[#f8b800] border-4 border-black text-black text-[10px] md:text-xs font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
+              <button className="px-3 py-2 bg-[#f8b800] border-4 border-black text-black text-[10px] font-pressStart hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
                 Experience ▶
               </button>
             </Link>
