@@ -18,6 +18,15 @@ export default function ExperiencePage() {
     Object.values(year.sections).flat()
   );
 
+  // Pokemon sprites for each experience
+  const pokemonSprites = [
+    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/25.gif', // Pikachu
+    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/6.gif',  // Charizard
+    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/9.gif',  // Blastoise
+    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/3.gif',  // Venusaur
+    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/149.gif' // Dragonite
+  ];
+
   useEffect(() => {
     const timeout = setTimeout(() => setIsVisible(true), 2500);
     return () => clearTimeout(timeout);
@@ -84,45 +93,52 @@ export default function ExperiencePage() {
                     <button
                        key={idx}
                        onClick={() => setExpandedQuest(idx)}
-                       className={`w-full text-left px-3 py-3 border-[3px] border-black rounded font-pressStart text-[8px] md:text-[9px] transition-all hover:bg-gray-200 active:translate-y-1 active:shadow-none
+                       className={`w-full text-left px-3 py-3 border-[3px] border-black rounded font-pressStart text-[8px] md:text-[9px] transition-all hover:bg-gray-200 active:translate-y-1 active:shadow-none flex items-center
                           ${expandedQuest === idx 
                               ? 'bg-[#3b82f6] text-white shadow-[inset_0_-3px_0_rgba(0,0,0,0.3)] border-black' 
                               : 'bg-white text-black shadow-[2px_2px_0px_rgba(0,0,0,1)]'}`}
                     >
-                       <span className="opacity-50 mr-2">No.{String(idx + 1).padStart(2, '0')}</span>
-                       <span className="leading-snug block mt-1 md:inline md:mt-0">{exp.title}</span>
+                       <span className="leading-snug">{exp.title}</span>
                     </button>
                  ))}
              </div>
           </div>
 
-          {/* Right Panel: Hologram Monitor */}
-          <div className="w-full md:w-2/3 cyber-panel-bg border-[4px] md:border-[8px] border-[#0f172a] rounded-xl p-3 md:p-5 relative flex flex-col h-[350px] md:h-[450px] md:mt-10">
+          {/* Right Panel: Clean Pokédex Monitor */}
+          <div className="w-full md:w-2/3 bg-[#cbd5e1] border-[4px] md:border-[8px] border-[#334155] rounded-xl p-3 md:p-5 relative flex flex-col h-[350px] md:h-[450px] shadow-inner md:mt-10">
              
-             {/* LCD Screen Inner */}
-             <div className="flex-1 hologram-screen border-[4px] border-[#020617] rounded-lg relative flex flex-col shadow-[inset_0_0_25px_rgba(34,211,238,0.2)]">
+             {/* Screen Inner */}
+             <div className="flex-1 bg-white border-[4px] border-black rounded-lg relative flex flex-col shadow-[inset_0_0_10px_rgba(0,0,0,0.1)] overflow-hidden">
                 
-                {/* CSS Scanlines Overlay */}
-                <div className="absolute inset-0 pointer-events-none z-20 mix-blend-overlay opacity-30"
-                     style={{ background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.5) 2px, rgba(0,0,0,0.5) 4px)' }}>
+                {/* CSS Grid Background Overlay */}
+                <div className="absolute inset-0 pointer-events-none z-0 opacity-10"
+                     style={{ background: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '15px 15px' }}>
                 </div>
-                <div className="hologram-scanline"></div>
                 
                 {expandedQuest !== null ? (
-                   <div key={expandedQuest} className="relative z-10 p-4 md:p-6 flex flex-col h-full animate-in fade-in zoom-in-95 duration-500">
+                   <div key={expandedQuest} className="relative z-10 p-4 md:p-6 flex flex-col h-full animate-in slide-in-from-right-4 fade-in duration-300">
                       
-                      {/* Company & Role */}
-                      <div className="border-b-[3px] border-[#0891b2] pb-3 mb-4">
-                         <h2 className="font-pressStart text-[11px] md:text-sm text-[#22d3ee] leading-relaxed tracking-wide hologram-text">
-                            {allExperiences[expandedQuest].title}
-                         </h2>
-                         <p className="font-sans font-bold text-xs md:text-sm text-[#06b6d4] mt-2 animate-pulse">
-                            ▶ {allExperiences[expandedQuest].position}
-                         </p>
+                      {/* Header with Pokemon Sprite */}
+                      <div className="border-b-[3px] border-gray-200 pb-3 mb-4 flex justify-between items-start">
+                         <div className="pr-2">
+                             <h2 className="font-pressStart text-[11px] md:text-sm text-black leading-relaxed tracking-wide">
+                                {allExperiences[expandedQuest].title}
+                             </h2>
+                             <p className="font-sans font-bold text-xs md:text-sm text-red-600 mt-2">
+                                ▶ {allExperiences[expandedQuest].position}
+                             </p>
+                         </div>
+                         <div className="w-16 h-16 shrink-0 bg-blue-50 border-2 border-black rounded-lg flex items-center justify-center p-2 shadow-inner">
+                             <img 
+                                src={pokemonSprites[expandedQuest % pokemonSprites.length]} 
+                                alt="Pokemon Sprite" 
+                                className="w-full h-full object-contain"
+                             />
+                         </div>
                       </div>
 
                       {/* Date & Location */}
-                      <p className="font-pressStart text-[7px] md:text-[8px] text-[#67e8f9] mb-4 tracking-widest opacity-80">
+                      <p className="font-pressStart text-[7px] md:text-[8px] text-gray-500 mb-4 tracking-widest">
                          [ {allExperiences[expandedQuest].date} | {allExperiences[expandedQuest].location} ]
                       </p>
 
@@ -130,10 +146,10 @@ export default function ExperiencePage() {
                       <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-4">
                          {allExperiences[expandedQuest].description.map((desc, i) => (
                             <div key={i} className="mb-3">
-                               <p className="font-pressStart text-[8px] md:text-[9px] text-[#22d3ee] mb-2 leading-loose">
+                               <p className="font-pressStart text-[8px] md:text-[9px] text-black mb-2 leading-loose">
                                   {desc.subtitle}
                                </p>
-                               <p className="font-sans text-[11px] md:text-[13px] text-[#a5f3fc] font-bold leading-relaxed border-l-[3px] border-[#0891b2] pl-3">
+                               <p className="font-sans text-[11px] md:text-[13px] text-gray-700 font-bold leading-relaxed border-l-[3px] border-red-500 pl-3">
                                   {desc.subdesc}
                                </p>
                             </div>
@@ -141,11 +157,11 @@ export default function ExperiencePage() {
                          
                          {/* Skills */}
                          {allExperiences[expandedQuest].skills && (
-                            <div className="mt-5 pt-3 border-t-[3px] border-[#0891b2]/50">
-                               <p className="font-pressStart text-[8px] text-[#67e8f9] mb-3">SKILLS AQUIRED:</p>
+                            <div className="mt-5 pt-3 border-t-[3px] border-gray-200">
+                               <p className="font-pressStart text-[8px] text-gray-500 mb-3">SKILLS AQUIRED:</p>
                                <div className="flex flex-wrap gap-2">
                                   {allExperiences[expandedQuest].skills.map((skill, i) => (
-                                     <span key={i} className="px-2 py-1 bg-[#0891b2]/30 text-[#67e8f9] border border-[#22d3ee] rounded text-[8px] font-pressStart shadow-[0_0_8px_rgba(34,211,238,0.4)]">
+                                     <span key={i} className="px-2 py-1 bg-black text-white border border-black rounded text-[8px] font-pressStart">
                                         {skill}
                                      </span>
                                   ))}
