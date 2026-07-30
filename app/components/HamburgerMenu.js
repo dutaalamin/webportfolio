@@ -48,18 +48,18 @@ export default function HamburgerMenu({ menuItems = [] }) {
 
           {/* RPG Pause Window Container */}
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
-            <div className="pointer-events-auto relative w-full max-w-[320px] bg-white border-4 border-black rounded-xl p-5 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] font-pressStart flex flex-col animate-scaleUp">
+            <div className="pointer-events-auto relative w-full max-w-[320px] md:max-w-[450px] lg:max-w-[550px] bg-white border-4 border-black rounded-xl p-5 md:p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] font-pressStart flex flex-col animate-scaleUp">
               
               {/* Top Banner / Player Stats */}
-              <div className="bg-[#f8b800] border-2 border-black p-2.5 rounded-lg mb-4 flex items-center justify-between shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+              <div className="bg-[#f8b800] border-2 border-black p-2.5 md:p-4 rounded-lg mb-4 flex items-center justify-between shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
                 <div>
-                  <h2 className="text-[10px] text-black font-bold uppercase tracking-wider">PAUSE MENU</h2>
-                  <p className="text-[7px] text-black/70 font-sans font-bold mt-0.5">PLAYER: DUTA • LV.99</p>
+                  <h2 className="text-[10px] md:text-sm text-black font-bold uppercase tracking-wider">PAUSE MENU</h2>
+                  <p className="text-[7px] md:text-[9px] text-black/70 font-sans font-bold mt-0.5 md:mt-1">PLAYER: DUTA • LV.99</p>
                 </div>
                 {/* Tombol Close Square Retro */}
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="w-7 h-7 bg-red-500 hover:bg-red-600 text-white text-xs border-2 border-black rounded flex items-center justify-center shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
+                  className="w-7 h-7 md:w-9 md:h-9 bg-red-500 hover:bg-red-600 text-white text-xs md:text-sm border-2 border-black rounded flex items-center justify-center shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
                   aria-label="Close Menu"
                 >
                   ✕
@@ -67,9 +67,9 @@ export default function HamburgerMenu({ menuItems = [] }) {
               </div>
 
               {/* Subheader / Mode */}
-              <div className="flex items-center gap-2 mb-3 pb-2 border-b-2 border-dashed border-gray-300 px-1">
-                <span className="text-xs">🎮</span>
-                <span className="text-[8px] text-gray-500 uppercase tracking-widest">SELECT STAGE</span>
+              <div className="flex items-center gap-2 mb-3 md:mb-5 pb-2 md:pb-3 border-b-2 border-dashed border-gray-300 px-1">
+                <span className="text-xs md:text-sm">🎮</span>
+                <span className="text-[8px] md:text-[10px] text-gray-500 uppercase tracking-widest">SELECT STAGE</span>
               </div>
 
               {/* Daftar Menu Items */}
@@ -91,21 +91,24 @@ export default function HamburgerMenu({ menuItems = [] }) {
                           : "bg-white border-transparent text-gray-600"
                       }`}
                     >
-                      <div className="flex items-center gap-2.5">
+                      <div className="flex items-center gap-2.5 md:gap-4">
                         <span
-                          className={`text-xs transition-opacity ${
+                          className={`text-xs md:text-sm transition-opacity ${
                             showCursor ? "opacity-100 text-[#f8b800] animate-pulse" : "opacity-0"
                           }`}
                         >
                           ▶
                         </span>
-                        <span className={`text-[10px] md:text-xs uppercase font-bold ${isActive ? "text-black" : ""}`}>
+                        <span className={`text-[10px] md:text-sm font-bold tracking-wide transition-all ${
+                          showCursor ? "text-black translate-x-1" : ""
+                        }`}>
                           {item.label}
                         </span>
                       </div>
-
+                      
+                      {/* Active Indicator Badge */}
                       {isActive && (
-                        <span className="text-[7px] bg-[#f8b800] text-black px-1.5 py-0.5 rounded border border-black font-bold">
+                        <span className="text-[6px] md:text-[8px] bg-black text-white px-1.5 md:px-2 py-0.5 md:py-1 rounded-sm tracking-widest">
                           HERE
                         </span>
                       )}
