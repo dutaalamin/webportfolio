@@ -24,7 +24,7 @@ const mapLocations = [
     name: 'Gerbang Konoha',
     subtitle: 'ABOUT',
     href: '/transition',
-    x: 23, y: 43, // Gate on the left
+    x: 16, y: 43, // Gate on the left
     w: 12, h: 18,
     description: 'The story begins here',
   },
@@ -39,11 +39,11 @@ const mapLocations = [
   },
   {
     id: 'portfolio',
-    name: 'Akademi Ninja',
+    name: 'Arena Latihan',
     subtitle: 'PORTFOLIO',
     href: '/portfolio',
-    x: 35, y: 36, // Blue building
-    w: 10, h: 10,
+    x: 50, y: 85, // Training ground at bottom center
+    w: 24, h: 16,
     description: 'Sacred scroll collection',
   },
   {
@@ -51,7 +51,7 @@ const mapLocations = [
     name: 'Kedai Ichiraku',
     subtitle: 'MESSAGE',
     href: '/message',
-    x: 69, y: 77, // Ramen shop bottom right
+    x: 84, y: 78, // Ramen shop bottom right
     w: 12, h: 10,
     description: 'Drop a message over ramen',
   },
