@@ -137,9 +137,9 @@ export default function IntroPage() {
           &lt; Back
         </button>
 
-        <div className="flex flex-col md:flex-row items-center md:items-end justify-center gap-6 md:gap-10 max-w-5xl w-full mx-auto pb-20 md:pb-40">
+        <div className="flex flex-col md:flex-row items-center md:items-end justify-center gap-6 md:gap-10 max-w-5xl w-full mx-auto pb-32 md:pb-40">
           {/* Character */}
-          <div className="flex-shrink-0 mt-16 md:mt-0">
+          <div className="flex-shrink-0 mt-4 md:mt-0">
             <Image 
               src="/images/hero2.gif" 
               alt="Hero Character" 

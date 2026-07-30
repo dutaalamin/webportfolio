@@ -59,7 +59,7 @@ export default function HomePage() {
       <FarmAnimals className={fadeClass(600)} />
 
       {/* Content */}
-      <div className={`relative z-5 max-w-7xl mx-auto pt-28 px-6 grid gap-8 grid-cols-1 lg:grid-cols-3 ${fadeClass(900)}`}>
+      <div className={`relative z-5 max-w-7xl mx-auto pt-16 lg:pt-28 px-6 grid gap-8 grid-cols-1 lg:grid-cols-3 ${fadeClass(900)}`}>
         <div className="flex flex-col gap-2">
           <RoleRotate />
           <SocialLinks links={socialLinks} />
