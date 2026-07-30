@@ -7,72 +7,54 @@ import Link from 'next/link';
 import HamburgerMenu from '../components/HamburgerMenu';
 import BackgroundAudio from '../components/Audio';
 
+// Hotspot areas positioned over actual buildings in the map image
+// x, y = center position as %, w, h = size as %
 const mapLocations = [
   {
     id: 'home',
     name: 'Gerbang Konoha',
-    subtitle: 'Main Gate',
-    icon: '⛩️',
+    subtitle: 'HOME',
     href: '/',
-    // Position as percentage of map container
-    x: 15,
-    y: 70,
+    x: 12, y: 72,
+    w: 10, h: 14,
     description: 'The entrance to the village',
-    color: '#c0392b',
   },
   {
     id: 'about',
     name: 'Akademi Ninja',
-    subtitle: 'About / Story',
-    icon: '📜',
+    subtitle: 'ABOUT',
     href: '/transition',
-    x: 35,
-    y: 35,
+    x: 25, y: 38,
+    w: 12, h: 14,
     description: 'Where the story begins',
-    color: '#2980b9',
   },
   {
     id: 'experience',
-    name: 'Arena Chūnin',
-    subtitle: 'Experience',
-    icon: '⚔️',
+    name: 'Hokage Rock',
+    subtitle: 'EXPERIENCE',
     href: '/experience',
-    x: 65,
-    y: 25,
+    x: 46, y: 15,
+    w: 18, h: 22,
     description: 'Battle records & quests',
-    color: '#8e44ad',
   },
   {
     id: 'portfolio',
     name: 'Gedung Hokage',
-    subtitle: 'Portfolio',
-    icon: '🏯',
+    subtitle: 'PORTFOLIO',
     href: '/portfolio',
-    x: 80,
-    y: 60,
+    x: 46, y: 42,
+    w: 14, h: 16,
     description: 'Sacred scroll collection',
-    color: '#d35400',
   },
   {
     id: 'message',
     name: 'Kedai Ichiraku',
-    subtitle: 'Message',
-    icon: '🍜',
+    subtitle: 'MESSAGE',
     href: '/message',
-    x: 50,
-    y: 75,
+    x: 68, y: 38,
+    w: 10, h: 12,
     description: 'Drop a message over ramen',
-    color: '#27ae60',
   },
-];
-
-// Define path connections between nodes
-const pathConnections = [
-  { from: 'home', to: 'about' },
-  { from: 'about', to: 'experience' },
-  { from: 'experience', to: 'portfolio' },
-  { from: 'portfolio', to: 'message' },
-  { from: 'message', to: 'home' },
 ];
 
 // Falling leaves component
@@ -84,7 +66,6 @@ function FallingLeaves() {
       size: 10 + Math.random() * 14,
       duration: 8 + Math.random() * 12,
       delay: Math.random() * 10,
-      rotation: Math.random() * 360,
     }));
   }, []);
 
@@ -124,7 +105,7 @@ export default function MapPage() {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredNode, setHoveredNode] = useState(null);
-  const [heroPos, setHeroPos] = useState({ x: 50, y: 50 });
+  const [heroPos, setHeroPos] = useState({ x: 46, y: 28 });
 
   useEffect(() => {
     const timeout = setTimeout(() => setIsVisible(true), 500);
@@ -136,7 +117,7 @@ export default function MapPage() {
     if (hoveredNode) {
       const node = mapLocations.find((l) => l.id === hoveredNode);
       if (node) {
-        setHeroPos({ x: node.x, y: node.y - 12 });
+        setHeroPos({ x: node.x, y: node.y - 10 });
       }
     }
   }, [hoveredNode]);
@@ -149,18 +130,12 @@ export default function MapPage() {
     { label: 'Map', href: '/map' },
   ];
 
-  // Get position for node by ID
-  const getNodePos = (id) => {
-    const node = mapLocations.find((n) => n.id === id);
-    return node ? { x: node.x, y: node.y } : { x: 0, y: 0 };
-  };
-
   return (
     <div className="relative w-screen h-screen overflow-hidden font-pressStart select-none">
       <HamburgerMenu menuItems={menu} />
       <BackgroundAudio src="/audio/experience.mp3" volume={0.15} delay={1000} className="fixed top-4 right-16 z-40" />
 
-      {/* === MAP BACKGROUND === */}
+      {/* === MAP BACKGROUND IMAGE === */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/konoha_map.png"
@@ -169,50 +144,7 @@ export default function MapPage() {
           className="object-cover"
           priority
         />
-        {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-black/15" />
       </div>
-
-      {/* === SVG PATHS CONNECTING NODES === */}
-      <svg className="absolute inset-0 z-10 w-full h-full pointer-events-none">
-        {pathConnections.map((path, i) => {
-          const from = getNodePos(path.from);
-          const to = getNodePos(path.to);
-          const isActive = hoveredNode === path.from || hoveredNode === path.to;
-
-          // Calculate midpoint with slight curve offset
-          const midX = (from.x + to.x) / 2;
-          const midY = (from.y + to.y) / 2 - 3;
-
-          return (
-            <g key={i}>
-              {/* Path shadow */}
-              <path
-                d={`M ${from.x}% ${from.y}% Q ${midX}% ${midY}% ${to.x}% ${to.y}%`}
-                fill="none"
-                stroke="rgba(0,0,0,0.3)"
-                strokeWidth="6"
-                strokeLinecap="round"
-                strokeDasharray="12 8"
-                style={{ transform: 'translate(2px, 2px)' }}
-              />
-              {/* Main path */}
-              <path
-                d={`M ${from.x}% ${from.y}% Q ${midX}% ${midY}% ${to.x}% ${to.y}%`}
-                fill="none"
-                stroke={isActive ? '#e74c3c' : '#8B4513'}
-                strokeWidth="5"
-                strokeLinecap="round"
-                strokeDasharray="12 8"
-                className={isActive ? 'map-path-active' : ''}
-                style={{
-                  transition: 'stroke 0.3s ease',
-                }}
-              />
-            </g>
-          );
-        })}
-      </svg>
 
       {/* === HERO CHARACTER === */}
       <div
@@ -225,76 +157,64 @@ export default function MapPage() {
           transform: 'translate(-50%, -100%)',
         }}
       >
-        <div className="relative w-14 h-14 md:w-20 md:h-20">
+        <div className="relative w-12 h-12 md:w-16 md:h-16">
           <Image src="/images/hero2.gif" alt="Hero" fill className="object-contain drop-shadow-lg" />
         </div>
       </div>
 
-      {/* === MAP LOCATION NODES === */}
+      {/* === CLICKABLE HOTSPOT AREAS OVER BUILDINGS === */}
       {mapLocations.map((loc, i) => {
         const isHovered = hoveredNode === loc.id;
 
         return (
           <div
             key={loc.id}
-            className={`absolute z-20 flex flex-col items-center cursor-pointer transition-all duration-500 ease-out ${
-              isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
+            className={`absolute z-20 cursor-pointer transition-all duration-300 ease-out ${
+              isVisible ? 'opacity-100' : 'opacity-0'
             }`}
             style={{
-              left: `${loc.x}%`,
-              top: `${loc.y}%`,
-              transform: 'translate(-50%, -50%)',
-              transitionDelay: `${i * 150 + 300}ms`,
+              left: `${loc.x - loc.w / 2}%`,
+              top: `${loc.y - loc.h / 2}%`,
+              width: `${loc.w}%`,
+              height: `${loc.h}%`,
+              transitionDelay: `${i * 100 + 300}ms`,
             }}
             onMouseEnter={() => setHoveredNode(loc.id)}
             onMouseLeave={() => setHoveredNode(null)}
             onClick={() => router.push(loc.href)}
           >
-            {/* Tooltip (on hover) */}
+            {/* Hover highlight overlay on the building */}
             <div
-              className={`absolute -top-20 md:-top-24 bg-black/90 text-white px-3 py-2 rounded-lg border-2 border-white/30 whitespace-nowrap transition-all duration-300 ${
+              className={`absolute inset-0 rounded-lg border-3 transition-all duration-300 ${
+                isHovered
+                  ? 'border-[#f8b800] bg-[#f8b800]/15 shadow-[0_0_25px_rgba(248,184,0,0.5)]'
+                  : 'border-transparent bg-transparent'
+              }`}
+            />
+
+            {/* Pulsing corner markers when hovered */}
+            {isHovered && (
+              <>
+                <div className="absolute top-0 left-0 w-3 h-3 border-t-3 border-l-3 border-[#f8b800] rounded-tl-sm" />
+                <div className="absolute top-0 right-0 w-3 h-3 border-t-3 border-r-3 border-[#f8b800] rounded-tr-sm" />
+                <div className="absolute bottom-0 left-0 w-3 h-3 border-b-3 border-l-3 border-[#f8b800] rounded-bl-sm" />
+                <div className="absolute bottom-0 right-0 w-3 h-3 border-b-3 border-r-3 border-[#f8b800] rounded-br-sm" />
+              </>
+            )}
+
+            {/* Label that appears on hover */}
+            <div
+              className={`absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap transition-all duration-300 ${
                 isHovered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-90'
               }`}
               style={{ pointerEvents: 'none' }}
             >
-              <p className="text-[8px] md:text-[10px] font-bold">{loc.name}</p>
-              <p className="text-[6px] md:text-[8px] text-gray-300">{loc.description}</p>
+              <div className="bg-black/90 text-white px-3 py-1.5 rounded border-2 border-[#f8b800]/60 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                <p className="text-[7px] md:text-[9px] font-bold text-center">{loc.name}</p>
+                <p className="text-[5px] md:text-[7px] text-[#f8b800] text-center">{loc.subtitle}</p>
+              </div>
               {/* Triangle pointer */}
-              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-r-[6px] border-t-[8px] border-transparent border-t-black/90" />
-            </div>
-
-            {/* Node circle */}
-            <div
-              className={`relative w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center border-4 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 map-node-hover ${
-                isHovered
-                  ? 'border-white scale-110 shadow-[0_0_20px_rgba(255,200,50,0.6)]'
-                  : 'border-black/60 map-node-idle'
-              }`}
-              style={{
-                background: isHovered
-                  ? `radial-gradient(circle, ${loc.color}ee, ${loc.color}aa)`
-                  : `radial-gradient(circle, ${loc.color}cc, ${loc.color}88)`,
-                animationDelay: `${i * 0.5}s`,
-              }}
-            >
-              <span className="text-2xl md:text-3xl">{loc.icon}</span>
-
-              {/* Glow ring on hover */}
-              {isHovered && (
-                <div
-                  className="absolute inset-[-4px] rounded-full border-2 border-yellow-300/60 animate-ping"
-                  style={{ animationDuration: '1.5s' }}
-                />
-              )}
-            </div>
-
-            {/* Location label */}
-            <div
-              className={`mt-2 bg-white/90 border-2 border-black px-2 py-1 rounded shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 ${
-                isHovered ? 'bg-[#f8b800] scale-105' : ''
-              }`}
-            >
-              <p className="text-[7px] md:text-[9px] text-black font-bold text-center whitespace-nowrap">{loc.subtitle}</p>
+              <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[5px] border-r-[5px] border-b-[6px] border-transparent border-b-black/90" />
             </div>
           </div>
         );
@@ -309,9 +229,9 @@ export default function MapPage() {
           isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
         }`}
       >
-        <div className="bg-[#f5edd6] border-4 border-[#8b7332] rounded-lg px-3 py-2 md:px-5 md:py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+        <div className="bg-[#f5edd6]/90 border-4 border-[#8b7332] rounded-lg px-3 py-2 md:px-5 md:py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
           <h1 className="text-[10px] md:text-sm text-[#4a3728] font-bold">🍥 VILLAGE MAP</h1>
-          <p className="text-[6px] md:text-[8px] text-[#8b7332] mt-0.5">Select a location</p>
+          <p className="text-[6px] md:text-[8px] text-[#8b7332] mt-0.5">Click a building to explore</p>
         </div>
       </div>
 
