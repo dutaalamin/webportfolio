@@ -24,7 +24,7 @@ const mapLocations = [
     name: 'Gerbang Konoha',
     subtitle: 'ABOUT',
     href: '/transition',
-    x: 18, y: 47, // Gate on the left (moved down and right slightly)
+    x: 15, y: 47, // Gate on the left (moved slightly left)
     w: 12, h: 18,
     description: 'The story begins here',
   },
@@ -33,7 +33,7 @@ const mapLocations = [
     name: 'Hokage Rock',
     subtitle: 'EXPERIENCE',
     href: '/experience',
-    x: 50, y: 22, // Faces on mountain (moved down)
+    x: 50, y: 19, // Faces on mountain (moved slightly up)
     w: 30, h: 18,
     description: 'Battle records & quests',
   },
@@ -42,7 +42,7 @@ const mapLocations = [
     name: 'Arena Latihan',
     subtitle: 'PORTFOLIO',
     href: '/portfolio',
-    x: 50, y: 88, // Training ground at bottom center (moved down)
+    x: 50, y: 88, // Training ground at bottom center
     w: 24, h: 16,
     description: 'Sacred scroll collection',
   },
@@ -51,7 +51,7 @@ const mapLocations = [
     name: 'Kedai Ichiraku',
     subtitle: 'MESSAGE',
     href: '/message',
-    x: 87, y: 80, // Ramen shop bottom right (moved right and down)
+    x: 85, y: 80, // Ramen shop bottom right (moved slightly left)
     w: 12, h: 10,
     description: 'Drop a message over ramen',
   },
@@ -114,40 +114,30 @@ export default function MapPage() {
     return () => clearTimeout(timeout);
   }, []);
 
-  // Move hero to hovered node with thick smoke teleport
+  // Move hero to hovered node smoothly without smoke
   useEffect(() => {
     if (hoveredNode) {
       const node = mapLocations.find((l) => l.id === hoveredNode);
       if (node) {
-        const newX = node.x;
-        const newY = node.y - 10;
-        
-        // Don't teleport if already there
-        if (Math.abs(heroPos.x - newX) < 2 && Math.abs(heroPos.y - newY) < 2) return;
-
-        // If already teleporting, do nothing
-        if (isHeroHidden) return;
-
-        const id = Date.now();
-        
-        // 1. Smoke at current pos
-        setSmokes(prev => [...prev, { id: id + 1, x: heroPos.x, y: heroPos.y }]);
-        setIsHeroHidden(true);
-
-        // 2. Wait, then move hero and show smoke at new pos
-        setTimeout(() => {
-          setHeroPos({ x: newX, y: newY });
-          setSmokes(prev => [...prev, { id: id + 2, x: newX, y: newY }]);
-          setIsHeroHidden(false);
-          
-          // Cleanup smokes from state
-          setTimeout(() => {
-            setSmokes(prev => prev.filter(s => s.id !== id + 1 && s.id !== id + 2));
-          }, 800);
-        }, 400); // 400ms hidden delay
+        setHeroPos({ x: node.x, y: node.y - 10 });
       }
     }
-  }, [hoveredNode, heroPos, isHeroHidden]);
+  }, [hoveredNode]);
+
+  // Handle click: Show smoke, hide hero, then navigate
+  const handleNodeClick = (loc) => {
+    if (isHeroHidden) return;
+
+    const id = Date.now();
+    // Smoke at current pos
+    setSmokes(prev => [...prev, { id: id, x: heroPos.x, y: heroPos.y }]);
+    setIsHeroHidden(true);
+
+    // Wait for smoke animation, then navigate
+    setTimeout(() => {
+      router.push(loc.href);
+    }, 500);
+  };
 
   const menu = [
     { label: 'Home', href: '/' },
@@ -209,14 +199,13 @@ export default function MapPage() {
 
         {/* === HERO CHARACTER === */}
         <div
-          className={`absolute z-20 pointer-events-none ${
+          className={`absolute z-20 pointer-events-none transition-all duration-700 ease-out ${
             isVisible && !isHeroHidden ? 'opacity-100' : 'opacity-0'
           }`}
           style={{
             left: `${heroPos.x}%`,
             top: `${heroPos.y}%`,
             transform: 'translate(-50%, -100%)',
-            transition: isHeroHidden ? 'none' : 'opacity 0.2s',
           }}
         >
           <div className="relative w-20 h-20 md:w-28 md:h-28">
@@ -243,7 +232,7 @@ export default function MapPage() {
               }}
               onMouseEnter={() => setHoveredNode(loc.id)}
               onMouseLeave={() => setHoveredNode(null)}
-              onClick={() => router.push(loc.href)}
+              onClick={() => handleNodeClick(loc)}
             >
               {/* Bouncing Quest Arrow (Always visible) */}
               <div
