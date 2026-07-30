@@ -102,11 +102,6 @@ export default function HomePage() {
                   &gt; Portfolio
                 </p>
               </Link>
-              <Link href="/map">
-                <p className="text-gray-300 hover:text-[#f8b800] transition-all duration-300 cursor-pointer text-xl sm:text-2xl font-pressStart mt-6 animate-pulse">
-                  &gt; World Map 🗺️
-                </p>
-              </Link>
             </div>
           </div>
         </div>

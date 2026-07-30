@@ -15,9 +15,15 @@ body {
   touch-action: manipulation;
 }
 
-a, button, [role="button"], input, select, textarea {
+a,
+button,
+[role="button"],
+input,
+select,
+textarea {
   touch-action: manipulation;
 }
+
 /* 
 .font-pressStart {
   font-family: var(--font-pressStart);
@@ -25,56 +31,109 @@ a, button, [role="button"], input, select, textarea {
 
 /* Cloud */
 @keyframes cloud-move-left {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
+
 @keyframes cloud-move-right {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(50%); }
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(50%);
+  }
 }
+
 .animate-clouds {
   animation: cloud-move-left 150s linear infinite;
 }
+
 .animate-clouds-2 {
   animation: cloud-move-right 100s linear infinite;
 }
 
 /* Character Running */
 @keyframes runBackAndForth {
-  0% { transform: translateX(-20vw) scaleX(1); }
-  49% { transform: translateX(100vw) scaleX(1); }
-  50% { transform: translateX(100vw) scaleX(-1); }
-  99% { transform: translateX(-20vw) scaleX(-1); }
-  100% { transform: translateX(-20vw) scaleX(1); }
+  0% {
+    transform: translateX(-20vw) scaleX(1);
+  }
+
+  49% {
+    transform: translateX(100vw) scaleX(1);
+  }
+
+  50% {
+    transform: translateX(100vw) scaleX(-1);
+  }
+
+  99% {
+    transform: translateX(-20vw) scaleX(-1);
+  }
+
+  100% {
+    transform: translateX(-20vw) scaleX(1);
+  }
 }
+
 @keyframes runBackAndForthRev {
-  0% { transform: translateX(100vw) scaleX(-1); }
-  49% { transform: translateX(-20vw) scaleX(-1); }
-  50% { transform: translateX(-20vw) scaleX(1); }
-  99% { transform: translateX(100vw) scaleX(1); }
-  100% { transform: translateX(100vw) scaleX(-1); }
+  0% {
+    transform: translateX(100vw) scaleX(-1);
+  }
+
+  49% {
+    transform: translateX(-20vw) scaleX(-1);
+  }
+
+  50% {
+    transform: translateX(-20vw) scaleX(1);
+  }
+
+  99% {
+    transform: translateX(100vw) scaleX(1);
+  }
+
+  100% {
+    transform: translateX(100vw) scaleX(-1);
+  }
 }
+
 .animate-run {
   animation: runBackAndForth 15s linear infinite;
 }
+
 .animate-run-fast {
   animation: runBackAndForth 11s linear infinite 2s backwards;
 }
+
 .animate-run-slow {
   animation: runBackAndForth 22s linear infinite 5s backwards;
 }
+
 .animate-run-rev {
   animation: runBackAndForthRev 18s linear infinite;
 }
+
 .animate-run-rev-fast {
   animation: runBackAndForthRev 13s linear infinite 4s backwards;
 }
 
 /* Loading */
 @keyframes loadingBar {
-  0% { left: -100%; }
-  100% { left: 100%; }
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 100%;
+  }
 }
+
 .animate-progress {
   animation: loadingBar 2s linear infinite;
 }
@@ -111,33 +170,57 @@ a, button, [role="button"], input, select, textarea {
 .perspective-1000 {
   perspective: 1000px;
 }
+
 .transform-style-3d {
   transform-style: preserve-3d;
 }
+
 .backface-hidden {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
+
 .rotate-y-180 {
   transform: rotateY(180deg);
 }
 
 /* Pokemon Card Holographic Shine */
 @keyframes holoShine {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 @keyframes float-delay {
-  0% { transform: translateY(-10px); }
-  50% { transform: translateY(0px); }
-  100% { transform: translateY(-10px); }
+  0% {
+    transform: translateY(-10px);
+  }
+
+  50% {
+    transform: translateY(0px);
+  }
+
+  100% {
+    transform: translateY(-10px);
+  }
 }
 
 .animate-float {
@@ -152,18 +235,46 @@ a, button, [role="button"], input, select, textarea {
    POKEBALL GACHA ANIMATIONS
 =========================== */
 @keyframes pokeballShake {
-  0% { transform: translateX(0) rotate(0deg); }
-  20% { transform: translateX(-10px) rotate(-15deg); }
-  40% { transform: translateX(10px) rotate(15deg); }
-  60% { transform: translateX(-10px) rotate(-15deg); }
-  80% { transform: translateX(10px) rotate(15deg); }
-  100% { transform: translateX(0) rotate(0deg); }
+  0% {
+    transform: translateX(0) rotate(0deg);
+  }
+
+  20% {
+    transform: translateX(-10px) rotate(-15deg);
+  }
+
+  40% {
+    transform: translateX(10px) rotate(15deg);
+  }
+
+  60% {
+    transform: translateX(-10px) rotate(-15deg);
+  }
+
+  80% {
+    transform: translateX(10px) rotate(15deg);
+  }
+
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
 }
 
 @keyframes flashBang {
-  0% { opacity: 0; background: transparent; }
-  50% { opacity: 1; background: white; }
-  100% { opacity: 0; background: transparent; }
+  0% {
+    opacity: 0;
+    background: transparent;
+  }
+
+  50% {
+    opacity: 1;
+    background: white;
+  }
+
+  100% {
+    opacity: 0;
+    background: transparent;
+  }
 }
 
 .animate-pokeball-shake {
@@ -172,7 +283,10 @@ a, button, [role="button"], input, select, textarea {
 
 .flash-overlay {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   pointer-events: none;
   z-index: 100;
   border-radius: 16px;
@@ -185,17 +299,15 @@ a, button, [role="button"], input, select, textarea {
   height: 140px;
   border-radius: 50%;
   border: 8px solid #222;
-  background: linear-gradient(
-    to bottom,
-    #ef4444 0%,
-    #ef4444 46%,
-    #222 46%,
-    #222 54%,
-    #ffffff 54%,
-    #ffffff 100%
-  );
+  background: linear-gradient(to bottom,
+      #ef4444 0%,
+      #ef4444 46%,
+      #222 46%,
+      #222 54%,
+      #ffffff 54%,
+      #ffffff 100%);
   position: relative;
-  box-shadow: inset -10px -10px 20px rgba(0,0,0,0.3), 0 10px 20px rgba(0,0,0,0.4);
+  box-shadow: inset -10px -10px 20px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.4);
   margin: auto;
 }
 
@@ -209,7 +321,7 @@ a, button, [role="button"], input, select, textarea {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .pokeball-button {
@@ -222,13 +334,14 @@ a, button, [role="button"], input, select, textarea {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: inset -2px -2px 4px rgba(0,0,0,0.2);
+  box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.2);
   transition: background 0.2s;
 }
 
 .pokeball-container:active .pokeball-button {
   background: #ef4444;
 }
+
 /* ===========================
    YU-GI-OH FLIP SUMMON ANIMATIONS
 =========================== */
@@ -244,12 +357,10 @@ a, button, [role="button"], input, select, textarea {
   width: 100%;
   height: 100%;
   border-radius: 8px;
-  background: repeating-radial-gradient(
-    circle at 50% 50%,
-    #4a2a18,
-    #2a1408 20px,
-    #000000 40px
-  );
+  background: repeating-radial-gradient(circle at 50% 50%,
+      #4a2a18,
+      #2a1408 20px,
+      #000000 40px);
   border: 4px solid #6b4c2a;
   position: relative;
   overflow: hidden;
@@ -262,45 +373,82 @@ a, button, [role="button"], input, select, textarea {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    rgba(212, 168, 67, 0.2) 60deg,
-    transparent 120deg,
-    rgba(212, 168, 67, 0.2) 180deg,
-    transparent 240deg,
-    rgba(212, 168, 67, 0.2) 300deg,
-    transparent 360deg
-  );
+  background: conic-gradient(from 0deg,
+      transparent 0deg,
+      rgba(212, 168, 67, 0.2) 60deg,
+      transparent 120deg,
+      rgba(212, 168, 67, 0.2) 180deg,
+      transparent 240deg,
+      rgba(212, 168, 67, 0.2) 300deg,
+      transparent 360deg);
   animation: spin 10s linear infinite;
 }
 
 @keyframes spin {
-  100% { transform: rotate(360deg); }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes ygoSummonScale {
-  0% { transform: scale(1) translateY(0); }
-  40% { transform: scale(1.15) translateY(-40px); box-shadow: 0 40px 50px rgba(0,0,0,0.6); }
-  60% { transform: scale(1.15) translateY(-40px); box-shadow: 0 40px 50px rgba(0,0,0,0.6); }
-  100% { transform: scale(1) translateY(0); box-shadow: 0 10px 15px rgba(0,0,0,0.3); }
+  0% {
+    transform: scale(1) translateY(0);
+  }
+
+  40% {
+    transform: scale(1.15) translateY(-40px);
+    box-shadow: 0 40px 50px rgba(0, 0, 0, 0.6);
+  }
+
+  60% {
+    transform: scale(1.15) translateY(-40px);
+    box-shadow: 0 40px 50px rgba(0, 0, 0, 0.6);
+  }
+
+  100% {
+    transform: scale(1) translateY(0);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+  }
 }
 
 @keyframes ygoGoldenAura {
-  0% { opacity: 0; box-shadow: 0 0 0px #ffd700, inset 0 0 0px #ffd700; background: transparent; }
-  30% { opacity: 1; box-shadow: 0 0 60px #ffd700, inset 0 0 40px #ffd700; background: rgba(255, 215, 0, 0.4); }
-  70% { opacity: 1; box-shadow: 0 0 60px #ffd700, inset 0 0 40px #ffd700; background: rgba(255, 215, 0, 0.4); }
-  100% { opacity: 0; box-shadow: 0 0 0px #ffd700, inset 0 0 0px #ffd700; background: transparent; }
+  0% {
+    opacity: 0;
+    box-shadow: 0 0 0px #ffd700, inset 0 0 0px #ffd700;
+    background: transparent;
+  }
+
+  30% {
+    opacity: 1;
+    box-shadow: 0 0 60px #ffd700, inset 0 0 40px #ffd700;
+    background: rgba(255, 215, 0, 0.4);
+  }
+
+  70% {
+    opacity: 1;
+    box-shadow: 0 0 60px #ffd700, inset 0 0 40px #ffd700;
+    background: rgba(255, 215, 0, 0.4);
+  }
+
+  100% {
+    opacity: 0;
+    box-shadow: 0 0 0px #ffd700, inset 0 0 0px #ffd700;
+    background: transparent;
+  }
 }
 
 .animate-ygo-summon {
   animation: ygoSummonScale 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-  z-index: 50; /* Bring to front while jumping */
+  z-index: 50;
+  /* Bring to front while jumping */
 }
 
 .ygo-aura-overlay {
   position: absolute;
-  top: -20px; left: -20px; right: -20px; bottom: -20px;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
   pointer-events: none;
   z-index: 100;
   border-radius: 20px;
@@ -311,14 +459,30 @@ a, button, [role="button"], input, select, textarea {
    POKÉDEX HOLOGRARM ANIMATIONS
 =========================== */
 @keyframes scanline {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
 }
 
 @keyframes textFlicker {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.8; }
-  25%, 75% { opacity: 0.9; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  25%,
+  75% {
+    opacity: 0.9;
+  }
 }
 
 .hologram-screen {
@@ -340,39 +504,20 @@ a, button, [role="button"], input, select, textarea {
 }
 
 .cyber-panel-bg {
-  background: repeating-linear-gradient(
-    45deg,
-    #020617,
-    #020617 10px,
-    #0f172a 10px,
-    #0f172a 20px
-  );
-  box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+  background: repeating-linear-gradient(45deg,
+      #020617,
+      #020617 10px,
+      #0f172a 10px,
+      #0f172a 20px);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
 }
 
 /* Hide scrollbar for custom-scrollbar class */
 .custom-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .custom-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-/* World Map Animations */
-@keyframes shimmer {
-  0% { transform: translateX(-200%) skewX(-12deg); }
-  100% { transform: translateX(200%) skewX(-12deg); }
-}
-.animate-shimmer {
-  animation: shimmer 3s ease-in-out infinite;
-}
-
-@keyframes flashIn {
-  0% { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 1; }
-}
-.animate-flashIn {
-  animation: flashIn 0.6s ease-out forwards;
 }

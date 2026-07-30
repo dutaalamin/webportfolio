@@ -61,8 +61,7 @@ export default function PortfolioPage() {
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
     { label: 'Experience', href: '/experience' },
-    { label: 'Portfolio', href: '/portfolio' },
-    { label: 'World Map 🗺️', href: '/map' }
+    { label: 'Portfolio', href: '/portfolio' }
   ];
 
   return (

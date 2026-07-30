@@ -21,7 +21,6 @@ export default function EndPage() {
     { label: 'About', href: '/about' },
     { label: 'Experience', href: '/experience' },
     { label: 'Portfolio', href: '/portfolio' },
-    { label: 'World Map 🗺️', href: '/map' },
     { label: 'Message', href: '/message' }
   ];
 

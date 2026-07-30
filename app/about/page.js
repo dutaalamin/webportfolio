@@ -23,8 +23,7 @@ export default function AboutPage() {
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
     { label: 'Experience', href: '/experience' },
-    { label: 'Portfolio', href: '/portfolio' },
-    { label: 'World Map 🗺️', href: '/map' }
+    { label: 'Portfolio', href: '/portfolio' }
   ];
 
   useEffect(() => {
