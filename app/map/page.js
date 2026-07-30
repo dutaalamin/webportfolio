@@ -138,7 +138,7 @@ export default function MapPage() {
       {/* === MAP BACKGROUND IMAGE === */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/konoha_map.png"
+          src="/images/konoha_map.png?v=2"
           alt="Konoha Village Map"
           fill
           className="object-cover"
