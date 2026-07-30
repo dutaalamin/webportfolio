@@ -67,6 +67,7 @@ const menuItems = [
   { label: 'ABOUT', href: '/about' },
   { label: 'EXPERIENCE', href: '/experience' },
   { label: 'PORTFOLIO', href: '/portfolio' },
+  { label: 'WORLD MAP 🗺️', href: '/map' },
 ];
 
 export default function WorldMapPage() {
