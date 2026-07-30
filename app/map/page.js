@@ -135,8 +135,8 @@ export default function MapPage() {
       <HamburgerMenu menuItems={menu} />
       <BackgroundAudio src="/audio/experience.mp3" volume={0.15} delay={1000} className="fixed top-4 right-16 z-40" />
 
-      {/* === 1:1 SQUARE MAP CONTAINER === */}
-      <div className="relative w-full max-w-[100vh] aspect-square shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-hidden bg-black">
+      {/* === FULL SCREEN MAP CONTAINER === */}
+      <div className="relative w-full h-full overflow-hidden bg-black">
         
         {/* === MAP BACKGROUND IMAGE === */}
         <div className="absolute inset-0 z-0">
@@ -144,7 +144,7 @@ export default function MapPage() {
             src="/images/konoha_map_hd.png"
             alt="Konoha Village Map"
             fill
-            className="object-contain"
+            className="object-fill"
             priority
           />
         </div>
