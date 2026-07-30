@@ -114,7 +114,7 @@ export default function MapPage() {
     return () => clearTimeout(timeout);
   }, []);
 
-  // Move hero to hovered node with smoke teleport
+  // Move hero to hovered node with thick smoke teleport
   useEffect(() => {
     if (hoveredNode) {
       const node = mapLocations.find((l) => l.id === hoveredNode);
@@ -125,26 +125,29 @@ export default function MapPage() {
         // Don't teleport if already there
         if (Math.abs(heroPos.x - newX) < 2 && Math.abs(heroPos.y - newY) < 2) return;
 
+        // If already teleporting, do nothing
+        if (isHeroHidden) return;
+
         const id = Date.now();
         
-        // Smoke at current pos
+        // 1. Smoke at current pos
         setSmokes(prev => [...prev, { id: id + 1, x: heroPos.x, y: heroPos.y }]);
         setIsHeroHidden(true);
 
+        // 2. Wait, then move hero and show smoke at new pos
         setTimeout(() => {
           setHeroPos({ x: newX, y: newY });
-          // Smoke at new pos
           setSmokes(prev => [...prev, { id: id + 2, x: newX, y: newY }]);
           setIsHeroHidden(false);
           
-          // Cleanup smokes after animation
+          // Cleanup smokes from state
           setTimeout(() => {
             setSmokes(prev => prev.filter(s => s.id !== id + 1 && s.id !== id + 2));
           }, 800);
-        }, 300); // Wait 300ms while hidden before appearing at new pos
+        }, 400); // 400ms hidden delay
       }
     }
-  }, [hoveredNode]);
+  }, [hoveredNode, heroPos, isHeroHidden]);
 
   const menu = [
     { label: 'Home', href: '/' },
@@ -157,13 +160,14 @@ export default function MapPage() {
   return (
     <div className="relative w-screen h-screen bg-[#1c130b] overflow-hidden font-pressStart select-none flex items-center justify-center">
       <style dangerouslySetInnerHTML={{__html: `
-        @keyframes smoke-expand {
-          0% { transform: translate(-50%, -100%) scale(0.2); opacity: 1; }
-          50% { transform: translate(-50%, -100%) scale(1.5); opacity: 0.9; }
-          100% { transform: translate(-50%, -100%) scale(2.5); opacity: 0; }
+        @keyframes thick-smoke-expand {
+          0% { transform: translate(-50%, -80%) scale(0.1); opacity: 1; }
+          40% { transform: translate(-50%, -80%) scale(1.2); opacity: 1; filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.2)); }
+          70% { transform: translate(-50%, -80%) scale(1.5); opacity: 0.8; filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.1)); }
+          100% { transform: translate(-50%, -80%) scale(2); opacity: 0; filter: blur(5px); }
         }
-        .smoke-puff {
-          animation: smoke-expand 0.6s ease-out forwards;
+        .smoke-puff-thick {
+          animation: thick-smoke-expand 0.7s ease-out forwards;
         }
       `}} />
       <HamburgerMenu menuItems={menu} />
@@ -187,16 +191,18 @@ export default function MapPage() {
         {smokes.map((smoke) => (
           <div
             key={smoke.id}
-            className="smoke-puff absolute z-20 pointer-events-none"
+            className="smoke-puff-thick absolute z-30 pointer-events-none"
             style={{
               left: `${smoke.x}%`,
               top: `${smoke.y}%`,
             }}
           >
-            <div className="relative w-16 h-16 md:w-24 md:h-24 opacity-80">
-              <div className="absolute inset-0 bg-white rounded-full blur-sm" />
-              <div className="absolute top-1/4 left-0 w-3/4 h-3/4 bg-gray-200 rounded-full blur-md" />
-              <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-white rounded-full blur-sm" />
+            {/* THICK CLOUD STRUCTURE */}
+            <div className="relative w-24 h-24 md:w-32 md:h-32">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full shadow-[inset_-2px_-5px_10px_rgba(0,0,0,0.1)]" />
+              <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-gray-100 rounded-full shadow-[inset_-2px_-5px_10px_rgba(0,0,0,0.1)]" />
+              <div className="absolute top-1/2 left-3/4 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-[inset_-2px_-5px_10px_rgba(0,0,0,0.1)]" />
+              <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 bg-gray-50 rounded-full shadow-[inset_-2px_-5px_10px_rgba(0,0,0,0.1)]" />
             </div>
           </div>
         ))}
