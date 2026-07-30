@@ -12,6 +12,11 @@ body {
   @apply bg-white text-black m-0 p-0;
   font-family: var(--font-pressStart);
   scroll-behavior: smooth;
+  touch-action: manipulation;
+}
+
+a, button, [role="button"], input, select, textarea {
+  touch-action: manipulation;
 }
 /* 
 .font-pressStart {
