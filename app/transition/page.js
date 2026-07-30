@@ -137,7 +137,7 @@ export default function IntroPage() {
           &lt; Back
         </button>
 
-        <div className="flex flex-col md:flex-row items-center md:items-end justify-center gap-6 md:gap-10 max-w-5xl w-full mx-auto pb-32 md:pb-40">
+        <div className="flex flex-col md:flex-row items-center md:items-end justify-center gap-4 md:gap-10 max-w-5xl w-full mx-auto pb-10 md:pb-40">
           {/* Character */}
           <div className="flex-shrink-0 mt-4 md:mt-0">
             <Image 
@@ -145,14 +145,14 @@ export default function IntroPage() {
               alt="Hero Character" 
               width={250} 
               height={250} 
-              className="object-contain w-48 md:w-[250px] h-auto drop-shadow-lg"
+              className="object-contain w-32 sm:w-48 md:w-[250px] h-auto drop-shadow-lg"
             />
           </div>
 
           {/* Dialogue Box */}
           <div
             onClick={handleTextClick}
-            className="relative p-6 md:p-10 w-full min-h-[200px] cursor-pointer md:self-start"
+            className="relative p-6 md:p-10 w-full min-h-[320px] sm:min-h-[260px] md:min-h-[200px] cursor-pointer md:self-start flex flex-col"
           >
             <p className="whitespace-pre-wrap text-black text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed font-pressStart">
               {displayedText}
