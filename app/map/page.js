@@ -15,8 +15,8 @@ const mapLocations = [
     name: 'Gedung Hokage',
     subtitle: 'HOME',
     href: '/',
-    x: 48, y: 44, // Red building center
-    w: 16, h: 18,
+    x: 50, y: 43, // Red building center
+    w: 16, h: 16,
     description: 'Main village headquarters',
   },
   {
@@ -24,8 +24,8 @@ const mapLocations = [
     name: 'Gerbang Konoha',
     subtitle: 'ABOUT',
     href: '/transition',
-    x: 15, y: 72, // Gate left bottom
-    w: 12, h: 14,
+    x: 23, y: 43, // Gate on the left
+    w: 12, h: 18,
     description: 'The story begins here',
   },
   {
@@ -33,8 +33,8 @@ const mapLocations = [
     name: 'Hokage Rock',
     subtitle: 'EXPERIENCE',
     href: '/experience',
-    x: 48, y: 15, // Faces on mountain
-    w: 22, h: 22,
+    x: 50, y: 15, // Faces on mountain
+    w: 30, h: 18,
     description: 'Battle records & quests',
   },
   {
@@ -42,8 +42,8 @@ const mapLocations = [
     name: 'Akademi Ninja',
     subtitle: 'PORTFOLIO',
     href: '/portfolio',
-    x: 28, y: 38, // Round building left
-    w: 12, h: 14,
+    x: 35, y: 36, // Blue building
+    w: 10, h: 10,
     description: 'Sacred scroll collection',
   },
   {
@@ -51,8 +51,8 @@ const mapLocations = [
     name: 'Kedai Ichiraku',
     subtitle: 'MESSAGE',
     href: '/message',
-    x: 68, y: 40, // Ramen shop right
-    w: 12, h: 14,
+    x: 69, y: 77, // Ramen shop bottom right
+    w: 12, h: 10,
     description: 'Drop a message over ramen',
   },
 ];
@@ -105,7 +105,7 @@ export default function MapPage() {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredNode, setHoveredNode] = useState(null);
-  const [heroPos, setHeroPos] = useState({ x: 48, y: 30 }); // Starts near Hokage building
+  const [heroPos, setHeroPos] = useState({ x: 50, y: 32 });
 
   useEffect(() => {
     const timeout = setTimeout(() => setIsVisible(true), 500);
@@ -117,7 +117,7 @@ export default function MapPage() {
     if (hoveredNode) {
       const node = mapLocations.find((l) => l.id === hoveredNode);
       if (node) {
-        setHeroPos({ x: node.x, y: node.y - 12 });
+        setHeroPos({ x: node.x, y: node.y - 10 });
       }
     }
   }, [hoveredNode]);
@@ -131,12 +131,12 @@ export default function MapPage() {
   ];
 
   return (
-    <div className="relative w-screen h-screen bg-[#2c1d11] overflow-hidden font-pressStart select-none flex items-center justify-center">
+    <div className="relative w-screen h-screen bg-[#1c130b] overflow-hidden font-pressStart select-none flex items-center justify-center">
       <HamburgerMenu menuItems={menu} />
       <BackgroundAudio src="/audio/experience.mp3" volume={0.15} delay={1000} className="fixed top-4 right-16 z-40" />
 
-      {/* === 16:9 MAP CONTAINER TO PREVENT CROPPING === */}
-      <div className="relative w-[100vw] h-[56.25vw] max-h-[100vh] max-w-[177.78vh] shadow-2xl overflow-hidden bg-black">
+      {/* === 1:1 SQUARE MAP CONTAINER === */}
+      <div className="relative w-full max-w-[100vh] aspect-square shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-hidden bg-black">
         
         {/* === MAP BACKGROUND IMAGE === */}
         <div className="absolute inset-0 z-0">
