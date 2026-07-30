@@ -21,7 +21,8 @@ export default function EndPage() {
     { label: 'About', href: '/about' },
     { label: 'Experience', href: '/experience' },
     { label: 'Portfolio', href: '/portfolio' },
-    { label: 'Message', href: '/message' }
+    { label: 'Message', href: '/message' },
+    { label: 'Map', href: '/map' }
   ];
 
   return (

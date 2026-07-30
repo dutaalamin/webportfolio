@@ -521,3 +521,72 @@ textarea {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* ==================== */
+/* Konoha Village Map   */
+/* ==================== */
+
+@keyframes leaf-fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg) translateX(80px);
+    opacity: 0;
+  }
+}
+
+@keyframes leaf-sway {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  25% { transform: translateX(15px) rotate(10deg); }
+  75% { transform: translateX(-15px) rotate(-10deg); }
+}
+
+@keyframes path-glow {
+  0%, 100% { filter: drop-shadow(0 0 2px rgba(139,51,51,0.3)); }
+  50% { filter: drop-shadow(0 0 8px rgba(220,80,80,0.7)); }
+}
+
+@keyframes node-pulse {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.05); filter: brightness(1.15); }
+}
+
+@keyframes node-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes map-cloud-drift {
+  0% { transform: translateX(-10%); opacity: 0.15; }
+  50% { opacity: 0.25; }
+  100% { transform: translateX(110%); opacity: 0.15; }
+}
+
+@keyframes smoke-puff {
+  0% { transform: scale(0.5) translateY(0); opacity: 0.6; }
+  100% { transform: scale(1.5) translateY(-30px); opacity: 0; }
+}
+
+.map-leaf {
+  position: absolute;
+  pointer-events: none;
+  z-index: 30;
+  animation: leaf-fall linear infinite;
+}
+
+.map-node-hover:hover {
+  animation: node-pulse 1.5s ease-in-out infinite;
+}
+
+.map-node-idle {
+  animation: node-float 3s ease-in-out infinite;
+}
+
+.map-path-active {
+  animation: path-glow 2s ease-in-out infinite;
+}

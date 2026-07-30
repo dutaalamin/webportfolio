@@ -108,7 +108,8 @@ export default function ExperiencePage() {
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
     { label: 'Experience', href: '/experience' },
-    { label: 'PORTFOLIO', href: '/portfolio' }
+    { label: 'PORTFOLIO', href: '/portfolio' },
+    { label: 'Map', href: '/map' }
   ];
 
   return (
