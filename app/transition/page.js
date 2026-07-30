@@ -143,9 +143,9 @@ export default function IntroPage() {
             <Image 
               src="/images/hero2.gif" 
               alt="Hero Character" 
-              width={250} 
-              height={250} 
-              className="object-contain w-32 sm:w-48 md:w-[250px] h-auto drop-shadow-lg"
+              width={400} 
+              height={400} 
+              className="object-contain w-32 sm:w-48 md:w-[350px] lg:w-[400px] h-auto drop-shadow-lg"
             />
           </div>
 
