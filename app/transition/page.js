@@ -137,15 +137,15 @@ export default function IntroPage() {
           &lt; Back
         </button>
 
-        <div className="flex flex-col md:flex-row items-center md:items-end justify-center gap-4 md:gap-10 max-w-5xl w-full mx-auto pb-10 md:pb-40">
+        <div className="flex flex-col md:flex-row items-center md:items-start justify-center gap-4 md:gap-10 max-w-5xl w-full mx-auto pb-10 md:pb-40">
           {/* Character */}
           <div className="flex-shrink-0 mt-4 md:mt-0">
             <Image 
               src="/images/hero2.gif" 
               alt="Hero Character" 
-              width={400} 
-              height={400} 
-              className="object-contain w-32 sm:w-48 md:w-[350px] lg:w-[400px] h-auto drop-shadow-lg"
+              width={280} 
+              height={280} 
+              className="object-contain w-32 sm:w-48 md:w-[250px] lg:w-[280px] h-auto drop-shadow-lg"
             />
           </div>
 
