@@ -15,7 +15,7 @@ const mapLocations = [
     name: 'Gedung Hokage',
     subtitle: 'HOME',
     href: '/',
-    x: 50, y: 43, // Red building center
+    x: 50, y: 44, // Red building center
     w: 16, h: 16,
     description: 'Main village headquarters',
   },
@@ -24,7 +24,7 @@ const mapLocations = [
     name: 'Gerbang Konoha',
     subtitle: 'ABOUT',
     href: '/transition',
-    x: 16, y: 43, // Gate on the left
+    x: 18, y: 47, // Gate on the left (moved down and right slightly)
     w: 12, h: 18,
     description: 'The story begins here',
   },
@@ -33,7 +33,7 @@ const mapLocations = [
     name: 'Hokage Rock',
     subtitle: 'EXPERIENCE',
     href: '/experience',
-    x: 50, y: 15, // Faces on mountain
+    x: 50, y: 22, // Faces on mountain (moved down)
     w: 30, h: 18,
     description: 'Battle records & quests',
   },
@@ -42,7 +42,7 @@ const mapLocations = [
     name: 'Arena Latihan',
     subtitle: 'PORTFOLIO',
     href: '/portfolio',
-    x: 50, y: 85, // Training ground at bottom center
+    x: 50, y: 88, // Training ground at bottom center (moved down)
     w: 24, h: 16,
     description: 'Sacred scroll collection',
   },
@@ -51,7 +51,7 @@ const mapLocations = [
     name: 'Kedai Ichiraku',
     subtitle: 'MESSAGE',
     href: '/message',
-    x: 84, y: 78, // Ramen shop bottom right
+    x: 87, y: 80, // Ramen shop bottom right (moved right and down)
     w: 12, h: 10,
     description: 'Drop a message over ramen',
   },
@@ -106,18 +106,42 @@ export default function MapPage() {
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredNode, setHoveredNode] = useState(null);
   const [heroPos, setHeroPos] = useState({ x: 50, y: 32 });
+  const [smokes, setSmokes] = useState([]);
+  const [isHeroHidden, setIsHeroHidden] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => setIsVisible(true), 500);
     return () => clearTimeout(timeout);
   }, []);
 
-  // Move hero to hovered node
+  // Move hero to hovered node with smoke teleport
   useEffect(() => {
     if (hoveredNode) {
       const node = mapLocations.find((l) => l.id === hoveredNode);
       if (node) {
-        setHeroPos({ x: node.x, y: node.y - 10 });
+        const newX = node.x;
+        const newY = node.y - 10;
+        
+        // Don't teleport if already there
+        if (Math.abs(heroPos.x - newX) < 2 && Math.abs(heroPos.y - newY) < 2) return;
+
+        const id = Date.now();
+        
+        // Smoke at current pos
+        setSmokes(prev => [...prev, { id: id + 1, x: heroPos.x, y: heroPos.y }]);
+        setIsHeroHidden(true);
+
+        setTimeout(() => {
+          setHeroPos({ x: newX, y: newY });
+          // Smoke at new pos
+          setSmokes(prev => [...prev, { id: id + 2, x: newX, y: newY }]);
+          setIsHeroHidden(false);
+          
+          // Cleanup smokes after animation
+          setTimeout(() => {
+            setSmokes(prev => prev.filter(s => s.id !== id + 1 && s.id !== id + 2));
+          }, 800);
+        }, 300); // Wait 300ms while hidden before appearing at new pos
       }
     }
   }, [hoveredNode]);
@@ -132,6 +156,16 @@ export default function MapPage() {
 
   return (
     <div className="relative w-screen h-screen bg-[#1c130b] overflow-hidden font-pressStart select-none flex items-center justify-center">
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes smoke-expand {
+          0% { transform: translate(-50%, -100%) scale(0.2); opacity: 1; }
+          50% { transform: translate(-50%, -100%) scale(1.5); opacity: 0.9; }
+          100% { transform: translate(-50%, -100%) scale(2.5); opacity: 0; }
+        }
+        .smoke-puff {
+          animation: smoke-expand 0.6s ease-out forwards;
+        }
+      `}} />
       <HamburgerMenu menuItems={menu} />
       <BackgroundAudio src="/audio/experience.mp3" volume={0.15} delay={1000} className="fixed top-4 right-16 z-40" />
 
@@ -149,15 +183,34 @@ export default function MapPage() {
           />
         </div>
 
+        {/* === SMOKE PUFFS === */}
+        {smokes.map((smoke) => (
+          <div
+            key={smoke.id}
+            className="smoke-puff absolute z-20 pointer-events-none"
+            style={{
+              left: `${smoke.x}%`,
+              top: `${smoke.y}%`,
+            }}
+          >
+            <div className="relative w-16 h-16 md:w-24 md:h-24 opacity-80">
+              <div className="absolute inset-0 bg-white rounded-full blur-sm" />
+              <div className="absolute top-1/4 left-0 w-3/4 h-3/4 bg-gray-200 rounded-full blur-md" />
+              <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-white rounded-full blur-sm" />
+            </div>
+          </div>
+        ))}
+
         {/* === HERO CHARACTER === */}
         <div
-          className={`absolute z-20 pointer-events-none transition-all duration-700 ease-out ${
-            isVisible ? 'opacity-100' : 'opacity-0'
+          className={`absolute z-20 pointer-events-none ${
+            isVisible && !isHeroHidden ? 'opacity-100' : 'opacity-0'
           }`}
           style={{
             left: `${heroPos.x}%`,
             top: `${heroPos.y}%`,
             transform: 'translate(-50%, -100%)',
+            transition: isHeroHidden ? 'none' : 'opacity 0.2s',
           }}
         >
           <div className="relative w-20 h-20 md:w-28 md:h-28">
