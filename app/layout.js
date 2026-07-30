@@ -32,11 +32,13 @@ export const viewport = {
 }
 
 import ClickSoundProvider from './components/ClickSoundProvider'
+import DisableZoom from './components/DisableZoom'
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={pressStart.variable}>
       <body>
+        <DisableZoom />
         <ClickSoundProvider>
           <Loader />
           {children}
