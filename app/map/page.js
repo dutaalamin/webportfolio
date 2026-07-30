@@ -160,7 +160,7 @@ export default function MapPage() {
             transform: 'translate(-50%, -100%)',
           }}
         >
-          <div className="relative w-12 h-12 md:w-16 md:h-16">
+          <div className="relative w-20 h-20 md:w-28 md:h-28">
             <Image src="/images/hero2.gif" alt="Hero" fill className="object-contain drop-shadow-lg" />
           </div>
         </div>
