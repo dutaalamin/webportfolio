@@ -186,12 +186,21 @@ export default function MapPage() {
               onMouseLeave={() => setHoveredNode(null)}
               onClick={() => router.push(loc.href)}
             >
-              {/* Hover highlight overlay on the building */}
+              {/* Bouncing Quest Arrow (Always visible) */}
               <div
-                className={`absolute inset-0 rounded-lg border-3 transition-all duration-300 ${
+                className={`absolute -top-8 left-1/2 -translate-x-1/2 text-[#f8b800] text-sm md:text-xl transition-all duration-300 pointer-events-none drop-shadow-[0_2px_2px_rgba(0,0,0,1)] ${
+                  isHovered ? 'scale-125 text-white animate-none -translate-y-2' : 'animate-bounce'
+                }`}
+              >
+                ▼
+              </div>
+
+              {/* Subtle radial glow on hover instead of a hard box */}
+              <div
+                className={`absolute inset-0 rounded-full transition-all duration-500 pointer-events-none ${
                   isHovered
-                    ? 'border-[#f8b800] bg-[#f8b800]/20 shadow-[0_0_25px_rgba(248,184,0,0.6)] scale-105'
-                    : 'border-transparent bg-transparent scale-100'
+                    ? 'bg-[#f8b800]/20 shadow-[0_0_40px_20px_rgba(248,184,0,0.4)] scale-110'
+                    : 'bg-transparent scale-100'
                 }`}
               />
 
