@@ -12,38 +12,38 @@ import BackgroundAudio from '../components/Audio';
 const mapLocations = [
   {
     id: 'home',
-    name: 'Gerbang Konoha',
+    name: 'Gedung Hokage',
     subtitle: 'HOME',
     href: '/',
-    x: 12, y: 72,
-    w: 10, h: 14,
-    description: 'The entrance to the village',
+    x: 48, y: 44, // Red building center
+    w: 16, h: 18,
+    description: 'Main village headquarters',
   },
   {
     id: 'about',
-    name: 'Akademi Ninja',
+    name: 'Gerbang Konoha',
     subtitle: 'ABOUT',
     href: '/transition',
-    x: 25, y: 38,
+    x: 15, y: 72, // Gate left bottom
     w: 12, h: 14,
-    description: 'Where the story begins',
+    description: 'The story begins here',
   },
   {
     id: 'experience',
     name: 'Hokage Rock',
     subtitle: 'EXPERIENCE',
     href: '/experience',
-    x: 46, y: 15,
-    w: 18, h: 22,
+    x: 48, y: 15, // Faces on mountain
+    w: 22, h: 22,
     description: 'Battle records & quests',
   },
   {
     id: 'portfolio',
-    name: 'Gedung Hokage',
+    name: 'Akademi Ninja',
     subtitle: 'PORTFOLIO',
     href: '/portfolio',
-    x: 46, y: 42,
-    w: 14, h: 16,
+    x: 28, y: 38, // Round building left
+    w: 12, h: 14,
     description: 'Sacred scroll collection',
   },
   {
@@ -51,8 +51,8 @@ const mapLocations = [
     name: 'Kedai Ichiraku',
     subtitle: 'MESSAGE',
     href: '/message',
-    x: 68, y: 38,
-    w: 10, h: 12,
+    x: 68, y: 40, // Ramen shop right
+    w: 12, h: 14,
     description: 'Drop a message over ramen',
   },
 ];
@@ -70,7 +70,7 @@ function FallingLeaves() {
   }, []);
 
   return (
-    <>
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
       {leaves.map((leaf) => (
         <div
           key={leaf.id}
@@ -97,7 +97,7 @@ function FallingLeaves() {
           </svg>
         </div>
       ))}
-    </>
+    </div>
   );
 }
 
@@ -105,7 +105,7 @@ export default function MapPage() {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredNode, setHoveredNode] = useState(null);
-  const [heroPos, setHeroPos] = useState({ x: 46, y: 28 });
+  const [heroPos, setHeroPos] = useState({ x: 48, y: 30 }); // Starts near Hokage building
 
   useEffect(() => {
     const timeout = setTimeout(() => setIsVisible(true), 500);
@@ -117,7 +117,7 @@ export default function MapPage() {
     if (hoveredNode) {
       const node = mapLocations.find((l) => l.id === hoveredNode);
       if (node) {
-        setHeroPos({ x: node.x, y: node.y - 10 });
+        setHeroPos({ x: node.x, y: node.y - 12 });
       }
     }
   }, [hoveredNode]);
@@ -131,97 +131,91 @@ export default function MapPage() {
   ];
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden font-pressStart select-none">
+    <div className="relative w-screen h-screen bg-[#2c1d11] overflow-hidden font-pressStart select-none flex items-center justify-center">
       <HamburgerMenu menuItems={menu} />
       <BackgroundAudio src="/audio/experience.mp3" volume={0.15} delay={1000} className="fixed top-4 right-16 z-40" />
 
-      {/* === MAP BACKGROUND IMAGE === */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/konoha_map_hd.png"
-          alt="Konoha Village Map"
-          fill
-          className="object-cover"
-          priority
-        />
-      </div>
-
-      {/* === HERO CHARACTER === */}
-      <div
-        className={`absolute z-20 pointer-events-none transition-all duration-700 ease-out ${
-          isVisible ? 'opacity-100' : 'opacity-0'
-        }`}
-        style={{
-          left: `${heroPos.x}%`,
-          top: `${heroPos.y}%`,
-          transform: 'translate(-50%, -100%)',
-        }}
-      >
-        <div className="relative w-12 h-12 md:w-16 md:h-16">
-          <Image src="/images/hero2.gif" alt="Hero" fill className="object-contain drop-shadow-lg" />
+      {/* === 16:9 MAP CONTAINER TO PREVENT CROPPING === */}
+      <div className="relative w-[100vw] h-[56.25vw] max-h-[100vh] max-w-[177.78vh] shadow-2xl overflow-hidden bg-black">
+        
+        {/* === MAP BACKGROUND IMAGE === */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/konoha_map_hd.png"
+            alt="Konoha Village Map"
+            fill
+            className="object-contain"
+            priority
+          />
         </div>
-      </div>
 
-      {/* === CLICKABLE HOTSPOT AREAS OVER BUILDINGS === */}
-      {mapLocations.map((loc, i) => {
-        const isHovered = hoveredNode === loc.id;
-
-        return (
-          <div
-            key={loc.id}
-            className={`absolute z-20 cursor-pointer transition-all duration-300 ease-out ${
-              isVisible ? 'opacity-100' : 'opacity-0'
-            }`}
-            style={{
-              left: `${loc.x - loc.w / 2}%`,
-              top: `${loc.y - loc.h / 2}%`,
-              width: `${loc.w}%`,
-              height: `${loc.h}%`,
-              transitionDelay: `${i * 100 + 300}ms`,
-            }}
-            onMouseEnter={() => setHoveredNode(loc.id)}
-            onMouseLeave={() => setHoveredNode(null)}
-            onClick={() => router.push(loc.href)}
-          >
-            {/* Hover highlight overlay on the building */}
-            <div
-              className={`absolute inset-0 rounded-lg border-3 transition-all duration-300 ${
-                isHovered
-                  ? 'border-[#f8b800] bg-[#f8b800]/15 shadow-[0_0_25px_rgba(248,184,0,0.5)]'
-                  : 'border-transparent bg-transparent'
-              }`}
-            />
-
-            {/* Pulsing corner markers when hovered */}
-            {isHovered && (
-              <>
-                <div className="absolute top-0 left-0 w-3 h-3 border-t-3 border-l-3 border-[#f8b800] rounded-tl-sm" />
-                <div className="absolute top-0 right-0 w-3 h-3 border-t-3 border-r-3 border-[#f8b800] rounded-tr-sm" />
-                <div className="absolute bottom-0 left-0 w-3 h-3 border-b-3 border-l-3 border-[#f8b800] rounded-bl-sm" />
-                <div className="absolute bottom-0 right-0 w-3 h-3 border-b-3 border-r-3 border-[#f8b800] rounded-br-sm" />
-              </>
-            )}
-
-            {/* Label that appears on hover */}
-            <div
-              className={`absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap transition-all duration-300 ${
-                isHovered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-90'
-              }`}
-              style={{ pointerEvents: 'none' }}
-            >
-              <div className="bg-black/90 text-white px-3 py-1.5 rounded border-2 border-[#f8b800]/60 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                <p className="text-[7px] md:text-[9px] font-bold text-center">{loc.name}</p>
-                <p className="text-[5px] md:text-[7px] text-[#f8b800] text-center">{loc.subtitle}</p>
-              </div>
-              {/* Triangle pointer */}
-              <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[5px] border-r-[5px] border-b-[6px] border-transparent border-b-black/90" />
-            </div>
+        {/* === HERO CHARACTER === */}
+        <div
+          className={`absolute z-20 pointer-events-none transition-all duration-700 ease-out ${
+            isVisible ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{
+            left: `${heroPos.x}%`,
+            top: `${heroPos.y}%`,
+            transform: 'translate(-50%, -100%)',
+          }}
+        >
+          <div className="relative w-12 h-12 md:w-16 md:h-16">
+            <Image src="/images/hero2.gif" alt="Hero" fill className="object-contain drop-shadow-lg" />
           </div>
-        );
-      })}
+        </div>
 
-      {/* === FALLING LEAVES === */}
-      <FallingLeaves />
+        {/* === CLICKABLE HOTSPOT AREAS OVER BUILDINGS === */}
+        {mapLocations.map((loc, i) => {
+          const isHovered = hoveredNode === loc.id;
+
+          return (
+            <div
+              key={loc.id}
+              className={`absolute z-20 cursor-pointer transition-all duration-300 ease-out ${
+                isVisible ? 'opacity-100' : 'opacity-0'
+              }`}
+              style={{
+                left: `${loc.x - loc.w / 2}%`,
+                top: `${loc.y - loc.h / 2}%`,
+                width: `${loc.w}%`,
+                height: `${loc.h}%`,
+                transitionDelay: `${i * 100 + 300}ms`,
+              }}
+              onMouseEnter={() => setHoveredNode(loc.id)}
+              onMouseLeave={() => setHoveredNode(null)}
+              onClick={() => router.push(loc.href)}
+            >
+              {/* Hover highlight overlay on the building */}
+              <div
+                className={`absolute inset-0 rounded-lg border-3 transition-all duration-300 ${
+                  isHovered
+                    ? 'border-[#f8b800] bg-[#f8b800]/20 shadow-[0_0_25px_rgba(248,184,0,0.6)] scale-105'
+                    : 'border-transparent bg-transparent scale-100'
+                }`}
+              />
+
+              {/* Label that appears on hover */}
+              <div
+                className={`absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap transition-all duration-300 z-50 ${
+                  isHovered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-90'
+                }`}
+                style={{ pointerEvents: 'none' }}
+              >
+                <div className="bg-black/90 text-white px-3 py-1.5 rounded border-2 border-[#f8b800]/60 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                  <p className="text-[7px] md:text-[9px] font-bold text-center">{loc.name}</p>
+                  <p className="text-[5px] md:text-[7px] text-[#f8b800] text-center mt-0.5">{loc.subtitle}</p>
+                </div>
+                {/* Triangle pointer */}
+                <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[5px] border-r-[5px] border-b-[6px] border-transparent border-b-black/90" />
+              </div>
+            </div>
+          );
+        })}
+
+        {/* === FALLING LEAVES === */}
+        <FallingLeaves />
+      </div>
 
       {/* === MAP TITLE === */}
       <div
