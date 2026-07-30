@@ -162,69 +162,15 @@ export default function MapPage() {
 
       {/* === MAP BACKGROUND === */}
       <div className="absolute inset-0 z-0">
-        {/* Sky gradient */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(180deg, #87CEEB 0%, #B0E0E6 30%, #98D8C8 50%, #7CB342 65%, #558B2F 80%, #33691E 100%)',
-          }}
+        <Image
+          src="/images/konoha_map.png"
+          alt="Konoha Village Map"
+          fill
+          className="object-cover"
+          priority
         />
-
-        {/* Mountain silhouettes */}
-        <svg className="absolute bottom-[30%] w-full h-[40%] opacity-30" viewBox="0 0 1200 400" preserveAspectRatio="none">
-          <polygon points="0,400 100,150 200,280 350,80 500,220 600,100 750,250 900,50 1050,200 1200,120 1200,400" fill="#2E7D32" />
-          <polygon points="0,400 150,200 300,320 450,130 600,270 800,160 950,300 1100,180 1200,250 1200,400" fill="#1B5E20" opacity="0.6" />
-        </svg>
-
-        {/* Village ground */}
-        <div
-          className="absolute bottom-0 w-full h-[45%]"
-          style={{
-            background: 'linear-gradient(180deg, #8BC34A 0%, #689F38 20%, #558B2F 50%, #4E342E 80%, #3E2723 100%)',
-          }}
-        />
-
-        {/* Water/river */}
-        <svg className="absolute bottom-[15%] w-full h-[12%] opacity-40" viewBox="0 0 1200 100" preserveAspectRatio="none">
-          <path d="M0,50 Q150,20 300,50 T600,50 T900,50 T1200,50 L1200,100 L0,100 Z" fill="#1565C0" opacity="0.5" />
-          <path d="M0,60 Q100,35 250,60 T550,55 T850,60 T1200,55 L1200,100 L0,100 Z" fill="#0D47A1" opacity="0.3" />
-        </svg>
-
-        {/* Pixel trees scattered */}
-        {[10, 25, 45, 60, 75, 88].map((x, i) => (
-          <div
-            key={i}
-            className="absolute z-[1]"
-            style={{
-              left: `${x}%`,
-              bottom: `${32 + (i % 3) * 5}%`,
-              opacity: 0.5 + (i % 3) * 0.15,
-            }}
-          >
-            <svg width="30" height="45" viewBox="0 0 30 45">
-              <rect x="12" y="25" width="6" height="20" fill="#5D4037" />
-              <polygon points="15,0 0,25 30,25" fill="#2E7D32" />
-              <polygon points="15,8 3,28 27,28" fill="#388E3C" />
-            </svg>
-          </div>
-        ))}
-
-        {/* Fog/clouds drifting across map */}
-        {[1, 2, 3].map((i) => (
-          <div
-            key={i}
-            className="absolute rounded-full"
-            style={{
-              top: `${10 + i * 8}%`,
-              width: `${200 + i * 80}px`,
-              height: `${30 + i * 10}px`,
-              background: 'radial-gradient(ellipse, rgba(255,255,255,0.2), transparent)',
-              animation: `map-cloud-drift ${20 + i * 5}s linear infinite`,
-              animationDelay: `${i * 4}s`,
-            }}
-          />
-        ))}
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-black/15" />
       </div>
 
       {/* === SVG PATHS CONNECTING NODES === */}
