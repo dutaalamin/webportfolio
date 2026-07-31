@@ -14,7 +14,7 @@ export default function Typewriter({ text, speed = 25, delay = 0 }) {
     // Initialize audio element
     if (!audioRef.current && typeof window !== 'undefined') {
       audioRef.current = new Audio('/audio/typing.wav');
-      audioRef.current.volume = 0.15; // Set a subtle volume
+      audioRef.current.volume = 0.6; // Increased volume
     }
 
     let lastPlayTime = 0;

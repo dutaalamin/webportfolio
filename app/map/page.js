@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import HamburgerMenu from '../components/HamburgerMenu';
 import BackgroundAudio from '../components/Audio';
+import Typewriter from '../components/Typewriter';
 
 // Hotspot areas positioned over actual buildings in the map image
 // x, y = center position as %, w, h = size as %
@@ -33,7 +34,7 @@ const mapLocations = [
     name: 'Hokage Rock',
     subtitle: 'EXPERIENCE',
     href: '/experience',
-    x: 50, y: 19, // Faces on mountain (moved slightly up)
+    x: 50, y: 19, // Faces on mountain
     w: 30, h: 18,
     description: 'Battle records & quests',
   },
@@ -59,6 +60,12 @@ const mapLocations = [
 
 // Falling leaves component
 function FallingLeaves() {
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const leaves = useMemo(() => {
     return Array.from({ length: 12 }, (_, i) => ({
       id: i,
@@ -68,6 +75,8 @@ function FallingLeaves() {
       delay: Math.random() * 10,
     }));
   }, []);
+
+  if (!mounted) return null;
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -108,6 +117,9 @@ export default function MapPage() {
   const [heroPos, setHeroPos] = useState({ x: 50, y: 32 });
   const [smokes, setSmokes] = useState([]);
   const [isHeroHidden, setIsHeroHidden] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(true);
+  const [startTyping, setStartTyping] = useState(false);
+  const [showQuestToast, setShowQuestToast] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => setIsVisible(true), 500);
@@ -236,7 +248,7 @@ export default function MapPage() {
             >
               {/* Bouncing Quest Arrow (Always visible) */}
               <div
-                className={`absolute -top-8 left-1/2 -translate-x-1/2 text-[#f8b800] text-sm md:text-xl transition-all duration-300 pointer-events-none drop-shadow-[0_2px_2px_rgba(0,0,0,1)] ${
+                className={`absolute top-0 left-1/2 -translate-x-1/2 text-[#f8b800] text-sm md:text-xl transition-all duration-300 pointer-events-none drop-shadow-[0_2px_2px_rgba(0,0,0,1)] ${
                   isHovered ? 'scale-125 text-white animate-none -translate-y-2' : 'animate-bounce'
                 }`}
               >
@@ -276,8 +288,8 @@ export default function MapPage() {
 
       {/* === MAP TITLE === */}
       <div
-        className={`absolute top-4 left-4 md:top-6 md:left-6 z-30 transition-all duration-700 ease-out ${
-          isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
+        className={`absolute top-4 left-1/2 -translate-x-1/2 z-30 transition-all duration-700 ease-out text-center ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'
         }`}
       >
         <div className="bg-[#f5edd6]/90 border-4 border-[#8b7332] rounded-lg px-3 py-2 md:px-5 md:py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
@@ -289,7 +301,7 @@ export default function MapPage() {
       {/* === BACK BUTTON (Desktop) === */}
       <Link href="/">
         <button
-          className={`hidden md:flex absolute bottom-6 left-6 z-30 px-4 py-2 bg-white border-4 border-black text-black text-xs font-pressStart hover:bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer ${
+          className={`hidden md:flex absolute top-6 left-6 z-30 px-4 py-2 bg-white border-4 border-black text-black text-xs font-pressStart hover:bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer ${
             isVisible ? 'opacity-100' : 'opacity-0'
           }`}
         >
@@ -300,13 +312,77 @@ export default function MapPage() {
       {/* === MOBILE BACK BUTTON === */}
       <Link href="/">
         <button
-          className={`flex md:hidden absolute bottom-4 left-4 z-30 px-3 py-2 bg-white border-3 border-black text-black text-[8px] font-pressStart shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer ${
+          className={`flex md:hidden absolute top-4 left-4 z-30 px-3 py-2 bg-white border-3 border-black text-black text-[8px] font-pressStart shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer ${
             isVisible ? 'opacity-100' : 'opacity-0'
           }`}
         >
           ◀ Back
         </button>
       </Link>
+
+      {/* === WELCOME DIALOG (RPG STYLE) === */}
+      {showWelcome && (
+        <div 
+          className="absolute inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm transition-opacity duration-500 cursor-pointer"
+          onClick={() => { if (!startTyping) setStartTyping(true); }}
+        >
+          <div className="relative w-[90%] md:w-[70%] lg:w-[50%] bg-[#f5edd6] border-8 border-[#4a3728] p-6 md:p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col gap-6 animate-navFlash cursor-default" onClick={(e) => e.stopPropagation()}>
+            {/* Scroll Decoration Dots */}
+            <div className="absolute -top-4 -left-4 w-6 h-6 md:w-8 md:h-8 bg-[#8b7332] rounded-full border-4 border-[#4a3728] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]" />
+            <div className="absolute -bottom-4 -right-4 w-6 h-6 md:w-8 md:h-8 bg-[#8b7332] rounded-full border-4 border-[#4a3728] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]" />
+            <div className="absolute -top-4 -right-4 w-6 h-6 md:w-8 md:h-8 bg-[#8b7332] rounded-full border-4 border-[#4a3728] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]" />
+            <div className="absolute -bottom-4 -left-4 w-6 h-6 md:w-8 md:h-8 bg-[#8b7332] rounded-full border-4 border-[#4a3728] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]" />
+            
+            <h2 className="text-[#4a3728] text-[10px] md:text-sm lg:text-base font-bold leading-loose min-h-[120px] md:min-h-[80px]">
+              {!startTyping ? (
+                <span className="animate-pulse cursor-pointer flex flex-col h-full items-center justify-center opacity-80" onClick={() => setStartTyping(true)}>
+                  <span className="text-sm md:text-xl lg:text-2xl font-serif font-black tracking-[0.3em] leading-[2.5] text-center mb-6">
+                    運命の巻物を開くには、まずこの封印を解かねばならない。<br/>
+                    画面のどこかをクリックして、自らの忍道を呼び覚ませ。
+                  </span>
+                  <span className="text-[10px] md:text-xs tracking-[0.2em]">( Click anywhere to unseal )</span>
+                </span>
+              ) : (
+                <Typewriter 
+                  text="Hey there! Welcome to my domain! I am Duta Alamin, and coding is my Ninja Way. Are you ready to explore? Click on any building to see the projects and skills I've mastered over the years!" 
+                  speed={35} 
+                  delay={0} 
+                />
+              )}
+            </h2>
+            
+            {startTyping && (
+              <button 
+                onClick={() => {
+                  setShowWelcome(false);
+                  setTimeout(() => setShowQuestToast(true), 500); // Show toast after dialog fades
+                  setTimeout(() => setShowQuestToast(false), 10500); // Hide toast after 10s
+                }}
+                className="self-end mt-2 px-4 py-2 bg-[#f8b800] border-4 border-black text-black text-[8px] md:text-xs font-pressStart shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-[#e5a900] hover:translate-y-1 hover:translate-x-1 hover:shadow-none transition-all active:scale-95 animate-pulse"
+              >
+                [ Let's Go! ]
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* === QUEST START TOAST === */}
+      <div 
+        className={`absolute top-20 right-4 md:right-8 z-40 transition-all duration-700 ease-out transform ${
+          showQuestToast ? 'translate-x-0 opacity-100' : 'translate-x-[150%] opacity-0'
+        }`}
+      >
+        <div className="bg-[#f5edd6] border-4 border-[#4a3728] p-3 md:p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-start gap-3">
+          <div className="text-xl md:text-2xl animate-bounce mt-1">📜</div>
+          <div>
+            <h3 className="text-[#e23636] font-pressStart text-[10px] md:text-xs mb-2">NEW MISSION!</h3>
+            <p className="text-[#4a3728] font-pressStart text-[7px] md:text-[9px] leading-loose">
+              Explore the village and uncover<br/>Duta's Ninja Way!
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

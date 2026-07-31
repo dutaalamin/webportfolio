@@ -29,7 +29,7 @@ export default function PageTransitionLoader() {
     let fadeOutTimer;
     let hideTimer;
 
-    if (isFirstTime) {
+    if (isFirstTime && pathname !== '/map') {
       // First time: stop loading after 2s and show the prompt
       const promptTimer = setTimeout(() => {
         setLoading(false);
@@ -37,11 +37,20 @@ export default function PageTransitionLoader() {
       }, totalDuration);
       return () => clearTimeout(promptTimer);
     } else {
-      // Not first time: just hide automatically
+      // Auto-start for map page
+      if (isFirstTime && pathname === '/map' && typeof window !== 'undefined') {
+        window.hasStarted = true;
+        window.startMuted = false; 
+      }
+
+      // Not first time or auto-started map page: just hide automatically
       fadeOutTimer = setTimeout(() => setFadeOut(true), showDuration);
       hideTimer = setTimeout(() => {
         setShow(false);
         setLoading(false);
+        if (pathname === '/map' && typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('audioPreferenceSet'));
+        }
       }, totalDuration);
     }
 
@@ -72,6 +81,7 @@ export default function PageTransitionLoader() {
   };
 
   if (!show) return null;
+  if (pathname === '/map') return null;
 
   return (
     <div
