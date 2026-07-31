@@ -2,57 +2,41 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { preloadPage } from '../utils/preloadHelper';
 import Cloud from '../components/Cloud';
 import FarmAnimals from '../components/FarmAnimals';
 
 export default function PageTransitionLoader() {
-  const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
-  const [showPrompt, setShowPrompt] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     setShow(true);
     setLoading(true);
     setFadeOut(false);
-    setShowPrompt(false);
 
     preloadPage(pathname);
 
-    const isFirstTime = typeof window !== 'undefined' && !window.hasStarted;
-    const showDuration = 1500;
     const totalDuration = 2000;
+    const showDuration = totalDuration - 500;
 
-    let fadeOutTimer;
-    let hideTimer;
-
-    if (isFirstTime && pathname !== '/map') {
-      // First time: stop loading after 2s and show the prompt
-      const promptTimer = setTimeout(() => {
-        setLoading(false);
-        setShowPrompt(true);
-      }, totalDuration);
-      return () => clearTimeout(promptTimer);
-    } else {
-      // Auto-start for map page
-      if (isFirstTime && pathname === '/map' && typeof window !== 'undefined') {
-        window.hasStarted = true;
-        window.startMuted = false; 
-      }
-
-      // Not first time or auto-started map page: just hide automatically
-      fadeOutTimer = setTimeout(() => setFadeOut(true), showDuration);
-      hideTimer = setTimeout(() => {
-        setShow(false);
-        setLoading(false);
-        if (pathname === '/map' && typeof window !== 'undefined') {
-          window.dispatchEvent(new CustomEvent('audioPreferenceSet'));
-        }
-      }, totalDuration);
+    if (typeof window !== 'undefined' && !window.hasStarted) {
+      window.hasStarted = true;
+      window.startMuted = false;
     }
+
+    const fadeOutTimer = setTimeout(() => setFadeOut(true), showDuration);
+    const hideTimer = setTimeout(() => {
+      setShow(false);
+      setLoading(false);
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('audioPreferenceSet'));
+      }
+    }, totalDuration);
 
     return () => {
       clearTimeout(fadeOutTimer);
@@ -60,25 +44,6 @@ export default function PageTransitionLoader() {
     };
   }, [pathname]);
 
-  const handleStart = (playMusic) => {
-    if (typeof window !== 'undefined') {
-      window.hasStarted = true;
-      if (!playMusic) {
-        window.startMuted = true;
-      } else {
-        window.startMuted = false;
-      }
-    }
-    
-    // Notify Audio component
-    window.dispatchEvent(new CustomEvent('audioPreferenceSet'));
-
-    setFadeOut(true);
-    setTimeout(() => {
-      setShow(false);
-      setShowPrompt(false);
-    }, 500);
-  };
 
   if (!show) return null;
   if (pathname === '/map') return null;
@@ -111,26 +76,6 @@ export default function PageTransitionLoader() {
             <p className="text-lg font-bold text-gray-700 animate-pulse font-pressStart mt-4">LOADING</p>
             <div className="w-64 max-w-[80vw] h-3 bg-gray-300 rounded-full mt-4 overflow-hidden relative">
               <div className="absolute inset-0 w-full h-full animate-progress bg-gradient-to-r from-blue-900 to-blue-300" />
-            </div>
-          </div>
-        )}
-
-        {showPrompt && (
-          <div className="text-center mt-4 bg-white p-6 rounded-xl border-4 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)]">
-            <p className="text-sm md:text-base font-bold text-black mb-6 font-pressStart leading-relaxed">PLAY BACKGROUND<br/>MUSIC?</p>
-            <div className="flex justify-center gap-6">
-              <button
-                onClick={() => handleStart(true)}
-                className="px-6 py-3 bg-green-500 text-white font-pressStart text-sm border-2 border-black rounded shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:bg-green-400 hover:translate-y-1 hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] transition-all cursor-pointer"
-              >
-                YES
-              </button>
-              <button
-                onClick={() => handleStart(false)}
-                className="px-6 py-3 bg-red-500 text-white font-pressStart text-sm border-2 border-black rounded shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:bg-red-400 hover:translate-y-1 hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] transition-all cursor-pointer"
-              >
-                NO
-              </button>
             </div>
           </div>
         )}

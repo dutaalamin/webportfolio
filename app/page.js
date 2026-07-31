@@ -42,13 +42,50 @@ export default function HomePage() {
   const fadeClass = (delay = 0) =>
     `${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} transition-all duration-700 ease-out delay-[${delay}ms]`
 
+  const menu = [
+    { label: 'Home', href: '/' },
+    { label: 'About', href: '/about' },
+    { label: 'Experience', href: '/experience' },
+    { label: 'Portfolio', href: '/portfolio' },
+    { label: 'Map', href: '/map' },
+  ];
+
   return (
     <main className="relative w-full min-h-screen bg-white text-black font-pressStart overflow-hidden">
+      
+      {/* Top Left Minimap Button */}
+      <Link href="/map">
+        <div className="fixed top-4 md:top-6 left-4 md:left-6 z-50 group cursor-pointer flex flex-col items-center">
+          {/* Minimap Box */}
+          <div className="w-12 h-12 md:w-32 md:h-32 border-2 md:border-4 border-[#4a3728] rounded-md md:rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] md:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] overflow-hidden relative group-hover:translate-y-1 group-hover:translate-x-1 group-hover:shadow-none transition-all bg-[#a3c48e]">
+            {/* We scale the map image up so it looks like a zoomed-in minimap */}
+            <Image src="/images/konoha_map_hd.png" alt="Mini Map" fill className="object-cover scale-[2.5] origin-center" />
+            
+            {/* Radar / Grid effect overlay */}
+            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')] opacity-30 pointer-events-none" />
+            
+            {/* Blinking Player Dot */}
+            <div className="absolute top-1/2 left-1/2 w-1.5 h-1.5 md:w-3 md:h-3 bg-red-500 rounded-full animate-ping -translate-x-1/2 -translate-y-1/2" />
+            <div className="absolute top-1/2 left-1/2 w-1.5 h-1.5 md:w-3 md:h-3 bg-red-500 border border-white md:border-2 rounded-full -translate-x-1/2 -translate-y-1/2" />
+            
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all pointer-events-none" />
+          </div>
+          
+          {/* Label below (Hidden on Mobile) */}
+          <div className="mt-1 md:mt-2 text-center group-hover:translate-y-1 transition-transform hidden md:block">
+            <span className="bg-black text-[#f8b800] px-2 py-1 text-[7px] md:text-[9px] font-pressStart shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+              MINIMAP
+            </span>
+          </div>
+        </div>
+      </Link>
+
+      <HamburgerMenu menuItems={menu} />
       <BackgroundAudio
         src="/audio/home.mp3"
         volume={0.15}
         delay={0}
-        className="fixed right-4 top-4 z-50"
+        className="fixed right-4 top-16 md:right-4 md:top-4 z-50"
       />
 
       {/* Cloud Layers */}
@@ -59,7 +96,7 @@ export default function HomePage() {
       <FarmAnimals className={fadeClass(600)} />
 
       {/* Content */}
-      <div className={`relative z-5 max-w-7xl mx-auto pt-16 lg:pt-28 px-6 grid gap-8 grid-cols-1 lg:grid-cols-3 ${fadeClass(900)}`}>
+      <div className={`relative z-5 max-w-7xl mx-auto pt-24 lg:pt-28 px-6 grid gap-8 grid-cols-1 lg:grid-cols-3 ${fadeClass(900)}`}>
         <div className="flex flex-col gap-2">
           <RoleRotate />
           <SocialLinks links={socialLinks} />
