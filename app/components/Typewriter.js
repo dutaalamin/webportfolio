@@ -2,11 +2,17 @@
 
 import { useState, useEffect, useRef } from 'react'
 
-export default function Typewriter({ text, speed = 25, delay = 0 }) {
+export default function Typewriter({ text, speed = 25, delay = 0, forceComplete = false, onComplete }) {
   const [displayedText, setDisplayedText] = useState('')
   const audioRef = useRef(null)
 
   useEffect(() => {
+    if (forceComplete) {
+      setDisplayedText(text);
+      if (onComplete) onComplete();
+      return;
+    }
+
     setDisplayedText(''); // Reset text to prevent duplicate in Strict Mode
     let timeout;
     let typeInterval;
@@ -47,6 +53,7 @@ export default function Typewriter({ text, speed = 25, delay = 0 }) {
           currentIndex++;
         } else {
           clearInterval(typeInterval);
+          if (onComplete) onComplete();
         }
       }, speed);
     }, delay);
@@ -55,7 +62,7 @@ export default function Typewriter({ text, speed = 25, delay = 0 }) {
       clearTimeout(timeout);
       clearInterval(typeInterval);
     }
-  }, [text, speed, delay])
+  }, [text, speed, delay, forceComplete])
 
   return <span>{displayedText}</span>
 }

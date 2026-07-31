@@ -108,6 +108,7 @@ export default function MapPage() {
   const [smokes, setSmokes] = useState([]);
   const [isHeroHidden, setIsHeroHidden] = useState(false);
   const [showWelcome, setShowWelcome] = useState(true);
+  const [isTypingWelcome, setIsTypingWelcome] = useState(true);
   const [showQuestToast, setShowQuestToast] = useState(false);
 
   useEffect(() => {
@@ -120,7 +121,7 @@ export default function MapPage() {
     if (hoveredNode) {
       const node = mapLocations.find((l) => l.id === hoveredNode);
       if (node) {
-        setHeroPos({ x: node.x, y: node.y });
+        setHeroPos({ x: node.x, y: node.y - 10 });
       }
     }
   }, [hoveredNode]);
@@ -178,6 +179,60 @@ export default function MapPage() {
           />
         </div>
 
+        {/* === HOTSPOTS === */}
+        {mapLocations.map((loc, i) => {
+          const isHovered = hoveredNode === loc.id;
+          return (
+            <div
+              key={loc.id}
+              className="absolute z-30 cursor-pointer"
+              style={{
+                left: `${loc.x - loc.w / 2}%`,
+                top: `${loc.y - loc.h / 2}%`,
+                width: `${loc.w}%`,
+                height: `${loc.h}%`,
+                transitionDelay: `${i * 100 + 300}ms`,
+              }}
+              onMouseEnter={() => setHoveredNode(loc.id)}
+              onMouseLeave={() => setHoveredNode(null)}
+              onClick={() => handleNodeClick(loc)}
+            >
+              {/* Bouncing Quest Arrow (Always visible) */}
+              <div
+                className={`absolute -top-8 left-1/2 -translate-x-1/2 text-[#f8b800] text-sm md:text-xl transition-all duration-300 pointer-events-none drop-shadow-[0_2px_2px_rgba(0,0,0,1)] ${
+                  isHovered ? 'scale-125 text-white animate-none -translate-y-2' : 'animate-bounce'
+                }`}
+              >
+                ▼
+              </div>
+
+              {/* Subtle radial glow on hover instead of a hard box */}
+              <div
+                className={`absolute inset-0 rounded-full transition-all duration-500 pointer-events-none ${
+                  isHovered
+                    ? 'bg-[#f8b800]/20 shadow-[0_0_40px_20px_rgba(248,184,0,0.4)] scale-110'
+                    : 'bg-transparent scale-100'
+                }`}
+              />
+
+              {/* Label that appears on hover */}
+              <div
+                className={`absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap transition-all duration-300 z-50 ${
+                  isHovered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-90'
+                }`}
+                style={{ pointerEvents: 'none' }}
+              >
+                <div className="bg-black/90 text-white px-3 py-1.5 rounded border-2 border-[#f8b800]/60 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                  <p className="text-[7px] md:text-[9px] font-bold text-center">{loc.name}</p>
+                  <p className="text-[5px] md:text-[7px] text-[#f8b800] text-center mt-0.5">{loc.subtitle}</p>
+                </div>
+                {/* Triangle pointer */}
+                <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[5px] border-r-[5px] border-b-[6px] border-transparent border-b-black/90" />
+              </div>
+            </div>
+          );
+        })}
+
         {/* === SMOKE PUFFS === */}
         {smokes.map((smoke) => (
           <div
@@ -200,7 +255,7 @@ export default function MapPage() {
 
         {/* === HERO CHARACTER === */}
         <div
-          className={`absolute z-20 pointer-events-none transition-all duration-700 ease-out drop-shadow-[2px_4px_6px_rgba(0,0,0,0.5)] ${
+          className={`absolute z-20 pointer-events-none transition-all duration-700 ease-out ${
             isVisible && !isHeroHidden ? 'opacity-100' : 'opacity-0'
           }`}
           style={{
@@ -209,66 +264,10 @@ export default function MapPage() {
             transform: 'translate(-50%, -100%)',
           }}
         >
-          <div className="relative w-16 h-16 md:w-24 md:h-24">
-            <Image src="/images/ninja.gif" alt="Ninja Hero" fill className="object-contain" />
+          <div className="relative w-20 h-20 md:w-28 md:h-28">
+            <Image src="/images/hero2.gif" alt="Hero" fill className="object-contain drop-shadow-lg" />
           </div>
         </div>
-
-        {/* === CLICKABLE HOTSPOT AREAS OVER BUILDINGS === */}
-        {mapLocations.map((loc, i) => {
-          const isHovered = hoveredNode === loc.id;
-
-          return (
-            <div
-              key={loc.id}
-              className={`absolute z-20 cursor-pointer transition-all duration-300 ease-out ${
-                isVisible ? 'opacity-100' : 'opacity-0'
-              }`}
-              style={{
-                left: `${loc.x - loc.w / 2}%`,
-                top: `${loc.y - loc.h / 2}%`,
-                width: `${loc.w}%`,
-                height: `${loc.h}%`,
-                transitionDelay: `${i * 100 + 300}ms`,
-              }}
-              onMouseEnter={() => setHoveredNode(loc.id)}
-              onMouseLeave={() => setHoveredNode(null)}
-              onClick={() => handleNodeClick(loc)}
-            >
-              {/* Bouncing Quest Arrow (Always visible) */}
-              <div
-                className={`absolute top-0 left-1/2 -translate-x-1/2 text-[#f8b800] text-sm md:text-xl transition-all duration-300 pointer-events-none drop-shadow-[0_2px_2px_rgba(0,0,0,1)] ${
-                  isHovered ? 'scale-125 text-white animate-none -translate-y-2' : 'animate-bounce'
-                }`}
-              >
-                ▼
-              </div>
-
-              {/* Subtle radial glow on hover instead of a hard box */}
-              <div
-                className={`absolute inset-0 rounded-full transition-all duration-500 pointer-events-none ${
-                  isHovered
-                    ? 'bg-[#f8b800]/20 shadow-[0_0_40px_20px_rgba(248,184,0,0.4)] scale-110'
-                    : 'bg-transparent scale-100'
-                }`}
-              />
-
-              {/* Label that appears on hover */}
-              <div
-                className={`absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap transition-all duration-300 z-50 ${
-                  isHovered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-90'
-                }`}
-                style={{ pointerEvents: 'none' }}
-              >
-                <div className="bg-black/90 text-white px-4 py-2 rounded border-2 border-[#f8b800]/60 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                  <p className="text-[8px] md:text-[11px] font-bold text-center tracking-wider">{loc.name}</p>
-                </div>
-                {/* Triangle pointer */}
-                <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[5px] border-r-[5px] border-b-[6px] border-transparent border-b-black/90" />
-              </div>
-            </div>
-          );
-        })}
 
         {/* === FALLING LEAVES === */}
         <FallingLeaves />
@@ -313,9 +312,13 @@ export default function MapPage() {
         <div 
           className="absolute inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm transition-opacity duration-500 cursor-pointer"
           onClick={() => {
-            setShowWelcome(false);
-            setTimeout(() => setShowQuestToast(true), 500);
-            setTimeout(() => setShowQuestToast(false), 5500);
+            if (isTypingWelcome) {
+              setIsTypingWelcome(false);
+            } else {
+              setShowWelcome(false);
+              setTimeout(() => setShowQuestToast(true), 500);
+              setTimeout(() => setShowQuestToast(false), 5500);
+            }
           }}
         >
           <div className="relative w-[90%] md:w-[70%] lg:w-[50%] bg-[#f5edd6] border-8 border-[#4a3728] p-6 md:p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col gap-6 animate-navFlash cursor-pointer" >
@@ -330,13 +333,18 @@ export default function MapPage() {
                 text="Hey there! Welcome to my domain! I am Duta Alamin, and coding is my Ninja Way. Are you ready to explore? Click on any building to see the projects and skills I've mastered over the years!" 
                 speed={35} 
                 delay={0} 
+                forceComplete={!isTypingWelcome}
+                onComplete={() => setIsTypingWelcome(false)}
               />
             </h2>
             
-            <div className="self-end mt-2 text-[6px] md:text-[9px] text-[#8b7332] font-pressStart animate-pulse pointer-events-none flex items-center gap-2">
-              <span>TAP ANYWHERE TO CONTINUE</span>
-              <span className="text-[10px] md:text-sm">▼</span>
-            </div>
+            {/* Show "Tap anywhere to continue" only after typing finishes */}
+            {!isTypingWelcome && (
+              <div className="self-end mt-2 text-[6px] md:text-[9px] text-[#8b7332] font-pressStart animate-pulse pointer-events-none flex items-center gap-2">
+                <span>TAP ANYWHERE TO CONTINUE</span>
+                <span className="text-[10px] md:text-sm">▼</span>
+              </div>
+            )}
           </div>
         </div>
       )}
