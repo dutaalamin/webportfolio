@@ -281,7 +281,7 @@ export default function MapPage() {
         }`}
       >
         <div className="bg-[#f5edd6]/90 border-4 border-[#8b7332] rounded-lg px-3 py-2 md:px-5 md:py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-          <h1 className="text-[10px] md:text-sm text-[#4a3728] font-bold">🍥 VILLAGE MAP</h1>
+          <h1 className="text-[10px] md:text-sm text-[#4a3728] font-bold">VILLAGE MAP</h1>
           <p className="text-[6px] md:text-[8px] text-[#8b7332] mt-0.5">Click a building to explore</p>
         </div>
       </div>
@@ -315,7 +315,7 @@ export default function MapPage() {
           onClick={() => {
             setShowWelcome(false);
             setTimeout(() => setShowQuestToast(true), 500);
-            setTimeout(() => setShowQuestToast(false), 10500);
+            setTimeout(() => setShowQuestToast(false), 5500);
           }}
         >
           <div className="relative w-[90%] md:w-[70%] lg:w-[50%] bg-[#f5edd6] border-8 border-[#4a3728] p-6 md:p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col gap-6 animate-navFlash cursor-pointer" >
@@ -343,15 +343,17 @@ export default function MapPage() {
 
       {/* === QUEST TOAST === */}
       <div 
-        className={`absolute top-20 right-2 md:right-4 z-40 transition-all duration-700 ease-out ${
+        className={`absolute top-20 right-2 md:right-8 z-40 transition-all duration-700 ease-out ${
           showQuestToast ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10 pointer-events-none'
         }`}
       >
-        <div className="bg-[#f5edd6] border-2 md:border-4 border-[#4a3728] p-2 md:p-4 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] md:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex gap-2 md:gap-4 items-start max-w-[200px] md:max-w-sm">
-          <span className="text-lg md:text-2xl animate-bounce mt-0.5">📜</span>
-          <div className="flex flex-col gap-1">
-            <h3 className="text-red-600 font-bold text-[8px] md:text-base font-pressStart tracking-tighter md:tracking-normal">NEW MISSION!</h3>
-            <p className="text-[#4a3728] text-[6px] md:text-xs font-pressStart leading-relaxed md:leading-relaxed">Explore the village and uncover Duta&apos;s Ninja Way!</p>
+        <div className="bg-[#f5edd6] border-2 md:border-4 border-[#4a3728] p-2 md:p-4 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] md:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-start gap-2 md:gap-3">
+          <div className="text-lg md:text-2xl animate-bounce mt-0.5 md:mt-1">📜</div>
+          <div>
+            <h3 className="text-[#e23636] font-pressStart text-[8px] md:text-xs mb-1 md:mb-2">NEW MISSION!</h3>
+            <p className="text-[#4a3728] font-pressStart text-[7px] md:text-[9px] leading-loose">
+              Explore the village and uncover<br/>Duta&apos;s Ninja Way!
+            </p>
           </div>
         </div>
       </div>
