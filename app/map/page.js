@@ -162,7 +162,7 @@ export default function MapPage() {
         }
       `}} />
       <HamburgerMenu menuItems={menu} />
-      <BackgroundAudio src="/audio/experience.mp3" volume={0.15} delay={1000} className="fixed top-4 right-16 z-40" />
+      <BackgroundAudio src="/audio/map.mp3" volume={0.15} delay={1000} className="fixed top-4 right-16 z-40" />
 
       {/* === FULL SCREEN MAP CONTAINER === */}
       <div className="relative w-full h-full overflow-hidden bg-black">
