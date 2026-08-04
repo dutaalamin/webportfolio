@@ -17,6 +17,7 @@ const mapLocations = [
     href: '/',
     x: 50, y: 44, // Red building center
     w: 16, h: 16,
+    heroX: 50, heroY: 53, // Door
   },
   {
     id: 'about',
@@ -24,20 +25,23 @@ const mapLocations = [
     href: '/transition',
     x: 15, y: 47, // Gate on the left
     w: 12, h: 18,
+    heroX: 15, heroY: 57, // Gate entrance
   },
   {
     id: 'experience',
     name: 'EXPERIENCE',
     href: '/experience',
-    x: 50, y: 22, // Moved slightly down from the rock faces
-    w: 30, h: 18,
+    x: 50, y: 18, // Moved higher up the rock faces
+    w: 30, h: 10, // Shorter height so the label is drawn higher
+    heroX: 50, heroY: 22, // Character stands higher, just below the arrow
   },
   {
     id: 'portfolio',
     name: 'PORTFOLIO',
     href: '/portfolio',
-    x: 50, y: 88, // Training ground at bottom center
-    w: 24, h: 16,
+    x: 50, y: 82, // Moved slightly higher
+    w: 24, h: 10, // Shorter height so the label is drawn higher
+    heroX: 50, heroY: 88, // Middle of the field
   },
   {
     id: 'message',
@@ -45,6 +49,7 @@ const mapLocations = [
     href: '/message',
     x: 85, y: 80, // Ramen shop bottom right
     w: 12, h: 10,
+    heroX: 84.5, heroY: 86, // Door of Ichiraku Ramen
   },
 ];
 
@@ -121,7 +126,7 @@ export default function MapPage() {
     if (hoveredNode) {
       const node = mapLocations.find((l) => l.id === hoveredNode);
       if (node) {
-        setHeroPos({ x: node.x, y: node.y - 10 });
+        setHeroPos({ x: node.heroX || node.x, y: node.heroY || node.y });
       }
     }
   }, [hoveredNode]);
@@ -222,12 +227,12 @@ export default function MapPage() {
                 }`}
                 style={{ pointerEvents: 'none' }}
               >
-                <div className="bg-black/90 text-white px-3 py-1.5 rounded border-2 border-[#f8b800]/60 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                  <p className="text-[7px] md:text-[9px] font-bold text-center">{loc.name}</p>
-                  <p className="text-[5px] md:text-[7px] text-[#f8b800] text-center mt-0.5">{loc.subtitle}</p>
+                <div className="bg-[#f5edd6] text-[#4a3728] px-3 py-1.5 md:px-4 md:py-2 border-2 md:border-[3px] border-[#8b7332] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                  <p className="text-[7px] md:text-[9px] font-black text-center tracking-widest">{loc.name}</p>
                 </div>
-                {/* Triangle pointer */}
-                <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[5px] border-r-[5px] border-b-[6px] border-transparent border-b-black/90" />
+                {/* Triangle pointer (Parchment style) */}
+                <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-r-[6px] border-b-[8px] border-transparent border-b-[#8b7332]" />
+                <div className="absolute -top-[3px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[4px] border-r-[4px] border-b-[6px] border-transparent border-b-[#f5edd6]" />
               </div>
             </div>
           );
