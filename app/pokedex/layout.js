@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar';
 import Cloud from '../components/Cloud';
 import PokemonFarm from '../components/PokemonFarm';
 import HamburgerMenu from '../components/HamburgerMenu';
+import BackgroundAudio from '../components/Audio';
 import Link from 'next/link';
 
 const outfit = Outfit({
@@ -27,6 +28,7 @@ export default function PokedexLayout({ children }) {
 
   return (
     <>
+      <BackgroundAudio src="/audio/pokemon.mp3" volume={0.15} delay={1000} className="fixed right-4 top-16 md:right-4 md:top-4 z-50" />
       {/* Portfolio Hamburger Navigation */}
       <HamburgerMenu menuItems={menu} />
 
