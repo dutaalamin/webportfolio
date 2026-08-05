@@ -589,4 +589,143 @@ textarea {
 
 .map-path-active {
   animation: path-glow 2s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   POKÉDEX GAME INTEGRATION STYLES
+   ========================================================================== */
+
+@keyframes pokedex-pokeball-shake {
+  0%, 100% { transform: rotate(0deg); }
+  15% { transform: rotate(15deg); }
+  30% { transform: rotate(-15deg); }
+  45% { transform: rotate(12deg); }
+  60% { transform: rotate(-12deg); }
+  75% { transform: rotate(8deg); }
+  90% { transform: rotate(-5deg); }
+}
+
+@keyframes pokedex-pokeball-throw {
+  0% {
+    transform: translateY(280px) scale(1.6) rotate(0deg);
+    opacity: 1;
+  }
+  45% {
+    transform: translateY(-100px) scale(0.9) rotate(240deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0px) scale(0.4) rotate(540deg);
+    opacity: 1;
+  }
+}
+
+@keyframes pokedex-pokemon-appear {
+  0% {
+    transform: scale(0) rotate(-10deg);
+    opacity: 0;
+    filter: brightness(3);
+  }
+  50% {
+    transform: scale(1.15) rotate(3deg);
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+  70% {
+    transform: scale(0.95) rotate(-1deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+@keyframes pokedex-pokemon-escape {
+  0% { transform: scale(1); opacity: 0.35; filter: brightness(0) contrast(150%); }
+  30% { transform: scale(1.2); opacity: 0.5; filter: brightness(0) contrast(150%); }
+  100% { transform: scale(0) translateY(-200px); opacity: 0; filter: brightness(0) contrast(150%); }
+}
+
+@keyframes pokedex-pokemon-caught {
+  0% { transform: scale(1); opacity: 0.35; filter: brightness(0) contrast(150%); }
+  40% { transform: scale(1.3); opacity: 0.5; filter: brightness(0) contrast(150%); }
+  100% { transform: scale(0); opacity: 0; filter: brightness(0) contrast(150%); }
+}
+
+@keyframes pokedex-flash-overlay {
+  0% { opacity: 0; }
+  40% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes pokedex-float-particle {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+}
+
+@keyframes pokedex-grass-rustle {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(3deg) scale(1.02); }
+  75% { transform: rotate(-3deg) scale(0.98); }
+}
+
+@keyframes pokedex-confetti-pop {
+  0% { transform: scale(0); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.8; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+.animate-pokedex-shake {
+  animation: pokedex-pokeball-shake 0.3s ease-in-out;
+}
+
+.animate-pokedex-throw {
+  animation: pokedex-pokeball-throw 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-pokedex-appear {
+  animation: pokedex-pokemon-appear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-pokedex-escape {
+  animation: pokedex-pokemon-escape 0.6s ease-in forwards;
+}
+
+.animate-pokedex-caught {
+  animation: pokedex-pokemon-caught 0.5s ease-in forwards;
+}
+
+.animate-pokedex-grass-rustle {
+  animation: pokedex-grass-rustle 0.8s ease-in-out infinite;
+}
+
+.pokedex-flash-overlay {
+  position: fixed;
+  inset: 0;
+  background: white;
+  z-index: 100;
+  animation: pokedex-flash-overlay 0.8s ease-out forwards;
+  pointer-events: none;
+}
+
+.pokedex-encounter-bg {
+  background: 
+    radial-gradient(ellipse at 50% 120%, rgba(34, 139, 34, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at top, #ffffff 0%, #f1f5f9 100%);
+}
+
+.pokedex-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(14, 165, 233, 0.4);
+  animation: float 4s ease-in-out infinite;
+}
+
+.pokedex-silhouette {
+  filter: brightness(0) contrast(150%) opacity(0.35);
+  transition: filter 0.5s ease-in-out;
 }

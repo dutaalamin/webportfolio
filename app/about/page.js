@@ -24,6 +24,7 @@ export default function AboutPage() {
     { label: 'About', href: '/about' },
     { label: 'Experience', href: '/experience' },
     { label: 'Portfolio', href: '/portfolio' },
+    { label: 'Game', href: '/pokedex' },
     { label: 'Map', href: '/map' }
   ];
 

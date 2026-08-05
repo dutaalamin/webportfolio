@@ -47,6 +47,7 @@ export default function HomePage() {
     { label: 'About', href: '/about' },
     { label: 'Experience', href: '/experience' },
     { label: 'Portfolio', href: '/portfolio' },
+    { label: 'Game', href: '/pokedex' },
     { label: 'Map', href: '/map' },
   ];
 
@@ -137,6 +138,11 @@ export default function HomePage() {
               <Link href="/portfolio">
                 <p className="text-gray-300 hover:text-black transition-all duration-300 cursor-pointer text-xl sm:text-2xl font-pressStart">
                   &gt; Portfolio
+                </p>
+              </Link>
+              <Link href="/pokedex">
+                <p className="text-gray-300 hover:text-black transition-all duration-300 cursor-pointer text-xl sm:text-2xl font-pressStart">
+                  &gt; Game
                 </p>
               </Link>
             </div>
