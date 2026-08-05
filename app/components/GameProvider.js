@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect } from 'react';
+import { audioManager } from '../utils/audio';
 
 const GameContext = createContext();
 
@@ -126,6 +127,7 @@ export function GameProvider({ children }) {
           // 3 shakes completed successfully -> CAUGHT!
           setTimeout(() => {
             setGameState('caught');
+            audioManager.playSuccess(); // Play success sound
             setCaughtPokemon(prev => {
               const newCatch = {
                 ...currentEncounter,

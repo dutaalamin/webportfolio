@@ -99,5 +99,38 @@ export const audioManager = {
     } catch (e) {
       console.warn("Failed to play throw sound:", e);
     }
+  },
+
+  playSuccess() {
+    try {
+      const ctx = getAudioContext();
+      if (!ctx) return;
+
+      const osc = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+
+      // Classic 8-bit success chime
+      osc.type = 'square'; 
+      
+      const now = ctx.currentTime;
+      // Notes sequence
+      osc.frequency.setValueAtTime(523.25, now);
+      osc.frequency.setValueAtTime(659.25, now + 0.15);
+      osc.frequency.setValueAtTime(783.99, now + 0.3);
+      osc.frequency.setValueAtTime(1046.50, now + 0.45);
+
+      gainNode.gain.setValueAtTime(0.0, now);
+      gainNode.gain.linearRampToValueAtTime(0.08, now + 0.05);
+      gainNode.gain.setValueAtTime(0.08, now + 0.6);
+      gainNode.gain.linearRampToValueAtTime(0.0, now + 0.8);
+
+      osc.connect(gainNode);
+      gainNode.connect(ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.8);
+    } catch (e) {
+      console.warn("Failed to play success sound:", e);
+    }
   }
 };
