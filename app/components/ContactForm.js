@@ -1,24 +1,41 @@
 'use client'
 import React, { useRef, useState } from 'react';
-import emailjs from '@emailjs/browser';
 
 export default function ContactForm() {
   const form = useRef();
   const [status, setStatus] = useState('');
 
-  const sendEmail = (e) => {
+  const sendEmail = async (e) => {
     e.preventDefault();
     setStatus('Sending...');
-    
-    emailjs.sendForm('service_1o3f1un', 'template_876czll', form.current, 'pc_TStT_UQhORjnR2')
-      .then(() => {
-          setStatus('Thank you! Your message has been sent.');
-          e.target.reset();
-          setTimeout(() => setStatus(''), 3000);
-      }, () => {
-          setStatus('Sorry, there was an error. Please try again.');
-          setTimeout(() => setStatus(''), 3000);
+
+    try {
+      const formData = new FormData(form.current);
+      const payload = {
+        user_name: formData.get('user_name'),
+        user_email: formData.get('user_email'),
+        message: formData.get('message'),
+      };
+
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
+
+      const data = await res.json();
+
+      if (res.ok && data.ok) {
+        setStatus(data.message || 'Thank you! Your message has been sent.');
+        e.target.reset();
+      } else {
+        setStatus(data.message || 'Sorry, there was an error. Please try again.');
+      }
+    } catch (err) {
+      setStatus('Network error. Please check your connection and try again.');
+    }
+
+    setTimeout(() => setStatus(''), 4000);
   };
 
   return (

@@ -40,7 +40,9 @@ export default function HomePage() {
   }, [])
 
   const fadeClass = (delay = 0) =>
-    `${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} transition-all duration-700 ease-out delay-[${delay}ms]`
+    `${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} transition-all duration-700 ease-out`
+
+  const fadeStyle = (delay = 0) => ({ transitionDelay: `${delay}ms` })
 
   const menu = [
     { label: 'Home', href: '/' },
@@ -94,10 +96,10 @@ export default function HomePage() {
       <Cloud top={80} direction="right" speed={50} opacity={0.3} delay={2100} />
 
       {/* Animals Farm */}
-      <FarmAnimals className={fadeClass(600)} />
+      <FarmAnimals className={fadeClass(600)} style={fadeStyle(600)} />
 
       {/* Content */}
-      <div className={`relative z-5 max-w-7xl mx-auto pt-24 lg:pt-28 px-6 grid gap-8 grid-cols-1 lg:grid-cols-3 ${fadeClass(900)}`}>
+      <div className={`relative z-5 max-w-7xl mx-auto pt-24 lg:pt-28 px-6 grid gap-8 grid-cols-1 lg:grid-cols-3 ${fadeClass(900)}`} style={fadeStyle(900)}>
         <div className="flex flex-col gap-2">
           <RoleRotate />
           <SocialLinks links={socialLinks} />
@@ -117,11 +119,11 @@ export default function HomePage() {
             <p className="text-xl sm:text-2xl xl:text-4xl mb-4 text-black min-h-[32px] xl:min-h-[40px]">
               <Typewriter text="Welcome, Player!" delay={2500} speed={40} />
             </p>
-            <p className="text-sm sm:text-lg xl:text-2xl pb-6 text-black leading-relaxed min-h-[60px] xl:min-h-[80px] whitespace-pre-wrap">
-              <Typewriter text={"Ready to embark on a journey\nthrough the quests?"} delay={3400} speed={30} />
+            <p className="text-sm sm:text-lg xl:text-2xl pb-6 text-black leading-relaxed min-h-[60px] xl:min-h-[80px]">
+              <Typewriter text={"Ready to embark on a journey through the quests?"} delay={3400} speed={30} />
             </p>
-            <p className="text-sm sm:text-lg xl:text-2xl mb-8 text-black leading-relaxed min-h-[60px] xl:min-h-[80px] whitespace-pre-wrap">
-              <Typewriter text={"Choose your stage and begin\nthe adventure!"} delay={4600} speed={30} />
+            <p className="text-sm sm:text-lg xl:text-2xl mb-8 text-black leading-relaxed min-h-[60px] xl:min-h-[80px]">
+              <Typewriter text={"Choose your stage and begin the adventure!"} delay={4600} speed={30} />
             </p>
             
             <div className="space-y-6 mt-4">

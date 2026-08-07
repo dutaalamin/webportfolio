@@ -6,11 +6,12 @@
 
 :root {
   --font-pressStart: 'Press Start 2P', monospace;
+  --font-outfit: 'Outfit', sans-serif;
 }
 
 body {
   @apply bg-white text-black m-0 p-0;
-  font-family: var(--font-pressStart);
+  font-family: var(--font-outfit);
   scroll-behavior: smooth;
   touch-action: manipulation;
 }
@@ -24,10 +25,11 @@ textarea {
   touch-action: manipulation;
 }
 
-/* 
+/* Pixel font for headings, labels, buttons, and game UI elements.
+   Body text (paragraphs) uses the readable Outfit font by default. */
 .font-pressStart {
   font-family: var(--font-pressStart);
-} */
+}
 
 /* Cloud */
 @keyframes cloud-move-left {
@@ -728,4 +730,146 @@ textarea {
 .pokedex-silhouette {
   filter: brightness(0) contrast(150%) opacity(0.35);
   transition: filter 0.5s ease-in-out;
-}
+}
+
+/* ==========================================================================
+   BATTLE VISUAL EFFECTS
+   ========================================================================== */
+
+/* Screen shake when attacking */
+@keyframes battle-screen-shake {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-4px, -2px); }
+  20% { transform: translate(4px, 2px); }
+  30% { transform: translate(-3px, 1px); }
+  40% { transform: translate(3px, -1px); }
+  50% { transform: translate(-2px, 2px); }
+  60% { transform: translate(2px, -2px); }
+  70% { transform: translate(-1px, 1px); }
+  80% { transform: translate(1px, -1px); }
+  90% { transform: translate(-1px, 0); }
+}
+
+.battle-shake {
+  animation: battle-screen-shake 0.4s ease-in-out;
+}
+
+/* Sprite hit reaction — recoil */
+@keyframes battle-hit-recoil {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-12px, 0) brightness(2); filter: drop-shadow(0 0 10px red); }
+  40% { transform: translate(8px, 0) brightness(1.5); }
+  60% { transform: translate(-4px, 0) brightness(1.2); }
+  100% { transform: translate(0, 0) brightness(1); }
+}
+
+.battle-hit {
+  animation: battle-hit-recoil 0.5s ease-out;
+}
+
+/* Damage number popup — floats up and fades */
+@keyframes battle-damage-float {
+  0% { transform: translateY(0) scale(0.5); opacity: 0; }
+  15% { transform: translateY(-10px) scale(1.3); opacity: 1; }
+  30% { transform: translateY(-20px) scale(1); opacity: 1; }
+  80% { transform: translateY(-50px) scale(0.9); opacity: 1; }
+  100% { transform: translateY(-70px) scale(0.7); opacity: 0; }
+}
+
+.battle-damage-popup {
+  animation: battle-damage-float 1.2s ease-out forwards;
+}
+
+/* Attack flash overlay per type */
+@keyframes battle-attack-flash {
+  0% { opacity: 0; }
+  20% { opacity: 0.6; }
+  100% { opacity: 0; }
+}
+
+.battle-flash {
+  animation: battle-attack-flash 0.5s ease-out forwards;
+}
+
+/* Lightning bolt effect (electric) */
+@keyframes battle-lightning {
+  0% { opacity: 0; transform: scaleY(0); }
+  10% { opacity: 1; transform: scaleY(1); }
+  20% { opacity: 0.3; transform: scaleY(0.8); }
+  30% { opacity: 1; transform: scaleY(1.1); }
+  40% { opacity: 0; transform: scaleY(0); }
+  100% { opacity: 0; }
+}
+
+.battle-lightning {
+  animation: battle-lightning 0.5s ease-out forwards;
+}
+
+/* Fire burst effect */
+@keyframes battle-fire-burst {
+  0% { transform: scale(0) rotate(0deg); opacity: 0; }
+  30% { transform: scale(1.2) rotate(20deg); opacity: 1; }
+  60% { transform: scale(1.5) rotate(-10deg); opacity: 0.7; }
+  100% { transform: scale(2) rotate(0deg); opacity: 0; }
+}
+
+.battle-fire-burst {
+  animation: battle-fire-burst 0.6s ease-out forwards;
+}
+
+/* Water splash effect */
+@keyframes battle-water-splash {
+  0% { transform: scale(0) translateY(0); opacity: 0; }
+  30% { transform: scale(1) translateY(-10px); opacity: 1; }
+  100% { transform: scale(1.5) translateY(-30px); opacity: 0; }
+}
+
+.battle-water-splash {
+  animation: battle-water-splash 0.6s ease-out forwards;
+}
+
+/* Grass leaf swirl */
+@keyframes battle-grass-swirl {
+  0% { transform: rotate(0deg) scale(0); opacity: 0; }
+  30% { transform: rotate(180deg) scale(1); opacity: 1; }
+  100% { transform: rotate(360deg) scale(1.5); opacity: 0; }
+}
+
+.battle-grass-swirl {
+  animation: battle-grass-swirl 0.6s ease-out forwards;
+}
+
+/* Generic energy burst (for psychic, ghost, etc) */
+@keyframes battle-energy-burst {
+  0% { transform: scale(0); opacity: 0; }
+  30% { transform: scale(1.2); opacity: 0.9; }
+  60% { transform: scale(1.5); opacity: 0.5; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+.battle-energy-burst {
+  animation: battle-energy-burst 0.6s ease-out forwards;
+}
+
+/* Faint animation when HP = 0 */
+@keyframes battle-faint {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  50% { transform: translateY(20px) scale(0.9); opacity: 0.5; }
+  100% { transform: translateY(60px) scale(0.3); opacity: 0; }
+}
+
+.battle-faint {
+  animation: battle-faint 0.8s ease-in forwards;
+}
+
+/* Countdown pop — for 3, 2, 1, FIGHT! */
+@keyframes battle-fight-pop {
+  0% { transform: scale(0.2) rotate(-15deg); opacity: 0; }
+  30% { transform: scale(1.3) rotate(5deg); opacity: 1; }
+  60% { transform: scale(1) rotate(0deg); opacity: 1; }
+  100% { transform: scale(1.5) rotate(0deg); opacity: 0; }
+}
+
+.battle-fight-pop {
+  animation: battle-fight-pop 0.8s ease-out forwards;
+}

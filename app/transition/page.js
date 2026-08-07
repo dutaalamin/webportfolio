@@ -154,7 +154,7 @@ export default function IntroPage() {
             onClick={handleTextClick}
             className="relative p-6 md:p-10 w-full min-h-[320px] sm:min-h-[260px] md:min-h-[200px] cursor-pointer md:self-start flex flex-col"
           >
-            <p className="whitespace-pre-wrap text-black text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed font-pressStart">
+            <p className="whitespace-pre-wrap text-black text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed">
               {displayedText}
               {!isFinished && <span className="animate-pulse">_</span>}
             </p>

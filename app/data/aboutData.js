@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import RandomName from '../components/RandomName'
 import SocialLinks from '../components/SocialLinks'
 import Typewriter from '../components/Typewriter'
 import DelayedFadeIn from '../components/DelayedFadeIn'

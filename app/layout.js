@@ -1,5 +1,5 @@
 import './styles/globals.css'
-import { Press_Start_2P } from 'next/font/google'
+import { Press_Start_2P, Outfit } from 'next/font/google'
 import Loader from './components/Loader'
 
 const pressStart = Press_Start_2P({
@@ -9,9 +9,30 @@ const pressStart = Press_Start_2P({
   variable: '--font-pressStart',
 })
 
+const outfit = Outfit({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-outfit',
+})
+
 export const metadata = {
-  title: 'Duta Alamin | Software Engineer & ERP Consultant',
+  metadataBase: new URL('https://duta1.com'),
+  title: {
+    default: 'Duta Alamin | Software Engineer & ERP Consultant',
+    template: '%s | Duta Alamin',
+  },
   description: 'Duta Alamin - Software Engineer, Automation Engineer & ERP Consultant. Explore my digital quests and projects!',
+  keywords: [
+    'Duta Alamin',
+    'Software Engineer',
+    'Automation Engineer',
+    'ERP Consultant',
+    'Portfolio',
+    'Indonesia Developer',
+    'Next.js Portfolio',
+  ],
+  authors: [{ name: 'Duta Alamin' }],
+  creator: 'Duta Alamin',
   openGraph: {
     title: 'Duta Alamin | Software Engineer & ERP Consultant',
     description: 'Duta Alamin - Software Engineer, Automation Engineer & ERP Consultant. Explore my digital quests and projects!',
@@ -19,8 +40,17 @@ export const metadata = {
     siteName: 'Duta Alamin Portfolio',
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Duta Alamin | Software Engineer & ERP Consultant',
+    description: 'Duta Alamin - Software Engineer, Automation Engineer & ERP Consultant. Explore my digital quests and projects!',
+  },
   icons: {
     icon: '/images/duta.png',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 }
 
@@ -33,12 +63,14 @@ export const viewport = {
 
 import ClickSoundProvider from './components/ClickSoundProvider'
 import DisableZoom from './components/DisableZoom'
+import CustomCursor from './components/CustomCursor'
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={pressStart.variable}>
+    <html lang="en" className={`${pressStart.variable} ${outfit.variable}`}>
       <body>
         <DisableZoom />
+        <CustomCursor />
         <ClickSoundProvider>
           <Loader />
           {children}

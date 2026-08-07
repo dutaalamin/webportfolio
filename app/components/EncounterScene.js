@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useGame } from './GameProvider';
 import Typewriter from './Typewriter';
 import PokeBall from './PokeBall';
+import BattleScene from './BattleScene';
 import { audioManager } from '../utils/audio';
 
 const LEGENDARY_IDS = [144, 145, 146, 150, 151];
@@ -34,13 +35,64 @@ const typeColors = {
   normal: 'from-gray-400 to-gray-600 border-gray-300 text-gray-200',
 };
 
+// Attack visual effect overlay — renders type-based animation on the battle field
+function AttackEffect({ effect }) {
+  if (!effect) return null;
+
+  const isTargetP1 = effect.target === 'p1';
+  // Position overlay near the defender
+  const positionClass = isTargetP1
+    ? 'top-4 right-2 sm:top-6 sm:right-8' // p1 is top-right
+    : 'bottom-2 left-2 sm:bottom-4 sm:left-8'; // p2 is bottom-left
+
+  // Type → CSS class + emoji/visual
+  const typeEffects = {
+    electric: { cls: 'battle-lightning', emoji: '⚡', color: 'text-yellow-400', size: 'text-6xl sm:text-8xl' },
+    fire: { cls: 'battle-fire-burst', emoji: '🔥', color: 'text-orange-500', size: 'text-6xl sm:text-8xl' },
+    water: { cls: 'battle-water-splash', emoji: '💧', color: 'text-blue-500', size: 'text-6xl sm:text-8xl' },
+    grass: { cls: 'battle-grass-swirl', emoji: '🍃', color: 'text-green-500', size: 'text-6xl sm:text-8xl' },
+    ice: { cls: 'battle-water-splash', emoji: '❄️', color: 'text-cyan-400', size: 'text-6xl sm:text-8xl' },
+    psychic: { cls: 'battle-energy-burst', emoji: '🔮', color: 'text-purple-500', size: 'text-6xl sm:text-8xl' },
+    ghost: { cls: 'battle-energy-burst', emoji: '👻', color: 'text-violet-600', size: 'text-6xl sm:text-8xl' },
+    dragon: { cls: 'battle-energy-burst', emoji: '🐉', color: 'text-indigo-600', size: 'text-6xl sm:text-8xl' },
+    dark: { cls: 'battle-energy-burst', emoji: '🌑', color: 'text-zinc-700', size: 'text-6xl sm:text-8xl' },
+    fairy: { cls: 'battle-energy-burst', emoji: '✨', color: 'text-pink-400', size: 'text-6xl sm:text-8xl' },
+    fighting: { cls: 'battle-hit', emoji: '👊', color: 'text-red-600', size: 'text-6xl sm:text-8xl' },
+    poison: { cls: 'battle-energy-burst', emoji: '☠️', color: 'text-fuchsia-600', size: 'text-6xl sm:text-8xl' },
+    ground: { cls: 'battle-fire-burst', emoji: '⛰️', color: 'text-amber-700', size: 'text-6xl sm:text-8xl' },
+    rock: { cls: 'battle-fire-burst', emoji: '🪨', color: 'text-stone-600', size: 'text-6xl sm:text-8xl' },
+    bug: { cls: 'battle-grass-swirl', emoji: '🐛', color: 'text-lime-600', size: 'text-6xl sm:text-8xl' },
+    flying: { cls: 'battle-water-splash', emoji: '🌪️', color: 'text-sky-500', size: 'text-6xl sm:text-8xl' },
+    steel: { cls: 'battle-hit', emoji: '⚙️', color: 'text-slate-500', size: 'text-6xl sm:text-8xl' },
+    normal: { cls: 'battle-hit', emoji: '💥', color: 'text-gray-600', size: 'text-6xl sm:text-8xl' },
+  };
+
+  const fx = typeEffects[effect.type] || typeEffects.normal;
+
+  return (
+    <div className={`absolute ${positionClass} z-30 pointer-events-none flex items-center justify-center w-20 h-20 sm:w-28 sm:h-28`}>
+      <span className={`${fx.cls} ${fx.color} ${fx.size} drop-shadow-lg`}>
+        {fx.emoji}
+      </span>
+    </div>
+  );
+}
+
 export default function EncounterScene() {
   const {
     currentEncounter,
     gameState,
     shakeCount,
+    pokeBalls,
+    maxBalls,
+    refillIn,
+    lastThrowPower,
+    caughtPokemon,
+    autoBattle,
     throwPokeBall,
     getNewEncounter,
+    startBattle,
+    endAutoBattle,
     error,
   } = useGame();
 
@@ -61,6 +113,7 @@ export default function EncounterScene() {
   const startCharging = (e) => {
     if (e && e.type === 'mousedown') e.preventDefault();
     if (gameState !== 'idle') return;
+    if (pokeBalls <= 0) return; // Can't throw without balls
     
     setIsCharging(true);
     setPower(0);
@@ -104,7 +157,7 @@ export default function EncounterScene() {
     audioManager.playThrow();
     
     setHasThrownOnce(true);
-    throwPokeBall();
+    throwPokeBall(powerRef.current); // Pass power to catch rate calculation
   };
 
   useEffect(() => {
@@ -201,7 +254,14 @@ export default function EncounterScene() {
   else if (gameState === 'throwing') statusMessage = "Go, Poké Ball!";
   else if (gameState === 'shaking') statusMessage = `Shaking... `.repeat(shakeCount);
   else if (gameState === 'caught') statusMessage = `Gotcha! ${p.name.toUpperCase()} was caught! 🎉`;
-  else if (gameState === 'escaped') statusMessage = "Oh no! The Pokémon escaped into the grass!";
+  else if (gameState === 'escaped') {
+    // Overcharge (power >= 95) = ball exploded
+    if (lastThrowPower >= 95) {
+      statusMessage = "💥 OVERCHARGE! The Poké Ball exploded! The Pokémon fled!";
+    } else {
+      statusMessage = "Oh no! The Pokémon broke free and escaped!";
+    }
+  }
 
   const showPokemon = gameState === 'idle' || gameState === 'throwing' || gameState === 'escaped' || gameState === 'caught';
   let pokemonAnimClass = "transition-all duration-500";
@@ -218,6 +278,44 @@ export default function EncounterScene() {
       }`}
     >
       <div className="relative w-full h-full flex-1 flex flex-col justify-between p-6 sm:p-10 overflow-hidden">
+        
+        {/* Poke Ball Counter (bottom-left, avoids hamburger top-right & Back top-left) */}
+        <div className="absolute bottom-2 left-2 sm:bottom-4 sm:left-4 z-40 flex items-center gap-2 bg-slate-900/90 backdrop-blur-sm border-2 border-yellow-400 rounded-lg px-3 py-1.5 shadow-lg">
+          <div className="w-5 h-5 rounded-full border-2 border-white overflow-hidden relative">
+            <div className="absolute top-0 left-0 right-0 h-1/2 bg-red-500" />
+            <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-white" />
+            <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-white -translate-y-1/2" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white border border-slate-700 rounded-full" />
+          </div>
+          <span className={`font-black text-sm ${pokeBalls > 0 ? 'text-yellow-400' : 'text-red-500'} tracking-wider`}>
+            ×{pokeBalls}
+          </span>
+        </div>
+
+        {/* Out of Poke Balls warning with refill countdown */}
+        {pokeBalls === 0 && gameState === 'idle' && (
+          <div className="absolute bottom-16 left-2 sm:bottom-20 sm:left-4 z-40 max-w-[220px] bg-red-600/90 border-2 border-red-400 rounded-lg px-3 py-2 shadow-lg">
+            <p className="text-white text-[10px] font-bold leading-tight mb-1">
+              ⚠ Out of Poké Balls!
+            </p>
+            <p className="text-yellow-200 text-[9px] font-bold leading-tight">
+              {refillIn > 0
+                ? `Next ball in ${refillIn}s...`
+                : 'A Poké Ball has been restored!'}
+            </p>
+          </div>
+        )}
+
+        {/* Refill indicator when below max but not zero */}
+        {pokeBalls > 0 && pokeBalls < maxBalls && gameState === 'idle' && refillIn > 0 && (
+          <div className="absolute bottom-12 left-2 sm:bottom-16 sm:left-4 z-40 bg-slate-800/80 border border-yellow-500/50 rounded-lg px-2 py-1 shadow-lg">
+            <p className="text-yellow-300 text-[8px] font-bold leading-tight">
+              +1 in {refillIn}s
+            </p>
+          </div>
+        )}
+
+        {/* Battle button removed — auto-battle triggers automatically after 2 catches */}
         
         {/* Particle/Ambient Elements */}
         <div className={`absolute inset-0 pointer-events-none overflow-hidden transition-opacity duration-1000 ${hasThrownOnce ? 'opacity-40' : 'opacity-0'}`}>
@@ -368,13 +466,13 @@ export default function EncounterScene() {
                 </p>
               )}
 
-              {hasThrownOnce && gameState === 'idle' && (
-                <div className="relative w-full flex justify-center mt-2.5 z-10">
+              {gameState === 'idle' && (
+                <div className="relative w-full flex gap-2 justify-center mt-2.5 z-10">
                   <button
                     onClick={(e) => { e.stopPropagation(); getNewEncounter(); }}
-                    className="w-full py-2.5 bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-400 hover:to-rose-500 text-white font-black rounded-lg border-b-4 border-red-800 border border-slate-950 transition-all text-center uppercase tracking-widest text-[9px] cursor-pointer shadow-md active:border-b-0 active:translate-y-0.5"
+                    className="flex-1 py-2.5 bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-400 hover:to-rose-500 text-white font-black rounded-lg border-b-4 border-red-800 border border-slate-950 transition-all text-center uppercase tracking-widest text-[8px] sm:text-[9px] cursor-pointer shadow-md active:border-b-0 active:translate-y-0.5"
                   >
-                    Run Away / Search another spot
+                    Run Away
                   </button>
                 </div>
               )}
@@ -383,6 +481,120 @@ export default function EncounterScene() {
         </div>
 
       </div>
+
+      {/* === BATTLE MODE (manual) === */}
+      {gameState === 'battling' && (
+        <BattleScene />
+      )}
+
+      {/* === AUTO-BATTLE MODE === */}
+      {gameState === 'auto-battle' && autoBattle && (
+        <div className="absolute inset-0 z-50 flex flex-col bg-white">
+          {/* Battle field */}
+          <div className="relative flex-1 overflow-hidden">
+            {/* Countdown overlay — 3, 2, 1, FIGHT! (hidden once rounds start, countdown becomes -1) */}
+            {autoBattle.countdown >= 0 && autoBattle.round === 0 && !autoBattle.effect && (
+              <div className="absolute inset-0 z-40 flex items-center justify-center pointer-events-none">
+                <div
+                  key={autoBattle.countdown}
+                  className="font-pressStart text-6xl sm:text-8xl text-black battle-fight-pop"
+                >
+                  {autoBattle.countdown > 0 ? autoBattle.countdown : 'FIGHT!'}
+                </div>
+              </div>
+            )}
+
+            {/* Screen shake overlay when attack happens */}
+            {autoBattle.effect && (
+              <div
+                key={`shake-${autoBattle.effect.id}`}
+                className="absolute inset-0 battle-shake pointer-events-none z-30"
+              />
+            )}
+
+            {/* Type-based attack effect overlay */}
+            {autoBattle.effect && (
+              <AttackEffect key={`fx-${autoBattle.effect.id}`} effect={autoBattle.effect} />
+            )}
+
+            {/* Damage popup */}
+            {autoBattle.effect && (
+              <div
+                key={`dmg-${autoBattle.effect.id}`}
+                className={`absolute z-40 battle-damage-popup pointer-events-none font-pressStart text-[10px] sm:text-sm font-black ${
+                  autoBattle.effect.target === 'p1' ? 'top-1/2 left-4 sm:left-12' : 'top-1/2 right-4 sm:right-12'
+                } ${
+                  autoBattle.effect.effectiveness >= 2 ? 'text-red-600' :
+                  autoBattle.effect.effectiveness <= 0.5 ? 'text-gray-500' :
+                  'text-black'
+                }`}
+              >
+                -{autoBattle.effect.damage}
+                {autoBattle.effect.effectiveness >= 2 && ' 💥'}
+              </div>
+            )}
+
+            {/* Pokemon 1 — LEFT side (facing right) */}
+            <div className="absolute top-1/2 -translate-y-1/2 left-2 sm:left-8 z-20 flex flex-col items-center">
+              <div className="bg-white/90 rounded-lg border-2 border-black p-1.5 shadow-[2px_2px_0_rgba(0,0,0,1)] min-w-[100px] mb-1">
+                <span className="font-pressStart text-[7px] sm:text-[9px] text-black capitalize block">{autoBattle.pokemon1.name}</span>
+                <div className="h-1.5 bg-gray-300 rounded-full overflow-hidden mt-0.5">
+                  <div className={`h-full rounded-full transition-all duration-300 ${autoBattle.hp1 / autoBattle.maxHP1 > 0.5 ? 'bg-green-500' : autoBattle.hp1 / autoBattle.maxHP1 > 0.2 ? 'bg-yellow-400' : 'bg-red-500'}`} style={{ width: `${(autoBattle.hp1 / autoBattle.maxHP1) * 100}%` }} />
+                </div>
+              </div>
+              <div className={`relative w-20 h-20 sm:w-28 sm:h-28 ${autoBattle.effect?.target === 'p1' ? 'battle-hit' : ''} ${autoBattle.hp1 === 0 ? 'battle-faint' : ''}`}>
+                <Image src={autoBattle.pokemon1.sprites.other?.['official-artwork']?.front_default || autoBattle.pokemon1.sprites.front_default} alt={autoBattle.pokemon1.name} fill className="object-contain drop-shadow-md" sizes="112px" unoptimized />
+              </div>
+            </div>
+
+            {/* Pokemon 2 — RIGHT side (facing left, mirror) */}
+            <div className="absolute top-1/2 -translate-y-1/2 right-2 sm:right-8 z-20 flex flex-col items-center">
+              <div className="bg-white/90 rounded-lg border-2 border-black p-1.5 shadow-[2px_2px_0_rgba(0,0,0,1)] min-w-[100px] mb-1">
+                <span className="font-pressStart text-[7px] sm:text-[9px] text-black capitalize block">{autoBattle.pokemon2.name}</span>
+                <div className="h-1.5 bg-gray-300 rounded-full overflow-hidden mt-0.5">
+                  <div className={`h-full rounded-full transition-all duration-300 ${autoBattle.hp2 / autoBattle.maxHP2 > 0.5 ? 'bg-green-500' : autoBattle.hp2 / autoBattle.maxHP2 > 0.2 ? 'bg-yellow-400' : 'bg-red-500'}`} style={{ width: `${(autoBattle.hp2 / autoBattle.maxHP2) * 100}%` }} />
+                </div>
+              </div>
+              <div className={`relative w-20 h-20 sm:w-28 sm:h-28 ${autoBattle.effect?.target === 'p2' ? 'battle-hit' : ''} ${autoBattle.hp2 === 0 ? 'battle-faint' : ''}`}>
+                <Image src={autoBattle.pokemon2.sprites.other?.['official-artwork']?.front_default || autoBattle.pokemon2.sprites.front_default} alt={autoBattle.pokemon2.name} fill className="object-contain drop-shadow-md -scale-x-100" sizes="112px" unoptimized />
+              </div>
+            </div>
+          </div>
+
+          {/* Battle log — simple */}
+          <div className="bg-white border-t-2 border-black p-3">
+            <p className="text-[10px] sm:text-xs text-black leading-relaxed">
+              {autoBattle.log[autoBattle.log.length - 1]}
+              {!autoBattle.winner && <span className="inline-block w-1.5 h-3 bg-black ml-1 animate-pulse" />}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* === AUTO-BATTLE RESULT === */}
+      {gameState === 'result' && autoBattle && (
+        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-white p-4">
+          <div className="text-3xl sm:text-5xl font-pressStart text-black mb-4 text-center">
+            {autoBattle.winner ? `${autoBattle.winner.name.toUpperCase()} WINS!` : 'DRAW!'}
+          </div>
+          {autoBattle.winner && (
+            <div className="relative w-24 h-24 sm:w-32 sm:h-32 mb-4">
+              <Image src={autoBattle.winner.sprites.other?.['official-artwork']?.front_default || autoBattle.winner.sprites.front_default} alt={autoBattle.winner.name} fill className="object-contain drop-shadow-md animate-bounce" sizes="128px" unoptimized />
+            </div>
+          )}
+          <div className="bg-white border-2 border-black rounded-lg p-3 max-w-sm w-full mb-6 max-h-32 overflow-y-auto">
+            {autoBattle.log.slice(-4).map((entry, i) => (
+              <p key={i} className="text-[9px] sm:text-[10px] text-black leading-relaxed">{entry}</p>
+            ))}
+          </div>
+          <button
+            onClick={() => endAutoBattle()}
+            className="px-6 py-3 bg-[#f8b800] border-2 border-black text-black font-pressStart text-[9px] sm:text-xs hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer"
+          >
+            CONTINUE →
+          </button>
+        </div>
+      )}
 
       {/* === PROFESSOR OAK GUIDE DIALOG === */}
       {showGuide && (
@@ -437,7 +649,7 @@ export default function EncounterScene() {
               {/* Welcome Text */}
               <h2 className="text-slate-800 text-xs sm:text-sm md:text-base font-black leading-relaxed min-h-[150px] sm:min-h-[110px] tracking-wide mt-2">
                 <Typewriter 
-                  text="Hello there! Welcome to the Pokédex Field Quest! To begin your journey, press and hold the Poké Ball in the center of the field to charge your throwing power. Release it when you have enough power to catch the wild Pokémon rustling in the grass. Try to catch them all and build your ultimate holographic collection!" 
+                  text="Hello there! Catch 2 Pokémon and they'll battle automatically! Press and hold the Poké Ball to charge your throw, then release to catch. After 2 catches, the battle begins!" 
                   speed={25} 
                   delay={2200}
                   forceComplete={!isTypingGuide}

@@ -57,7 +57,7 @@ export default function EndPage() {
         <h1 className="text-xl md:text-2xl font-pressStart text-black mb-6 text-center leading-relaxed">
           THANK YOU FOR PLAYING!
         </h1>
-        <p className="text-sm font-pressStart text-gray-600 mb-8 text-center max-w-md leading-relaxed">
+        <p className="text-sm text-gray-600 mb-8 text-center max-w-md leading-relaxed">
           Feel free to reach out to me using the form below. I'll get back to you as soon as possible!
         </p>
         
