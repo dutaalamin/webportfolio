@@ -591,7 +591,7 @@ export default function EncounterScene() {
             onClick={() => endAutoBattle()}
             className="px-6 py-3 bg-[#f8b800] border-2 border-black text-black font-pressStart text-[9px] sm:text-xs hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer"
           >
-            CONTINUE →
+            CONTINUE
           </button>
         </div>
       )}

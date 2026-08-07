@@ -63,14 +63,12 @@ export const viewport = {
 
 import ClickSoundProvider from './components/ClickSoundProvider'
 import DisableZoom from './components/DisableZoom'
-import CustomCursor from './components/CustomCursor'
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${pressStart.variable} ${outfit.variable}`}>
       <body>
         <DisableZoom />
-        <CustomCursor />
         <ClickSoundProvider>
           <Loader />
           {children}
