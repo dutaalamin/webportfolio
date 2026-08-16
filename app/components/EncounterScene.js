@@ -248,10 +248,10 @@ export default function EncounterScene() {
     }
   }, [gameState]);
 
-  // Auto-reset back after 3.5 seconds if caught or escaped
+  // Auto-reset back after 8.0 seconds if caught or escaped (only if not about to battle)
   useEffect(() => {
     let timer;
-    if (gameState === 'caught' || gameState === 'escaped') {
+    if ((gameState === 'caught' || gameState === 'escaped') && caughtPokemon.length < 2) {
       timer = setTimeout(() => {
         getNewEncounter();
       }, 8000);
@@ -259,9 +259,11 @@ export default function EncounterScene() {
     return () => {
       if (timer) clearTimeout(timer);
     };
-  }, [gameState, getNewEncounter]);
+  }, [gameState, caughtPokemon.length, getNewEncounter]);
 
   const handleSceneClick = () => {
+    // If we have 2 Pokemon, a battle is about to start. Block click to prevent summon bugs.
+    if (caughtPokemon.length >= 2) return;
     if (gameState === 'caught' || gameState === 'escaped') {
       getNewEncounter();
     }

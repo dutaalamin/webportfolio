@@ -644,8 +644,9 @@ export function GameProvider({ children }) {
       battleStartedRef.current = true;
       const p1 = caughtPokemon[0];
       const p2 = caughtPokemon[1];
-      // Start immediately to prevent double-click or extra catch bugs
-      startAutoBattle(p1, p2);
+      // Delay of 2000ms so the user can see the 2nd caught Pokemon, while click is blocked
+      const t = setTimeout(() => startAutoBattle(p1, p2), 2000);
+      battleTimersRef.current.push(t);
     }
   }, [caughtPokemon, gameState]);
 
