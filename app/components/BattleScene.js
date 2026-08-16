@@ -210,7 +210,7 @@ export default function BattleScene() {
                   src={enemy.sprites.other['official-artwork'].front_default || enemy.sprites.front_default}
                   alt={enemy.name}
                   fill
-                  className={`object-contain drop-shadow-md -scale-x-100 ${isEnemyHit ? 'battle-hit' : ''} ${enemyFainted ? 'battle-faint' : ''}`}
+                  className={`object-contain drop-shadow-md ${isEnemyHit ? 'battle-hit' : ''} ${enemyFainted ? 'battle-faint' : ''}`}
                   sizes="128px"
                   unoptimized
                 />
@@ -252,7 +252,7 @@ export default function BattleScene() {
                 src={player.sprites.other['official-artwork'].front_default || player.sprites.front_default}
                 alt={player.name}
                 fill
-                className={`object-contain drop-shadow-md ${isPlayerHit ? 'battle-hit' : ''} ${playerFainted ? 'battle-faint' : ''}`}
+                className={`object-contain drop-shadow-md -scale-x-100 ${isPlayerHit ? 'battle-hit' : ''} ${playerFainted ? 'battle-faint' : ''}`}
                 sizes="128px"
                 unoptimized
               />
@@ -297,11 +297,10 @@ export default function BattleScene() {
             ))}
             <button
               onClick={handleCatch}
-              disabled={busy || pokeBalls <= 0}
-              className="py-2.5 px-3 bg-[#f8b800] border-2 border-black hover:bg-yellow-400 disabled:opacity-40 disabled:cursor-not-allowed shadow-[2px_2px_0_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer text-left rounded"
+              disabled={busy}
+              className="py-2.5 px-3 bg-[#f8b800] border-2 border-black hover:bg-yellow-400 disabled:opacity-40 disabled:cursor-not-allowed shadow-[2px_2px_0_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer text-center rounded flex flex-col justify-center items-center"
             >
-              <p className="font-pressStart text-[7px] sm:text-[8px] text-black">🎯 BALL</p>
-              <p className="text-[6px] sm:text-[7px] text-black/60">×{pokeBalls}</p>
+              <p className="font-pressStart text-[7px] sm:text-[8px] text-black">🎯 CATCH</p>
             </button>
             <button
               onClick={endBattle}

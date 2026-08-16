@@ -349,10 +349,7 @@ export function GameProvider({ children }) {
 
   const throwPokeBall = (power = 50) => {
     if (gameState !== 'idle' || !currentEncounter) return;
-    if (pokeBalls <= 0) return; // No balls left
 
-    // Consume a Poke Ball
-    setPokeBalls((prev) => Math.max(0, prev - 1));
     setLastThrowPower(power);
     setGameState('throwing');
     setShakeCount(0);
@@ -362,74 +359,18 @@ export function GameProvider({ children }) {
       setGameState('shaking');
       setShakeCount(1);
       
-      // --- POWER-BASED CATCH RATE ---
-      // Power 0-30%  → low chance (30%)
-      // Power 30-70% → medium chance (60%)
-      // Power 70-95% → high chance (85%)  ← sweet spot
-      // Power 95-100% → OVERCHARGE! Ball explodes, Pokemon escapes
-      let powerChance;
-      if (power >= 95) {
-        // Overcharge — guaranteed escape
-        powerChance = 0;
-      } else if (power >= 70) {
-        powerChance = 0.85;
-      } else if (power >= 30) {
-        powerChance = 0.60;
-      } else {
-        powerChance = 0.30;
-      }
-
-      // --- POKEMON-BASED CATCH RATE ---
       const isLegendary = LEGENDARY_IDS.includes(currentEncounter.id);
       const baseStatSum = currentEncounter.stats.reduce((acc, stat) => acc + stat.base_stat, 0);
-      
-      let pokemonChance;
-      if (isLegendary) {
-        pokemonChance = 0.15; // Legendary 15%
-      } else if (baseStatSum > 450) {
-        pokemonChance = 0.45; // Harder evolved forms 45%
-      } else if (baseStatSum > 350) {
-        pokemonChance = 0.60; // Medium 60%
-      } else {
-        pokemonChance = 0.75; // Standard 75%
-      }
-
-      // Final catch chance is determined by surviving all 3 shakes (breakout test).
-      // Power factor still matters: overcharge (>=95%) = guaranteed escape above.
-      const finalCatchChance = (powerChance + pokemonChance) / 2; // kept for potential future use
-
-      // --- OVERCHARGE: Ball explodes immediately ---
-      if (power >= 95) {
-        setTimeout(() => {
-          setGameState('escaped');
-        }, 600);
-        return;
-      }
-
-      // --- SHAKE SEQUENCE WITH BREAKOUT CHANCE ---
-      // Each shake has a chance for the Pokemon to break out.
-      // Stronger Pokemon (lower pokemonChance) = higher breakout per shake.
-      // We use 1/3 of the breakout chance per shake so that surviving all 3 shakes
-      // is reasonably likely for common Pokemon but still hard for legendaries.
-      const breakoutPerShake = (1 - pokemonChance) / 3;
 
       const runShake = (currentShake) => {
         if (currentShake < 3) {
-          // Check if Pokemon breaks out at this shake
-          if (Math.random() < breakoutPerShake) {
-            // BREAKOUT! Pokemon escapes
-            setTimeout(() => {
-              setGameState('escaped');
-            }, 400);
-            return;
-          }
           // Survived this shake, continue
           setTimeout(() => {
             setShakeCount(currentShake + 1);
             runShake(currentShake + 1);
           }, 400);
         } else {
-          // 3 shakes completed without breakout -> CAUGHT!
+          // 3 shakes completed -> CAUGHT!
           setTimeout(() => {
             setGameState('caught');
             audioManager.playSuccess();
@@ -640,67 +581,33 @@ export function GameProvider({ children }) {
     return { damage, typeMult };
   };
 
-  // Catch attempt during battle (costs a Poke Ball, uses catch rate)
+  // Catch attempt during battle (always succeeds)
   const catchInBattle = () => {
     if (!battle || battle.busy || battle.result) return null;
-    if (pokeBalls <= 0) return { error: 'No Poké Balls left!' };
 
     setBattle(prev => ({ ...prev, busy: true }));
-    setPokeBalls(prev => prev - 1);
 
-    // Lower enemy HP = higher catch chance
-    const hpRatio = battle.enemyHP / battle.enemyMaxHP;
-    const hpBonus = (1 - hpRatio) * 0.4; // up to +40% if near death
     const isLegendary = LEGENDARY_IDS.includes(battle.enemy.id);
     const baseStatSum = battle.enemy.stats.reduce((acc, s) => acc + s.base_stat, 0);
-    let pokemonChance = 0.75;
-    if (isLegendary) pokemonChance = 0.15;
-    else if (baseStatSum > 450) pokemonChance = 0.45;
-    else if (baseStatSum > 350) pokemonChance = 0.60;
-    
-    const finalChance = Math.min(0.95, pokemonChance + hpBonus);
 
     setTimeout(() => {
-      if (Math.random() < finalChance) {
-        // CAUGHT!
-        const catchLog = [...battle.log, `Gotcha! ${battle.enemy.name.toUpperCase()} was caught! 🎉`];
-        // Add to collection
-        const newCatch = {
-          ...battle.enemy,
-          caughtAt: new Date().toISOString(),
-          uniqueId: `${battle.enemy.id}-${Date.now()}`,
-          level: 1,
-          cp: calculateCP(battle.enemy.stats, 1),
-        };
-        const trimmedCatch = trimPokemon(newCatch);
-        setCaughtPokemon(prev => [trimmedCatch, ...prev]);
-        // Reward
-        const stardustReward = isLegendary ? 500 : baseStatSum > 450 ? 100 : baseStatSum > 350 ? 50 : 25;
-        setStardust(prev => prev + stardustReward);
-        setCandy(prev => ({ ...prev, [battle.enemy.id]: (prev[battle.enemy.id] || 0) + 3 }));
-        setBattle(prev => ({ ...prev, log: catchLog, result: 'caught', busy: false }));
-      } else {
-        // Failed — enemy attacks
-        const failLog = [...battle.log, `Oh no! The Poké Ball missed!`];
-        setBattle(prev => ({ ...prev, log: failLog, busy: false, turn: 'enemy' }));
-        
-        // Enemy attacks
-        setTimeout(() => {
-          const enemyTypes = battle.enemy.types.map(t => t.type.name);
-          const enemyAttackType = enemyTypes[Math.floor(Math.random() * enemyTypes.length)] || 'normal';
-          const { damage: enemyDmg } = calcDamage(battle.enemy, battle.player, enemyAttackType);
-          const newPlayerHP = Math.max(0, battle.playerHP - enemyDmg);
-          
-          const enemyLog = [...failLog, `Wild ${battle.enemy.name.toUpperCase()} used ${enemyAttackType.toUpperCase()}! (${enemyDmg} dmg)`];
-          
-          if (newPlayerHP === 0) {
-            enemyLog.push(`${battle.player.name.toUpperCase()} fainted! You lost... 💀`);
-            setBattle(prev => ({ ...prev, playerHP: 0, log: enemyLog, result: 'lose', busy: false }));
-          } else {
-            setBattle(prev => ({ ...prev, playerHP: newPlayerHP, log: enemyLog, turn: 'player', busy: false }));
-          }
-        }, 1200);
-      }
+      // CAUGHT!
+      const catchLog = [...battle.log, `Gotcha! ${battle.enemy.name.toUpperCase()} was caught! 🎉`];
+      // Add to collection
+      const newCatch = {
+        ...battle.enemy,
+        caughtAt: new Date().toISOString(),
+        uniqueId: `${battle.enemy.id}-${Date.now()}`,
+        level: 1,
+        cp: calculateCP(battle.enemy.stats, 1),
+      };
+      const trimmedCatch = trimPokemon(newCatch);
+      setCaughtPokemon(prev => [trimmedCatch, ...prev]);
+      // Reward
+      const stardustReward = isLegendary ? 500 : baseStatSum > 450 ? 100 : baseStatSum > 350 ? 50 : 25;
+      setStardust(prev => prev + stardustReward);
+      setCandy(prev => ({ ...prev, [battle.enemy.id]: (prev[battle.enemy.id] || 0) + 3 }));
+      setBattle(prev => ({ ...prev, log: catchLog, result: 'caught', busy: false }));
     }, 800);
 
     return { catching: true };
@@ -737,9 +644,8 @@ export function GameProvider({ children }) {
       battleStartedRef.current = true;
       const p1 = caughtPokemon[0];
       const p2 = caughtPokemon[1];
-      // Small delay so the "caught" animation finishes first
-      const t = setTimeout(() => startAutoBattle(p1, p2), 1500);
-      battleTimersRef.current.push(t);
+      // Start immediately to prevent double-click or extra catch bugs
+      startAutoBattle(p1, p2);
     }
   }, [caughtPokemon, gameState]);
 
@@ -872,14 +778,11 @@ export function GameProvider({ children }) {
   // End auto-battle, reset for next round
   const endAutoBattle = () => {
     clearBattleTimers();
-    const winner = autoBattle?.winner;
     setAutoBattle(null);
     setGameState('idle');
     battleStartedRef.current = false;
-    // Keep only the winner, release the loser
-    if (winner) {
-      setCaughtPokemon(prev => prev.filter(p => p.uniqueId === winner.uniqueId));
-    }
+    // Clear all caught Pokemon so the cycle starts from 0 again
+    setCaughtPokemon([]);
     getNewEncounter();
   };
 

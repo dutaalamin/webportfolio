@@ -38,42 +38,90 @@ const typeColors = {
 // Attack visual effect overlay — renders type-based animation on the battle field
 function AttackEffect({ effect }) {
   if (!effect) return null;
-
-  const isTargetP1 = effect.target === 'p1';
-  // Position overlay near the defender
-  const positionClass = isTargetP1
-    ? 'top-4 right-2 sm:top-6 sm:right-8' // p1 is top-right
-    : 'bottom-2 left-2 sm:bottom-4 sm:left-8'; // p2 is bottom-left
-
-  // Type → CSS class + emoji/visual
-  const typeEffects = {
-    electric: { cls: 'battle-lightning', emoji: '⚡', color: 'text-yellow-400', size: 'text-6xl sm:text-8xl' },
-    fire: { cls: 'battle-fire-burst', emoji: '🔥', color: 'text-orange-500', size: 'text-6xl sm:text-8xl' },
-    water: { cls: 'battle-water-splash', emoji: '💧', color: 'text-blue-500', size: 'text-6xl sm:text-8xl' },
-    grass: { cls: 'battle-grass-swirl', emoji: '🍃', color: 'text-green-500', size: 'text-6xl sm:text-8xl' },
-    ice: { cls: 'battle-water-splash', emoji: '❄️', color: 'text-cyan-400', size: 'text-6xl sm:text-8xl' },
-    psychic: { cls: 'battle-energy-burst', emoji: '🔮', color: 'text-purple-500', size: 'text-6xl sm:text-8xl' },
-    ghost: { cls: 'battle-energy-burst', emoji: '👻', color: 'text-violet-600', size: 'text-6xl sm:text-8xl' },
-    dragon: { cls: 'battle-energy-burst', emoji: '🐉', color: 'text-indigo-600', size: 'text-6xl sm:text-8xl' },
-    dark: { cls: 'battle-energy-burst', emoji: '🌑', color: 'text-zinc-700', size: 'text-6xl sm:text-8xl' },
-    fairy: { cls: 'battle-energy-burst', emoji: '✨', color: 'text-pink-400', size: 'text-6xl sm:text-8xl' },
-    fighting: { cls: 'battle-hit', emoji: '👊', color: 'text-red-600', size: 'text-6xl sm:text-8xl' },
-    poison: { cls: 'battle-energy-burst', emoji: '☠️', color: 'text-fuchsia-600', size: 'text-6xl sm:text-8xl' },
-    ground: { cls: 'battle-fire-burst', emoji: '⛰️', color: 'text-amber-700', size: 'text-6xl sm:text-8xl' },
-    rock: { cls: 'battle-fire-burst', emoji: '🪨', color: 'text-stone-600', size: 'text-6xl sm:text-8xl' },
-    bug: { cls: 'battle-grass-swirl', emoji: '🐛', color: 'text-lime-600', size: 'text-6xl sm:text-8xl' },
-    flying: { cls: 'battle-water-splash', emoji: '🌪️', color: 'text-sky-500', size: 'text-6xl sm:text-8xl' },
-    steel: { cls: 'battle-hit', emoji: '⚙️', color: 'text-slate-500', size: 'text-6xl sm:text-8xl' },
-    normal: { cls: 'battle-hit', emoji: '💥', color: 'text-gray-600', size: 'text-6xl sm:text-8xl' },
-  };
-
-  const fx = typeEffects[effect.type] || typeEffects.normal;
+  const type = effect.type || 'normal';
 
   return (
-    <div className={`absolute ${positionClass} z-30 pointer-events-none flex items-center justify-center w-20 h-20 sm:w-28 sm:h-28`}>
-      <span className={`${fx.cls} ${fx.color} ${fx.size} drop-shadow-lg`}>
-        {fx.emoji}
-      </span>
+    <div className="absolute inset-0 z-30 pointer-events-none flex items-center justify-center overflow-visible">
+      {type === 'electric' && (
+        <div className="relative w-full h-full flex items-center justify-center">
+          {/* Electric Spark / Lightning lines */}
+          <div className="absolute w-1.5 h-16 bg-yellow-300 rounded-full animate-lightning-bolt rotate-12" />
+          <div className="absolute w-1.5 h-16 bg-white rounded-full animate-lightning-bolt -rotate-45" />
+          <div className="absolute w-1 h-12 bg-yellow-400 rounded-full animate-lightning-bolt rotate-45 translate-x-4" />
+          <div className="absolute w-1 h-12 bg-yellow-200 rounded-full animate-lightning-bolt -rotate-12 -translate-x-4" />
+          {/* Inner flash */}
+          <div className="w-16 h-16 bg-yellow-300/30 rounded-full blur-md animate-pulse" />
+        </div>
+      )}
+      
+      {type === 'fire' && (
+        <div className="relative w-full h-full flex items-center justify-center">
+          {/* Expanding fire sphere */}
+          <div className="w-20 h-20 bg-radial from-red-500 via-orange-500 to-yellow-300/0 rounded-full animate-fire-burst" />
+          <div className="absolute w-4 h-4 bg-orange-400 rounded-full animate-fire-particle translate-y-6" />
+          <div className="absolute w-3 h-3 bg-yellow-300 rounded-full animate-fire-particle -translate-y-6 -translate-x-4" />
+          <div className="absolute w-5 h-5 bg-red-600 rounded-full animate-fire-particle translate-x-6 -translate-y-2" />
+        </div>
+      )}
+
+      {type === 'water' && (
+        <div className="relative w-full h-full flex items-center justify-center">
+          {/* Water Splash Ring */}
+          <div className="w-16 h-16 rounded-full border-4 border-blue-400/80 animate-water-splash" />
+          {/* Water droplets */}
+          <div className="absolute w-3 h-3 bg-blue-500 rounded-full animate-water-drop -translate-x-8" />
+          <div className="absolute w-2.5 h-2.5 bg-cyan-400 rounded-full animate-water-drop translate-x-8" />
+          <div className="absolute w-2 h-2 bg-blue-300 rounded-full animate-water-drop translate-y-8 translate-x-2" />
+        </div>
+      )}
+
+      {type === 'grass' && (
+        <div className="relative w-full h-full flex items-center justify-center">
+          {/* Leaf blades (green diagonal slashes) */}
+          <div className="absolute w-2 h-16 bg-emerald-500 rounded-full rotate-45 transform origin-center animate-grass-leaf" />
+          <div className="absolute w-2 h-16 bg-green-400 rounded-full -rotate-45 transform origin-center animate-grass-leaf-delay" />
+          <div className="w-12 h-12 border border-emerald-400/30 rounded-full animate-ping" />
+        </div>
+      )}
+
+      {type === 'ice' && (
+        <div className="relative w-full h-full flex items-center justify-center">
+          {/* Crystal freeze shards */}
+          <div className="absolute w-6 h-6 border-2 border-cyan-300 rotate-45 animate-ice-shard" />
+          <div className="absolute w-4 h-4 border-2 border-white rotate-12 animate-ice-shard-delay" />
+          <div className="w-20 h-20 bg-cyan-200/20 rounded-full blur-sm" />
+        </div>
+      )}
+
+      {type === 'poison' && (
+        <div className="relative w-full h-full flex items-center justify-center">
+          {/* Expanding toxic cloud */}
+          <div className="w-16 h-16 bg-purple-600/40 rounded-full blur-md animate-poison-cloud" />
+          <div className="absolute w-4 h-4 bg-fuchsia-700/60 rounded-full blur-xs translate-x-4 -translate-y-4" />
+          <div className="absolute w-5 h-5 bg-purple-800/50 rounded-full blur-xs -translate-x-4 translate-y-4" />
+        </div>
+      )}
+
+      {/* Dark/Ghost/Psychic / Dragon / Steel */}
+      {(type === 'psychic' || type === 'ghost' || type === 'dark' || type === 'dragon') && (
+        <div className="relative w-full h-full flex items-center justify-center">
+          {/* Mysterious psychic portal swirl */}
+          <div className="w-20 h-20 border-2 border-dashed border-indigo-500 rounded-full animate-portal-spin" />
+          <div className="absolute w-12 h-12 bg-indigo-900/30 rounded-full blur-xs animate-pulse" />
+          <div className="absolute w-3 h-3 bg-violet-400 rounded-full animate-ping" />
+        </div>
+      )}
+
+      {/* Default/Normal / Fighting / Rock / Ground / Bug / Flying / Steel / Fairy */}
+      {(type === 'normal' || type === 'fighting' || type === 'rock' || type === 'ground' || type === 'bug' || type === 'flying' || type === 'steel' || type === 'fairy') && (
+        <div className="relative w-full h-full flex items-center justify-center">
+          {/* Physical Slash / Hit Stars */}
+          <div className="absolute w-1.5 h-16 bg-white border border-slate-700 rounded-full -rotate-45 animate-slash-hit" />
+          <div className="absolute w-1.5 h-16 bg-white border border-slate-700 rounded-full rotate-45 animate-slash-hit-delay" />
+          {/* Star burst */}
+          <div className="w-8 h-8 bg-yellow-400 rounded-lg rotate-12 animate-ping" />
+        </div>
+      )}
     </div>
   );
 }
@@ -96,6 +144,17 @@ export default function EncounterScene() {
     error,
   } = useGame();
 
+  const isP1Attacking = autoBattle?.effect && autoBattle.effect.target === 'p2';
+  const isP2Attacking = autoBattle?.effect && autoBattle.effect.target === 'p1';
+
+  const p1WrapperAnim = isP1Attacking
+    ? 'battle-lunge-right-anim'
+    : (autoBattle?.effect?.target === 'p1' ? 'battle-hit' : '');
+
+  const p2WrapperAnim = isP2Attacking
+    ? 'battle-lunge-left-anim'
+    : (autoBattle?.effect?.target === 'p2' ? 'battle-hit' : '');
+
   // Splash screen state (true only after first throw)
   const [hasThrownOnce, setHasThrownOnce] = useState(false);
 
@@ -113,7 +172,6 @@ export default function EncounterScene() {
   const startCharging = (e) => {
     if (e && e.type === 'mousedown') e.preventDefault();
     if (gameState !== 'idle') return;
-    if (pokeBalls <= 0) return; // Can't throw without balls
     
     setIsCharging(true);
     setPower(0);
@@ -278,44 +336,6 @@ export default function EncounterScene() {
       }`}
     >
       <div className="relative w-full h-full flex-1 flex flex-col justify-between p-6 sm:p-10 overflow-hidden">
-        
-        {/* Poke Ball Counter (bottom-left, avoids hamburger top-right & Back top-left) */}
-        <div className="absolute bottom-2 left-2 sm:bottom-4 sm:left-4 z-40 flex items-center gap-2 bg-slate-900/90 backdrop-blur-sm border-2 border-yellow-400 rounded-lg px-3 py-1.5 shadow-lg">
-          <div className="w-5 h-5 rounded-full border-2 border-white overflow-hidden relative">
-            <div className="absolute top-0 left-0 right-0 h-1/2 bg-red-500" />
-            <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-white" />
-            <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-white -translate-y-1/2" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white border border-slate-700 rounded-full" />
-          </div>
-          <span className={`font-black text-sm ${pokeBalls > 0 ? 'text-yellow-400' : 'text-red-500'} tracking-wider`}>
-            ×{pokeBalls}
-          </span>
-        </div>
-
-        {/* Out of Poke Balls warning with refill countdown */}
-        {pokeBalls === 0 && gameState === 'idle' && (
-          <div className="absolute bottom-16 left-2 sm:bottom-20 sm:left-4 z-40 max-w-[220px] bg-red-600/90 border-2 border-red-400 rounded-lg px-3 py-2 shadow-lg">
-            <p className="text-white text-[10px] font-bold leading-tight mb-1">
-              ⚠ Out of Poké Balls!
-            </p>
-            <p className="text-yellow-200 text-[9px] font-bold leading-tight">
-              {refillIn > 0
-                ? `Next ball in ${refillIn}s...`
-                : 'A Poké Ball has been restored!'}
-            </p>
-          </div>
-        )}
-
-        {/* Refill indicator when below max but not zero */}
-        {pokeBalls > 0 && pokeBalls < maxBalls && gameState === 'idle' && refillIn > 0 && (
-          <div className="absolute bottom-12 left-2 sm:bottom-16 sm:left-4 z-40 bg-slate-800/80 border border-yellow-500/50 rounded-lg px-2 py-1 shadow-lg">
-            <p className="text-yellow-300 text-[8px] font-bold leading-tight">
-              +1 in {refillIn}s
-            </p>
-          </div>
-        )}
-
-        {/* Battle button removed — auto-battle triggers automatically after 2 catches */}
         
         {/* Particle/Ambient Elements */}
         <div className={`absolute inset-0 pointer-events-none overflow-hidden transition-opacity duration-1000 ${hasThrownOnce ? 'opacity-40' : 'opacity-0'}`}>
@@ -489,9 +509,9 @@ export default function EncounterScene() {
 
       {/* === AUTO-BATTLE MODE === */}
       {gameState === 'auto-battle' && autoBattle && (
-        <div className="absolute inset-0 z-50 flex flex-col bg-white">
+        <div className="absolute inset-0 z-50 flex flex-col bg-[#1e293b] select-none">
           {/* Battle field */}
-          <div className="relative flex-1 overflow-hidden">
+          <div className="relative flex-1 overflow-hidden bg-gradient-to-b from-sky-300 via-sky-100 to-emerald-50 flex items-center justify-center border-b-4 border-black">
             {/* Countdown overlay — 3, 2, 1, FIGHT! (hidden once rounds start, countdown becomes -1) */}
             {autoBattle.countdown >= 0 && autoBattle.round === 0 && !autoBattle.effect && (
               <div className="absolute inset-0 z-40 flex items-center justify-center pointer-events-none">
@@ -512,84 +532,93 @@ export default function EncounterScene() {
               />
             )}
 
-            {/* Type-based attack effect overlay */}
-            {autoBattle.effect && (
-              <AttackEffect key={`fx-${autoBattle.effect.id}`} effect={autoBattle.effect} />
-            )}
+            {/* Centered Pokemon Container — keeps them spaced nicely but close on wide screens */}
+            <div className="relative w-full max-w-2xl h-full flex items-center justify-between px-8 sm:px-16 z-20 mx-auto">
+              
+              {/* Pokemon 1 — LEFT side (facing right) */}
+              <div className="flex flex-col items-center">
+                <div className="bg-white/90 rounded-lg border-2 border-black p-1.5 shadow-[2px_2px_0_rgba(0,0,0,1)] min-w-[100px] mb-2 z-10">
+                  <span className="font-pressStart text-[7px] sm:text-[9px] text-black capitalize block">{autoBattle.pokemon1.name}</span>
+                  <div className="h-1.5 bg-gray-300 rounded-full overflow-hidden mt-0.5">
+                    <div className={`h-full rounded-full transition-all duration-300 ${autoBattle.hp1 / autoBattle.maxHP1 > 0.5 ? 'bg-green-500' : autoBattle.hp1 / autoBattle.maxHP1 > 0.2 ? 'bg-yellow-400' : 'bg-red-500'}`} style={{ width: `${(autoBattle.hp1 / autoBattle.maxHP1) * 100}%` }} />
+                  </div>
+                </div>
+                <div className={`relative w-28 h-28 sm:w-44 sm:h-44 md:w-52 md:h-52 ${p1WrapperAnim} ${autoBattle.hp1 === 0 ? 'battle-faint' : ''}`}>
+                  <Image src={autoBattle.pokemon1.sprites.other?.['official-artwork']?.front_default || autoBattle.pokemon1.sprites.front_default} alt={autoBattle.pokemon1.name} fill className="object-contain drop-shadow-md -scale-x-100 animate-float" sizes="208px" unoptimized />
+                  
+                  {/* Attack effect for p1 */}
+                  {autoBattle.effect?.target === 'p1' && (
+                    <AttackEffect effect={autoBattle.effect} />
+                  )}
 
-            {/* Damage popup */}
-            {autoBattle.effect && (
-              <div
-                key={`dmg-${autoBattle.effect.id}`}
-                className={`absolute z-40 battle-damage-popup pointer-events-none font-pressStart text-[10px] sm:text-sm font-black ${
-                  autoBattle.effect.target === 'p1' ? 'top-1/2 left-4 sm:left-12' : 'top-1/2 right-4 sm:right-12'
-                } ${
-                  autoBattle.effect.effectiveness >= 2 ? 'text-red-600' :
-                  autoBattle.effect.effectiveness <= 0.5 ? 'text-gray-500' :
-                  'text-black'
-                }`}
-              >
-                -{autoBattle.effect.damage}
-                {autoBattle.effect.effectiveness >= 2 && ' 💥'}
-              </div>
-            )}
-
-            {/* Pokemon 1 — LEFT side (facing right) */}
-            <div className="absolute top-1/2 -translate-y-1/2 left-2 sm:left-8 z-20 flex flex-col items-center">
-              <div className="bg-white/90 rounded-lg border-2 border-black p-1.5 shadow-[2px_2px_0_rgba(0,0,0,1)] min-w-[100px] mb-1">
-                <span className="font-pressStart text-[7px] sm:text-[9px] text-black capitalize block">{autoBattle.pokemon1.name}</span>
-                <div className="h-1.5 bg-gray-300 rounded-full overflow-hidden mt-0.5">
-                  <div className={`h-full rounded-full transition-all duration-300 ${autoBattle.hp1 / autoBattle.maxHP1 > 0.5 ? 'bg-green-500' : autoBattle.hp1 / autoBattle.maxHP1 > 0.2 ? 'bg-yellow-400' : 'bg-red-500'}`} style={{ width: `${(autoBattle.hp1 / autoBattle.maxHP1) * 100}%` }} />
+                  {/* Damage popup for p1 */}
+                  {autoBattle.effect?.target === 'p1' && (
+                    <div
+                      key={`dmg-${autoBattle.effect.id}`}
+                      className="absolute top-1/2 left-1/2 z-40 animate-damage-pop pointer-events-none font-pressStart text-sm sm:text-base md:text-lg font-black text-red-500"
+                      style={{ textShadow: '1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 0 2px 4px rgba(0,0,0,0.5)' }}
+                    >
+                      -{autoBattle.effect.damage}
+                    </div>
+                  )}
                 </div>
               </div>
-              <div className={`relative w-20 h-20 sm:w-28 sm:h-28 ${autoBattle.effect?.target === 'p1' ? 'battle-hit' : ''} ${autoBattle.hp1 === 0 ? 'battle-faint' : ''}`}>
-                <Image src={autoBattle.pokemon1.sprites.other?.['official-artwork']?.front_default || autoBattle.pokemon1.sprites.front_default} alt={autoBattle.pokemon1.name} fill className="object-contain drop-shadow-md" sizes="112px" unoptimized />
-              </div>
-            </div>
 
-            {/* Pokemon 2 — RIGHT side (facing left, mirror) */}
-            <div className="absolute top-1/2 -translate-y-1/2 right-2 sm:right-8 z-20 flex flex-col items-center">
-              <div className="bg-white/90 rounded-lg border-2 border-black p-1.5 shadow-[2px_2px_0_rgba(0,0,0,1)] min-w-[100px] mb-1">
-                <span className="font-pressStart text-[7px] sm:text-[9px] text-black capitalize block">{autoBattle.pokemon2.name}</span>
-                <div className="h-1.5 bg-gray-300 rounded-full overflow-hidden mt-0.5">
-                  <div className={`h-full rounded-full transition-all duration-300 ${autoBattle.hp2 / autoBattle.maxHP2 > 0.5 ? 'bg-green-500' : autoBattle.hp2 / autoBattle.maxHP2 > 0.2 ? 'bg-yellow-400' : 'bg-red-500'}`} style={{ width: `${(autoBattle.hp2 / autoBattle.maxHP2) * 100}%` }} />
+              {/* Pokemon 2 — RIGHT side (facing left, mirror) */}
+              <div className="flex flex-col items-center">
+                <div className="bg-white/90 rounded-lg border-2 border-black p-1.5 shadow-[2px_2px_0_rgba(0,0,0,1)] min-w-[100px] mb-2 z-10">
+                  <span className="font-pressStart text-[7px] sm:text-[9px] text-black capitalize block">{autoBattle.pokemon2.name}</span>
+                  <div className="h-1.5 bg-gray-300 rounded-full overflow-hidden mt-0.5">
+                    <div className={`h-full rounded-full transition-all duration-300 ${autoBattle.hp2 / autoBattle.maxHP2 > 0.5 ? 'bg-green-500' : autoBattle.hp2 / autoBattle.maxHP2 > 0.2 ? 'bg-yellow-400' : 'bg-red-500'}`} style={{ width: `${(autoBattle.hp2 / autoBattle.maxHP2) * 100}%` }} />
+                  </div>
+                </div>
+                <div className={`relative w-28 h-28 sm:w-44 sm:h-44 md:w-52 md:h-52 ${p2WrapperAnim} ${autoBattle.hp2 === 0 ? 'battle-faint' : ''}`}>
+                  <Image src={autoBattle.pokemon2.sprites.other?.['official-artwork']?.front_default || autoBattle.pokemon2.sprites.front_default} alt={autoBattle.pokemon2.name} fill className="object-contain drop-shadow-md animate-float-delay" sizes="208px" unoptimized />
+
+                  {/* Attack effect for p2 */}
+                  {autoBattle.effect?.target === 'p2' && (
+                    <AttackEffect effect={autoBattle.effect} />
+                  )}
+
+                  {/* Damage popup for p2 */}
+                  {autoBattle.effect?.target === 'p2' && (
+                    <div
+                      key={`dmg-${autoBattle.effect.id}`}
+                      className="absolute top-1/2 left-1/2 z-40 animate-damage-pop pointer-events-none font-pressStart text-sm sm:text-base md:text-lg font-black text-red-500"
+                      style={{ textShadow: '1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 0 2px 4px rgba(0,0,0,0.5)' }}
+                    >
+                      -{autoBattle.effect.damage}
+                    </div>
+                  )}
                 </div>
               </div>
-              <div className={`relative w-20 h-20 sm:w-28 sm:h-28 ${autoBattle.effect?.target === 'p2' ? 'battle-hit' : ''} ${autoBattle.hp2 === 0 ? 'battle-faint' : ''}`}>
-                <Image src={autoBattle.pokemon2.sprites.other?.['official-artwork']?.front_default || autoBattle.pokemon2.sprites.front_default} alt={autoBattle.pokemon2.name} fill className="object-contain drop-shadow-md -scale-x-100" sizes="112px" unoptimized />
-              </div>
-            </div>
-          </div>
 
-          {/* Battle log — simple */}
-          <div className="bg-white border-t-2 border-black p-3">
-            <p className="text-[10px] sm:text-xs text-black leading-relaxed">
-              {autoBattle.log[autoBattle.log.length - 1]}
-              {!autoBattle.winner && <span className="inline-block w-1.5 h-3 bg-black ml-1 animate-pulse" />}
-            </p>
+            </div>
           </div>
         </div>
       )}
 
       {/* === AUTO-BATTLE RESULT === */}
       {gameState === 'result' && autoBattle && (
-        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-white p-4">
-          <div className="text-3xl sm:text-5xl font-pressStart text-black mb-4 text-center">
+        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-b from-sky-300 via-sky-100 to-emerald-50 p-4 select-none">
+          <div className="text-3xl sm:text-5xl font-pressStart text-black mb-8 text-center drop-shadow-md">
             {autoBattle.winner ? `${autoBattle.winner.name.toUpperCase()} WINS!` : 'DRAW!'}
           </div>
           {autoBattle.winner && (
-            <div className="relative w-24 h-24 sm:w-32 sm:h-32 mb-4">
-              <Image src={autoBattle.winner.sprites.other?.['official-artwork']?.front_default || autoBattle.winner.sprites.front_default} alt={autoBattle.winner.name} fill className="object-contain drop-shadow-md animate-bounce" sizes="128px" unoptimized />
+            <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 mb-8">
+              <Image 
+                src={autoBattle.winner.sprites.other?.['official-artwork']?.front_default || autoBattle.winner.sprites.front_default} 
+                alt={autoBattle.winner.name} 
+                fill 
+                className="object-contain drop-shadow-lg" 
+                sizes="(max-width: 640px) 192px, 288px" 
+                unoptimized 
+              />
             </div>
           )}
-          <div className="bg-white border-2 border-black rounded-lg p-3 max-w-sm w-full mb-6 max-h-32 overflow-y-auto">
-            {autoBattle.log.slice(-4).map((entry, i) => (
-              <p key={i} className="text-[9px] sm:text-[10px] text-black leading-relaxed">{entry}</p>
-            ))}
-          </div>
           <button
             onClick={() => endAutoBattle()}
-            className="px-6 py-3 bg-[#f8b800] border-2 border-black text-black font-pressStart text-[9px] sm:text-xs hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer"
+            className="px-8 py-3 bg-[#f8b800] border-2 border-black text-black font-pressStart text-[10px] sm:text-xs hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer rounded-lg uppercase tracking-wider"
           >
             CONTINUE
           </button>
