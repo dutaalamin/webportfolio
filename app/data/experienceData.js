@@ -5,21 +5,21 @@ export const experienceData = [
       'Work Experiences': [
         {
           title: 'PT POSCO DX INDONESIA',
-          position: 'Automation Engineer',
+          position: 'Software Engineer',
           location: 'Cilegon, Indonesia',
           date: 'Jan 2026 - Present',
           description: [
             {
+              subtitle: 'Software Development',
+              subdesc: 'Developing and maintaining real-time applications, process logic, and production-grade source code for mission-critical automation platforms.'
+            },
+            {
               subtitle: 'System Operations & Maintenance',
-              subdesc: 'Supporting Level 2 industrial automation systems for Shearing Line operations in Plate Mill, including monitoring, troubleshooting, and maintaining automation applications, source code, and HMI systems.'
+              subdesc: 'Performing debugging, root cause analysis, and performance optimization to resolve production incidents in 24/7 time-sensitive environments.'
             },
             {
-              subtitle: 'Automation Development',
-              subdesc: 'Developing and maintaining Level 2 process logic and automation application components for industrial production systems.'
-            },
-            {
-              subtitle: 'System Integration',
-              subdesc: 'Collaborating with production and maintenance teams to ensure stable, safe, and reliable plant operations while monitoring system performance.'
+              subtitle: 'Cross-functional Collaboration',
+              subdesc: 'Collaborating with operations and maintenance teams to ensure system reliability, uptime, and safe plant operations.'
             }
           ],
           skills: ['Factory Automation', 'Industrial Automation', 'Process Optimization', 'System Integration'],
