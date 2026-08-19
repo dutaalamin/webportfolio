@@ -108,7 +108,7 @@ export default function ExperiencePage() {
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
     { label: 'Experience', href: '/experience' },
-    { label: 'PORTFOLIO', href: '/portfolio' },
+    { label: 'Portfolio', href: '/portfolio' },
     { label: 'Game', href: '/pokedex' },
     { label: 'Map', href: '/map' }
   ];
