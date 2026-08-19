@@ -43,7 +43,7 @@ export default function HamburgerMenu({ menuItems = [] }) {
     'Home': '🏠',
     'About': '📜',
     'Experience': '⚔️',
-    'Portfolio': '🎒',
+    'Portfolio': '🎴',
     'Game': '🎮',
     'Map': '🗺️',
   };
