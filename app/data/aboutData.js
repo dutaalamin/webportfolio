@@ -12,9 +12,9 @@ const socialLinksForAbout = [
     alt: 'LinkedIn',
   },
   {
-    href: 'https://instagram.com/dutaalamin',
-    icon: '/logo/instagram.svg', 
-    alt: 'Instagram',
+    href: 'mailto:dutaalamin23@gmail.com',
+    icon: '/logo/gmail.svg', 
+    alt: 'Email',
   },
 ]
 

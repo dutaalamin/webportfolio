@@ -7,6 +7,7 @@ import Cloud from '../components/Cloud';
 import PokemonFarm from '../components/PokemonFarm';
 import HamburgerMenu from '../components/HamburgerMenu';
 import Link from 'next/link';
+import BackgroundAudio from '../components/Audio';
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -28,6 +29,8 @@ export default function PokedexLayout({ children }) {
     <>
       {/* Portfolio Hamburger Navigation */}
       <HamburgerMenu menuItems={menu} />
+      
+      <BackgroundAudio src="/audio/poke.mp3" volume={0.15} delay={500} />
 
       {/* Back to Home Button (Desktop) */}
       <Link href="/">
