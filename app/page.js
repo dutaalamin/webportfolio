@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Cloud from './components/Cloud'
 import BackgroundAudio from './components/Audio'
-import SocialLinks from './components/SocialLinks';
+
 import HamburgerMenu from './components/HamburgerMenu';
 import FarmAnimals from './components/FarmAnimals';
 import RoleRotate from './components/RoleRotate';
@@ -18,18 +18,7 @@ import {
   LinkIcon
 } from '@heroicons/react/24/solid'
 
-const socialLinks = [
-  {
-    href: 'https://www.linkedin.com/in/dutaalamin',
-    icon: '/logo/linkedin.png',
-    alt: 'LinkedIn',
-  },
-  {
-    href: 'https://instagram.com/dutaalamin',
-    icon: '/logo/instagram.svg', 
-    alt: 'Instagram',
-  },
-]
+
 
 export default function HomePage() {
   const [isVisible, setIsVisible] = useState(false)
@@ -102,7 +91,7 @@ export default function HomePage() {
       <div className={`relative z-5 max-w-7xl mx-auto pt-24 lg:pt-28 px-6 grid gap-8 grid-cols-1 lg:grid-cols-3 ${fadeClass(900)}`} style={fadeStyle(900)}>
         <div className="flex flex-col gap-2">
           <RoleRotate />
-          <SocialLinks links={socialLinks} />
+
           
           <div className="mt-8 relative w-48 h-48 sm:w-64 sm:h-64 self-center md:self-start md:ml-12">
             <Image 
@@ -115,7 +104,7 @@ export default function HomePage() {
         </div>
         
         <div className="lg:pl-20 lg:col-span-2 mt-4 lg:mt-0">
-          <div className="p-8 inline-block">
+          <div className="px-8 pb-8 inline-block">
             <p className="text-xl sm:text-2xl xl:text-4xl mb-4 text-black min-h-[32px] xl:min-h-[40px]">
               <Typewriter text="Welcome, Player!" delay={2500} speed={40} />
             </p>
