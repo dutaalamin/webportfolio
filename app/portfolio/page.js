@@ -14,7 +14,7 @@ import PokeCard from '../components/PokeCard';
 export default function PortfolioPage() {
   const [visibleCount, setVisibleCount] = useState(4);
   const [isVisible, setIsVisible] = useState(false);
-  const [cardTheme, setCardTheme] = useState('yugioh');
+  const [cardTheme, setCardTheme] = useState('pokemon');
 
   const allProjects = portoData.reduce((acc, currentYear) => {
     Object.values(currentYear.sections).forEach(items => {
@@ -113,16 +113,16 @@ export default function PortfolioPage() {
           <div className="flex justify-center mb-4 relative z-50">
             <div className="flex bg-gray-200 border-2 border-black rounded-lg p-1">
               <button 
-                onClick={() => setCardTheme('yugioh')}
-                className={`px-3 py-1.5 md:px-4 md:py-2 text-[7px] md:text-[9px] font-pressStart rounded transition-all ${cardTheme === 'yugioh' ? 'bg-[#f8b800] border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-black' : 'text-gray-500 hover:text-black border-2 border-transparent'}`}
-              >
-                YU-GI-OH!
-              </button>
-              <button 
                 onClick={() => setCardTheme('pokemon')}
-                className={`px-3 py-1.5 md:px-4 md:py-2 text-[7px] md:text-[9px] font-pressStart rounded transition-all ml-1 ${cardTheme === 'pokemon' ? 'bg-blue-500 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-white' : 'text-gray-500 hover:text-black border-2 border-transparent'}`}
+                className={`px-3 py-1.5 md:px-4 md:py-2 text-[7px] md:text-[9px] font-pressStart rounded transition-all ${cardTheme === 'pokemon' ? 'bg-blue-500 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-white' : 'text-gray-500 hover:text-black border-2 border-transparent'}`}
               >
                 POKÉMON
+              </button>
+              <button 
+                onClick={() => setCardTheme('yugioh')}
+                className={`px-3 py-1.5 md:px-4 md:py-2 text-[7px] md:text-[9px] font-pressStart rounded transition-all ml-1 ${cardTheme === 'yugioh' ? 'bg-[#f8b800] border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-black' : 'text-gray-500 hover:text-black border-2 border-transparent'}`}
+              >
+                YU-GI-OH!
               </button>
             </div>
           </div>
