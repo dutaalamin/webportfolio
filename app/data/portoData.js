@@ -59,7 +59,7 @@ export const portoData = [
     sections: {
       'Web Applications': [
         {
-          title: 'Bunga',
+          title: 'Bunga Cerita',
           position: 'Flower shop website',
           date: '2024',
           description: [

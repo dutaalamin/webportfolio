@@ -120,7 +120,7 @@ export default function PokeCard({ item, index, isVisible = true }) {
   const hp = (item.skills?.length || 1) * 30 + 50;
   const abilityName = item.tools?.[0] || 'Web App';
   const abilityDesc = item.description?.[0]?.subdesc || 'A digital project by Duta Alamin.';
-  const imageSrc = `/images/projects/${item.title.toLowerCase()}.png`;
+  const imageSrc = `/images/projects/${item.title.toLowerCase().replace(/\s+/g, '')}.png`;
 
   useEffect(() => {
     if (!isVisible) return;
@@ -191,8 +191,8 @@ export default function PokeCard({ item, index, isVisible = true }) {
             <div className="rounded-xl overflow-hidden h-full flex flex-col font-sans" style={{ background: theme.bgInner }}>
               
               {/* TOP: Name bar */}
-              <div className="px-3 pt-3 pb-1 flex justify-between items-center">
-                <span className="text-white font-black text-[11px] md:text-xs drop-shadow-md truncate max-w-[70%]" style={{ textShadow: '1px 1px 0 #000' }}>
+              <div className="px-3 pt-4 pb-3 flex justify-center items-center text-center">
+                <span className="text-white font-black text-[13px] md:text-sm drop-shadow-md truncate w-full" style={{ textShadow: '1px 1px 0 #000' }}>
                   {item.title}
                 </span>
               </div>
