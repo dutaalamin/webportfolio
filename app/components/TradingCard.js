@@ -151,7 +151,7 @@ export default function TradingCard({ item, index, isVisible = true }) {
               {/* === Image Frame === */}
               <div className="mx-3 mb-2 border-[3px] border-[#8b7332] overflow-hidden relative" style={{ aspectRatio: '4/3' }}>
                 <img
-                  src={`/images/projects/${item.title.toLowerCase()}.png`}
+                  src={`/images/projects/${item.title.toLowerCase().replace(/\s+/g, '')}.png`}
                   alt={item.title}
                   className="object-cover w-full h-full"
                   onError={(e) => {
