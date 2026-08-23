@@ -195,15 +195,12 @@ export default function PokeCard({ item, index, isVisible = true }) {
                 <span className="text-white font-black text-[11px] md:text-xs drop-shadow-md truncate max-w-[70%]" style={{ textShadow: '1px 1px 0 #000' }}>
                   {item.title}
                 </span>
-                <span className="text-yellow-300 font-black text-[10px] md:text-xs drop-shadow-md">
-                  ❤️ HP {hp}
-                </span>
               </div>
               
               {/* TYPE tag */}
               <div className="px-3 pb-2">
                 <span className={`border border-yellow-300 text-white text-[7px] md:text-[8px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider shadow ${theme.tagBg}`}>
-                  {theme.iconText} · Rare
+                  {theme.iconText}
                 </span>
               </div>
 
@@ -228,11 +225,7 @@ export default function PokeCard({ item, index, isVisible = true }) {
                 </p>
               </div>
 
-              {/* FOOTER */}
-              <div className="px-3 pb-2 flex justify-between items-center mt-auto">
-                <span className="text-yellow-200 text-[6px] md:text-[7px] font-bold opacity-70">Illus. Duta</span>
-                <span className="text-yellow-200 text-[6px] md:text-[7px] font-bold opacity-70">★ Holo</span>
-              </div>
+
             </div>
 
             {/* Holographic shine overlay */}
