@@ -196,13 +196,7 @@ export default function PokeCard({ item, index, isVisible = true }) {
                   {item.title}
                 </span>
               </div>
-              
-              {/* TYPE tag */}
-              <div className="px-3 pb-2">
-                <span className={`border border-yellow-300 text-white text-[7px] md:text-[8px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider shadow ${theme.tagBg}`}>
-                  {theme.iconText}
-                </span>
-              </div>
+
 
               {/* ARTWORK BOX */}
               <div className="mx-3 mb-2 rounded-lg overflow-hidden border-[3px] flex items-center justify-center relative bg-white" 
@@ -217,9 +211,7 @@ export default function PokeCard({ item, index, isVisible = true }) {
 
               {/* BOTTOM TEXT PANEL */}
               <div className="mx-2 mb-2 rounded-lg p-2 flex-1 flex flex-col justify-start" style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,215,0,0.4)' }}>
-                <p className="text-yellow-200 font-black text-[8px] md:text-[9px] uppercase tracking-widest mb-1">
-                  ⚡ {abilityName}
-                </p>
+
                 <p className="text-white text-[8px] md:text-[9px] font-bold leading-tight" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                   {abilityDesc}
                 </p>
