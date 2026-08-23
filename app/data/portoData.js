@@ -59,6 +59,38 @@ export const portoData = [
     sections: {
       'Web Applications': [
         {
+          title: 'Bunga',
+          position: 'Flower shop website',
+          date: '2024',
+          description: [
+            {
+              subtitle: 'E-commerce and Catalog',
+              subdesc: 'A beautiful and elegant flower shop website for showcasing and selling floral arrangements.'
+            }
+          ],
+          links: [
+            { label: 'Project', url: 'https://bungacerita.vercel.app/' }
+          ],
+          skills: ['E-commerce', 'UI/UX'],
+          tools: ['React', 'Tailwind CSS']
+        },
+        {
+          title: 'Aufa',
+          position: 'Architect portfolio website',
+          date: '2024',
+          description: [
+            {
+              subtitle: 'Professional Portfolio',
+              subdesc: 'A minimalist and modern portfolio website showcasing architectural projects and designs.'
+            }
+          ],
+          links: [
+            { label: 'Project', url: 'https://aufaardelia.vercel.app/' }
+          ],
+          skills: ['Portfolio', 'UI Design'],
+          tools: ['React', 'Tailwind CSS']
+        },
+        {
           title: 'Bprotraining',
           position: 'Soccer training platform',
           date: '2026',
