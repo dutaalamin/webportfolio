@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import HamburgerMenu from '../components/HamburgerMenu';
 import Cloud from '../components/Cloud';
 import BackgroundAudio from '../components/Audio';
-import FarmAnimals from '../components/FarmAnimals';
 import ContactForm from '../components/ContactForm';
 import Image from 'next/image';
 
@@ -21,9 +20,7 @@ export default function EndPage() {
     { label: 'About', href: '/about' },
     { label: 'Experience', href: '/experience' },
     { label: 'Portfolio', href: '/portfolio' },
-    { label: 'Game', href: '/pokedex' },
     { label: 'Message', href: '/message' },
-    { label: 'Map', href: '/map' }
   ];
 
   return (
@@ -50,15 +47,13 @@ export default function EndPage() {
         <Image src="/images/ground.png" alt="Ground Background" width={1920} height={200} className="w-full h-auto object-contain" priority />
       </div>
 
-      <FarmAnimals className={`transition-all duration-700 ease-out ${isVisible ? 'opacity-100' : 'opacity-0'}`} />
-
       {/* Main Container */}
       <div className={`relative z-20 w-[90%] max-w-screen-md flex flex-col items-center justify-center bg-transparent transition-all duration-700 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
         <h1 className="text-xl md:text-2xl font-pressStart text-black mb-6 text-center leading-relaxed">
           THANK YOU FOR PLAYING!
         </h1>
         <p className="text-sm text-gray-600 mb-8 text-center max-w-md leading-relaxed">
-          Feel free to reach out to me using the form below. I'll get back to you as soon as possible!
+          Feel free to reach out to me using the form below. I&apos;ll get back to you as soon as possible!
         </p>
         
         <ContactForm />

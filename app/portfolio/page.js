@@ -7,7 +7,7 @@ import { portoData } from '../data/portoData';
 import HamburgerMenu from '../components/HamburgerMenu';
 import Cloud from '../components/Cloud';
 import BackgroundAudio from '../components/Audio';
-import FarmAnimals from '../components/FarmAnimals';
+import StageHero from '../components/StageHero';
 import TradingCard from '../components/TradingCard';
 import PokeCard from '../components/PokeCard';
 
@@ -62,8 +62,6 @@ export default function PortfolioPage() {
     { label: 'About', href: '/about' },
     { label: 'Experience', href: '/experience' },
     { label: 'Portfolio', href: '/portfolio' },
-    { label: 'Game', href: '/pokedex' },
-    { label: 'Map', href: '/map' }
   ];
 
   return (
@@ -103,7 +101,8 @@ export default function PortfolioPage() {
         />
       </div>
 
-      <FarmAnimals className={`transition-all duration-700 ease-out ${isVisible ? 'opacity-100' : 'opacity-0'}`} />
+      {/* Playable hero. Walks in from the left; the right edge carries him on. */}
+      <StageHero next="/message" />
 
       <div className={`relative z-20 w-[95%] max-w-screen-lg flex flex-col items-stretch bg-transparent overflow-hidden transition-all duration-700 ease-out transform
       ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
