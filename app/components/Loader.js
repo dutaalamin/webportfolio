@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { preloadPage } from '../utils/preloadHelper';
 import Cloud from '../components/Cloud';
+import FarmAnimals from '../components/FarmAnimals';
 
 export default function PageTransitionLoader() {
   const [show, setShow] = useState(false);
@@ -45,6 +46,7 @@ export default function PageTransitionLoader() {
 
 
   if (!show) return null;
+  if (pathname === '/map') return null;
 
   return (
     <div
@@ -79,6 +81,7 @@ export default function PageTransitionLoader() {
         )}
       </div>
 
+      <FarmAnimals className="z-10" />
       <div className="absolute bottom-0 w-full z-0">
         <Image
           src="/images/ground.png"

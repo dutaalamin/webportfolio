@@ -1,16 +1,15 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Cloud from './components/Cloud'
 import BackgroundAudio from './components/Audio'
 
 import HamburgerMenu from './components/HamburgerMenu';
+import FarmAnimals from './components/FarmAnimals';
 import RoleRotate from './components/RoleRotate';
 import Typewriter from './components/Typewriter';
-import WalkingHero from './components/WalkingHero';
 
 import {
   DocumentIcon,
@@ -22,10 +21,7 @@ import {
 
 
 export default function HomePage() {
-  const router = useRouter()
   const [isVisible, setIsVisible] = useState(false)
-  const [heroGone, setHeroGone] = useState(false)
-  const heroOriginRef = useRef(null)
 
   useEffect(() => {
     const timeout = setTimeout(() => setIsVisible(true), 2000)
@@ -42,11 +38,40 @@ export default function HomePage() {
     { label: 'About', href: '/about' },
     { label: 'Experience', href: '/experience' },
     { label: 'Portfolio', href: '/portfolio' },
+    { label: 'Game', href: '/pokedex' },
+    { label: 'Map', href: '/map' },
   ];
 
   return (
     <main className="relative w-full min-h-screen bg-white text-black font-pressStart overflow-hidden">
       
+      {/* Top Left Minimap Button */}
+      <Link href="/map">
+        <div className="fixed top-4 md:top-6 left-4 md:left-6 z-50 group cursor-pointer flex flex-col items-center">
+          {/* Minimap Box */}
+          <div className="w-12 h-12 md:w-32 md:h-32 border-2 md:border-4 border-[#4a3728] rounded-md md:rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] md:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] overflow-hidden relative group-hover:translate-y-1 group-hover:translate-x-1 group-hover:shadow-none transition-all bg-[#a3c48e]">
+            {/* We scale the map image up so it looks like a zoomed-in minimap */}
+            <Image src="/images/konoha_map_hd.png" alt="Mini Map" fill className="object-cover scale-[2.5] origin-center" />
+            
+            {/* Radar / Grid effect overlay */}
+            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')] opacity-30 pointer-events-none" />
+            
+            {/* Blinking Player Dot */}
+            <div className="absolute top-1/2 left-1/2 w-1.5 h-1.5 md:w-3 md:h-3 bg-red-500 rounded-full animate-ping -translate-x-1/2 -translate-y-1/2" />
+            <div className="absolute top-1/2 left-1/2 w-1.5 h-1.5 md:w-3 md:h-3 bg-red-500 border border-white md:border-2 rounded-full -translate-x-1/2 -translate-y-1/2" />
+            
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all pointer-events-none" />
+          </div>
+          
+          {/* Label below (Hidden on Mobile) */}
+          <div className="mt-1 md:mt-2 text-center group-hover:translate-y-1 transition-transform hidden md:block">
+            <span className="bg-black text-[#f8b800] px-2 py-1 text-[7px] md:text-[9px] font-pressStart shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+              MINIMAP
+            </span>
+          </div>
+        </div>
+      </Link>
+
       <HamburgerMenu menuItems={menu} />
       <BackgroundAudio
         src="/audio/home.mp3"
@@ -59,14 +84,8 @@ export default function HomePage() {
       <Cloud top={30} direction="left" speed={120} opacity={0.5} delay={2100} />
       <Cloud top={80} direction="right" speed={50} opacity={0.3} delay={2100} />
 
-      {/* Playable hero — waits under the role text, then hops down to the
-          grass and becomes walkable with WASD / the arrow keys. Walking into
-          the green pipe takes him to the next stage. */}
-      <WalkingHero
-        originRef={heroOriginRef}
-        onDeparted={() => setHeroGone(true)}
-        onEnterPipe={() => router.push('/about')}
-      />
+      {/* Animals Farm */}
+      <FarmAnimals className={fadeClass(600)} style={fadeStyle(600)} />
 
       {/* Content */}
       <div className={`relative z-5 max-w-7xl mx-auto pt-24 lg:pt-28 px-6 grid gap-8 grid-cols-1 lg:grid-cols-3 ${fadeClass(900)}`} style={fadeStyle(900)}>
@@ -74,26 +93,13 @@ export default function HomePage() {
           <RoleRotate />
 
           
-          {/* Marks where the hero starts, under the role text. The hero itself
-              is rendered by WalkingHero, which measures this box and then hops
-              down to the grass. Once he leaves, this placeholder is removed
-              entirely — opacity alone left the drop-shadow visible as a ghost. */}
-          <div
-            ref={heroOriginRef}
-            aria-hidden="true"
-            className={`mt-8 relative w-48 h-48 sm:w-64 sm:h-64 self-center md:self-start md:ml-12 ${
-              heroGone ? 'invisible' : 'visible'
-            }`}
-          >
-            {!heroGone && (
-              <Image
-                src="/images/hello.gif"
-                alt="Hero Greeting"
-                fill
-                className="object-contain drop-shadow-md"
-                priority
-              />
-            )}
+          <div className="mt-8 relative w-48 h-48 sm:w-64 sm:h-64 self-center md:self-start md:ml-12">
+            <Image 
+              src="/images/hello.gif" 
+              alt="Hero Greeting" 
+              fill
+              className="object-contain drop-shadow-md"
+            />
           </div>
         </div>
         
@@ -110,7 +116,7 @@ export default function HomePage() {
             </p>
             
             <div className="space-y-6 mt-4">
-              <Link href="/about">
+              <Link href="/transition">
                 <p className="text-gray-300 hover:text-black transition-all duration-300 cursor-pointer text-xl sm:text-2xl font-pressStart">
                   &gt; About
                 </p>
@@ -123,6 +129,11 @@ export default function HomePage() {
               <Link href="/portfolio">
                 <p className="text-gray-300 hover:text-black transition-all duration-300 cursor-pointer text-xl sm:text-2xl font-pressStart">
                   &gt; Portfolio
+                </p>
+              </Link>
+              <Link href="/pokedex">
+                <p className="text-gray-300 hover:text-black transition-all duration-300 cursor-pointer text-xl sm:text-2xl font-pressStart">
+                  &gt; Game
                 </p>
               </Link>
             </div>

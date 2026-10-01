@@ -6,12 +6,15 @@ import { useEffect, useState } from 'react'
 import HamburgerMenu from './components/HamburgerMenu'
 import Cloud from './components/Cloud'
 import BackgroundAudio from './components/Audio'
+import FarmAnimals from './components/FarmAnimals'
 
 const menu = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Experience', href: '/experience' },
   { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Game', href: '/pokedex' },
+  { label: 'Map', href: '/map' },
 ]
 
 // Glitchy "MISSINGNO." text effect — flickers between a few characters
@@ -56,6 +59,11 @@ export default function NotFound() {
       {/* Cloud Layers */}
       <Cloud top={30} direction="left" speed={120} opacity={0.5} delay={300} />
       <Cloud top={80} direction="right" speed={50} opacity={0.3} delay={300} />
+
+      {/* Animals Farm */}
+      <FarmAnimals
+        className={`transition-all duration-700 ease-out ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+      />
 
       {/* Ground */}
       <div className="absolute bottom-0 w-full z-0">
@@ -136,6 +144,11 @@ export default function NotFound() {
           <Link href="/">
             <button className="px-5 py-3 bg-[#f8b800] border-4 border-black text-black text-[10px] md:text-xs hover:bg-yellow-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
               &gt; RUN HOME
+            </button>
+          </Link>
+          <Link href="/map">
+            <button className="px-5 py-3 bg-white border-4 border-black text-black text-[10px] md:text-xs hover:bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all cursor-pointer">
+              &gt; OPEN MAP
             </button>
           </Link>
         </div>
